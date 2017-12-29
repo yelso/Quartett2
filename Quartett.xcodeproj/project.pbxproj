@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7AE5A89F1FF6B78400104C2A /* CardSetOverviewDetailScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE5A89E1FF6B78400104C2A /* CardSetOverviewDetailScene.swift */; };
 		A905F54E1FF43EF40017B06F /* GameDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A905F54D1FF43EF40017B06F /* GameDelegate.swift */; };
 		A905F5501FF43FD00017B06F /* cardsets.json in Resources */ = {isa = PBXBuildFile; fileRef = A905F54F1FF43FD00017B06F /* cardsets.json */; };
 		A905F5521FF440A70017B06F /* CardSets.swift in Sources */ = {isa = PBXBuildFile; fileRef = A905F5511FF440A70017B06F /* CardSets.swift */; };
@@ -41,7 +42,6 @@
 		A9AB70611FF2BC73009A4695 /* CardSetOverviewScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = A9AB70601FF2BC73009A4695 /* CardSetOverviewScene.sks */; };
 		A9AB70631FF2BEB4009A4695 /* bikes.json in Resources */ = {isa = PBXBuildFile; fileRef = A9AB70621FF2BEB4009A4695 /* bikes.json */; };
 		A9AB70671FF2C160009A4695 /* CardSetOverviewDetailScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = A9AB70661FF2C160009A4695 /* CardSetOverviewDetailScene.sks */; };
-		A9AB70691FF2C435009A4695 /* CardSetOverviewDetailScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9AB70681FF2C435009A4695 /* CardSetOverviewDetailScene.swift */; };
 		A9EE91131FF698CF00057B07 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9EE91121FF698CF00057B07 /* Player.swift */; };
 		A9EE91151FF6992200057B07 /* AI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9EE91141FF6992200057B07 /* AI.swift */; };
 		A9EE91171FF69B3D00057B07 /* Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9EE91161FF69B3D00057B07 /* Statistics.swift */; };
@@ -66,6 +66,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7AE5A89E1FF6B78400104C2A /* CardSetOverviewDetailScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSetOverviewDetailScene.swift; sourceTree = "<group>"; };
 		A905F54D1FF43EF40017B06F /* GameDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDelegate.swift; sourceTree = "<group>"; };
 		A905F54F1FF43FD00017B06F /* cardsets.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = cardsets.json; sourceTree = "<group>"; };
 		A905F5511FF440A70017B06F /* CardSets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSets.swift; sourceTree = "<group>"; };
@@ -106,7 +107,6 @@
 		A9AB70601FF2BC73009A4695 /* CardSetOverviewScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CardSetOverviewScene.sks; sourceTree = "<group>"; };
 		A9AB70621FF2BEB4009A4695 /* bikes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = bikes.json; sourceTree = "<group>"; };
 		A9AB70661FF2C160009A4695 /* CardSetOverviewDetailScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CardSetOverviewDetailScene.sks; sourceTree = "<group>"; };
-		A9AB70681FF2C435009A4695 /* CardSetOverviewDetailScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSetOverviewDetailScene.swift; sourceTree = "<group>"; };
 		A9EE91121FF698CF00057B07 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		A9EE91141FF6992200057B07 /* AI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AI.swift; sourceTree = "<group>"; };
 		A9EE91161FF69B3D00057B07 /* Statistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statistics.swift; sourceTree = "<group>"; };
@@ -244,7 +244,7 @@
 				A905F55A1FF50C870017B06F /* GameSettingsScene.sks */,
 				A9AB700D1FF27EE0009A4695 /* GameScene.swift */,
 				A9AB703B1FF27F10009A4695 /* MainMenuScene.swift */,
-				A9AB70681FF2C435009A4695 /* CardSetOverviewDetailScene.swift */,
+				7AE5A89E1FF6B78400104C2A /* CardSetOverviewDetailScene.swift */,
 				A9AB705E1FF2BC07009A4695 /* CardSetOverviewScene.swift */,
 				A905F54D1FF43EF40017B06F /* GameDelegate.swift */,
 				A905F55C1FF50C9D0017B06F /* GameSettingsScene.swift */,
@@ -410,11 +410,11 @@
 				A9AB70501FF281DA009A4695 /* Result.swift in Sources */,
 				A9AB700E1FF27EE0009A4695 /* GameScene.swift in Sources */,
 				A9AB704E1FF281C7009A4695 /* Rounds.swift in Sources */,
-				A9AB70691FF2C435009A4695 /* CardSetOverviewDetailScene.swift in Sources */,
 				A9AB705D1FF299B6009A4695 /* SpriteKit-Spring.swift in Sources */,
 				A9AB704C1FF281B2009A4695 /* GameSettings.swift in Sources */,
 				A9AB704A1FF28199009A4695 /* Description.swift in Sources */,
 				A9AB70421FF28084009A4695 /* Card.swift in Sources */,
+				7AE5A89F1FF6B78400104C2A /* CardSetOverviewDetailScene.swift in Sources */,
 				A9AB70101FF27EE0009A4695 /* GameViewController.swift in Sources */,
 				A9AB70401FF28060009A4695 /* Value.swift in Sources */,
 				A9EE91191FF69B6300057B07 /* Statistic.swift in Sources */,
@@ -597,6 +597,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F6A9YCMBHM;
 				INFOPLIST_FILE = Quartett/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "de.uni-ulm.Quartett";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -612,6 +613,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F6A9YCMBHM;
 				INFOPLIST_FILE = Quartett/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "de.uni-ulm.Quartett";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -628,6 +630,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F6A9YCMBHM;
 				INFOPLIST_FILE = QuartettTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "de.uni-ulm.QuartettTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -645,6 +648,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F6A9YCMBHM;
 				INFOPLIST_FILE = QuartettTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "de.uni-ulm.QuartettTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -661,6 +665,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F6A9YCMBHM;
 				INFOPLIST_FILE = QuartettUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "de.uni-ulm.QuartettUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -677,6 +682,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F6A9YCMBHM;
 				INFOPLIST_FILE = QuartettUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "de.uni-ulm.QuartettUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
