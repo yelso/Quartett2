@@ -13,16 +13,16 @@ class GameScene: SKScene {
     
    // private var label : SKLabelNode?
    // private var spinnyNode : SKShapeNode?
-    var gameScenePointsBackgroundColor: SKSpriteNode!
-    var gameScenePointsLabel: SKLabelNode!
+    var gamePointsBackgroundColor: SKSpriteNode!
+    var gamePointsLabel: SKLabelNode!
     var playerCardAmount = "27"
     var aiCardAmount = "05"
     var allCardAmount = "02"
     override func didMove(to view: SKView) {
-        gameScenePointsBackgroundColor = self.childNode(withName: "gameScenePointsBackgroundColor") as! SKSpriteNode
-        gameScenePointsLabel = self.childNode(withName: "gameScenePointsLabel") as! SKLabelNode
+        gamePointsBackgroundColor = self.childNode(withName: "gamePointsBackgroundColor") as! SKSpriteNode
+        gamePointsLabel = self.childNode(withName: "gamePointsLabel") as! SKLabelNode
     
-        gameScenePointsLabel.text = playerCardAmount + " : " + aiCardAmount + ":" + allCardAmount
+        gamePointsLabel.text = playerCardAmount + " : " + aiCardAmount + " : " + allCardAmount
         
         // Get label node from scene and store it for use later
         /*self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
