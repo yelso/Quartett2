@@ -23,7 +23,32 @@ class GameScene: SKScene {
         gamePointsLabel = self.childNode(withName: "gamePointsLabel") as! SKLabelNode
     
         gamePointsLabel.text = playerCardAmount + " : " + aiCardAmount + " : " + allCardAmount
+        var labels = [SKLabelNode]()
+        var values = [SKLabelNode]()
+        var selectors = [GroupActionNode]()
         
+        for index in 1...5 {
+            var node = SKLabelNode(text: "property\(index)")
+            node.position = CGPoint(x: -220, y: -60 * index)
+            var valueNode = SKLabelNode(text: "value\(index)")
+            valueNode.position = CGPoint(x: 240, y: -60 * index)
+            var selector = GroupActionNode(color: UIColor.clear, size: CGSize(width: 600, height: 58))
+            selector.anchorPoint = CGPoint(x: 0, y: 0.35)
+            selector.position = CGPoint(x:-300, y: -60 * index)
+            labels.append(node)
+            values.append(valueNode)
+            selectors.append(selector)
+            if (selectors.count > 0) {
+                selectors[0].addToGroup(selector)
+            }
+            self.addChild(selector)
+            self.addChild(node)
+            self.addChild(valueNode)
+        }
+        selectors[0].action = {
+            //GroupActionNode.run(SKAction.colorize(with: UIColor.green, colorBlendFactor: 1, duration: 1))
+        }
+        // TODO: group action
         // Get label node from scene and store it for use later
         /*self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
         if let label = self.label {

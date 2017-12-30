@@ -11,6 +11,10 @@ import SpriteKit
 
 class ActionNode: SKSpriteNode {
     
+    init(color: UIColor, size: CGSize) {
+        super.init(texture: nil, color: color, size: size)
+        self.isUserInteractionEnabled = true
+    }
     enum ActionState {
         case selected
         case active
@@ -37,6 +41,7 @@ class ActionNode: SKSpriteNode {
         state = .active
         print("touch ended2")
     }
+
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
