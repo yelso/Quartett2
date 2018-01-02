@@ -149,12 +149,12 @@
 				A96591DC1FFC19A2001116E7 /* GroupActionNode.swift */,
 			);
 			name = utils;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		A9AB6FFB1FF27EDF009A4695 = {
 			isa = PBXGroup;
 			children = (
-				A905F5591FF50B830017B06F /* utils */,
 				A9AB70061FF27EE0009A4695 /* Quartett */,
 				A9AB70211FF27EE0009A4695 /* QuartettTests */,
 				A9AB702C1FF27EE0009A4695 /* QuartettUITests */,
@@ -175,6 +175,7 @@
 		A9AB70061FF27EE0009A4695 /* Quartett */ = {
 			isa = PBXGroup;
 			children = (
+				A905F5591FF50B830017B06F /* utils */,
 				A9AB70071FF27EE0009A4695 /* AppDelegate.swift */,
 				A9AB700B1FF27EE0009A4695 /* Actions.sks */,
 				A9AB700F1FF27EE0009A4695 /* GameViewController.swift */,
