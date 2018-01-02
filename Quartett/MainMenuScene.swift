@@ -11,73 +11,28 @@ import SpriteKit
 
 class MainMenuScene: SKScene {
     
+    let queue = DispatchQueue.global()
     var startButton: ActionNode!
-    var cardsOverviewButton: ActionNode!
+    var cardsButton: ActionNode!
     var rulesButton: ActionNode!
+    
     override func didMove(to view: SKView) {
-        
-        var nodes = [SKSpriteNode]()
-        for index in 0..<3 {
-            var node = SKSpriteNode(texture: SKTexture(image: UIImage(named: "shine5")!))
-            if (index == 1) {
-                node = SKSpriteNode(texture: SKTexture(image: UIImage(named: "shine6")!))
-            } else if (index == 2) {
-                node = SKSpriteNode(texture: SKTexture(image: UIImage(named: "shine7")!))
-            }
-            node.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-            node.position = CGPoint(x: 0, y: 0)
-            
-            node.setScale(2)
-            node.zRotation = CGFloat(Double.pi/1.5 * Double(index))
-            node.run(SKAction.repeatForever(SKAction.rotate(byAngle: 1, duration: 10)))
-            
-            nodes.append(node)
-            node.zPosition = -1
-            self.addChild(node)
+        let backgroundAnim = SKSpriteNode(texture: SKTexture(image: UIImage(named: "shine_1")!))
+        backgroundAnim.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        backgroundAnim.position = CGPoint(x: 0, y: 0)
+        queue.async {
+            backgroundAnim.run(SKAction.repeatForever(SKAction.rotate(byAngle: 1, duration: 12)))
         }
+        backgroundAnim.zPosition = -1
+        self.addChild(backgroundAnim)
         
-        for index in 0..<14 {
-            var node = SKSpriteNode(texture: SKTexture(image: UIImage(named: "shine2")!))
-            if (index%3 == 0) {
-                node = SKSpriteNode(texture: SKTexture(image: UIImage(named: "shine3")!))
-            } else if (index%3 == 1) {
-                node = SKSpriteNode(texture: SKTexture(image: UIImage(named: "shine4")!))
-            }
-            node.position = CGPoint(x: 0, y: 0)
-            node.anchorPoint = CGPoint(x: 0.5, y: 0)
-            node.setScale(2)
-            node.zRotation = CGFloat(Double.pi/7 * Double(index))
-            let value = CGFloat(0.8+(Double(arc4random_uniform(8))*0.1))
-            let time = TimeInterval(8+arc4random_uniform(6))
-            node.run(SKAction.repeatForever(
-                SKAction.group([SKAction.rotate(byAngle: 1, duration: time), SKAction.sequence([SKAction.scale(to: value, duration: time/2), SKAction.scale(to: 1, duration: time/2)])])
-            ))
-            
-            nodes.append(node)
-            node.zPosition = -1
-            self.addChild(node)
-        }
-        
-        let label = SKSpriteNode(texture: SKTexture(image: UIImage(named:"logo_farbe")!))
-        label.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        label.position = CGPoint(x: 0, y: 200)
-        //label.setScale(0.8)
-        self.addChild(label)
-        
-        cardsOverviewButton = self.childNode(withName: "cardsOverviewButton") as! ActionNode
-        cardsOverviewButton.action = {
-            if let scene = SKScene(fileNamed: "CardSetOverviewScene") {
-                // Set the scale mode to scale to fit the window
-                scene.scaleMode = .aspectFill
-                let transition = SKTransition.push(with: .left, duration: 0.5)
-                // Present the scene
-                view.presentScene(scene, transition: transition)
-                
-            }
-        }
+        let logo = SKSpriteNode(texture: SKTexture(image: UIImage(named:"logo_farbe")!))
+        logo.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        logo.position = CGPoint(x: 0, y: 150)
+        self.addChild(logo)
         
         startButton = self.childNode(withName: "startButton") as! ActionNode
-        startButton.action = {
+        startButton.action =  {
             if let scene = SKScene(fileNamed: "GameSettingsScene") {
                 // Set the scale mode to scale to fit the window
                 scene.scaleMode = .aspectFill
@@ -87,15 +42,23 @@ class MainMenuScene: SKScene {
             }
             
         }
-        startButton.onTouch = {self.startButton?.run(SKAction.scale(to: 0.95, duration: 0.3, delay: 0, usingSpringWithDamping: 0.4, initialSpringVelocity: 0))
+        cardsButton = self.childNode(withName: "cardsButton") as! ActionNode
+        cardsButton.action = {
+            if let scene = SKScene(fileNamed: "CardSetOverviewScene") {
+                // Set the scale mode to scale to fit the window
+                scene.scaleMode = .aspectFill
+                let transition = SKTransition.push(with: .left, duration: 0.5)
+                // Present the scene
+                view.presentScene(scene, transition: transition)
+                
+            }
         }
-        
-        startButton.onTouchEnd = {
-            self.startButton?.run(SKAction.scale(to: 1.0, duration: 0.03))
-        }
-        
+
         rulesButton = self.childNode(withName: "rulesButton") as! ActionNode
         
+        rulesButton.action = {
+            print("rules button tapped")
+        }
+        
     }
-  
 }

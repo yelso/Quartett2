@@ -17,13 +17,13 @@ class GameSettingsScene: SKScene {
     var startGameButton: ActionNode!
     
     override func didMove(to view: SKView) {
+        
         // Group Round Buttons
         rounds1Button = self.childNode(withName: "rounds1Button") as! GroupActionNode
         rounds2Button = self.childNode(withName: "rounds2Button") as! GroupActionNode
         rounds3Button = self.childNode(withName: "rounds3Button") as! GroupActionNode
         
-        rounds1Button.addToGroup(rounds2Button)
-        rounds1Button.addToGroup(rounds3Button)
+        rounds1Button.setUpGroup([rounds1Button, rounds2Button, rounds3Button])
         
         rounds1Button.onTouch = {
             // TODO button 1-3
@@ -32,11 +32,11 @@ class GameSettingsScene: SKScene {
             // TODO button 1-3
         }
         
-        rounds1Button.setOnTouchGroup {
+        rounds1Button.onTouchGroup = {
             // TODO: what happens to other group members after one member was tapped/selected?
         }
         
-        rounds1Button.setOnTouchEndGroup {
+        rounds1Button.onTouchEndGroup = {
             // TODO: what happens to other group members after tap ended on one member?
         }
         
