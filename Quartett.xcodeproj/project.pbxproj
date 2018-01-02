@@ -103,8 +103,8 @@
 		A9AB704D1FF281C7009A4695 /* Rounds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rounds.swift; sourceTree = "<group>"; };
 		A9AB704F1FF281DA009A4695 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		A9AB70551FF2822E009A4695 /* tuning.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = tuning.json; sourceTree = "<group>"; };
-		A9AB705A1FF28EA8009A4695 /* ActionNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ActionNode.swift; path = Quartett/ActionNode.swift; sourceTree = "<group>"; };
-		A9AB705C1FF299B6009A4695 /* SpriteKit-Spring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "SpriteKit-Spring.swift"; path = "Quartett/SpriteKit-Spring.swift"; sourceTree = "<group>"; };
+		A9AB705A1FF28EA8009A4695 /* ActionNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionNode.swift; sourceTree = "<group>"; };
+		A9AB705C1FF299B6009A4695 /* SpriteKit-Spring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SpriteKit-Spring.swift"; sourceTree = "<group>"; };
 		A9AB705E1FF2BC07009A4695 /* CardSetOverviewScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSetOverviewScene.swift; sourceTree = "<group>"; };
 		A9AB70601FF2BC73009A4695 /* CardSetOverviewScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CardSetOverviewScene.sks; sourceTree = "<group>"; };
 		A9AB70621FF2BEB4009A4695 /* bikes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = bikes.json; sourceTree = "<group>"; };
@@ -140,7 +140,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		A905F5591FF50B830017B06F /* utils */ = {
+		A96591DE1FFC1B62001116E7 /* utils */ = {
 			isa = PBXGroup;
 			children = (
 				A9AB705A1FF28EA8009A4695 /* ActionNode.swift */,
@@ -149,7 +149,6 @@
 				A96591DC1FFC19A2001116E7 /* GroupActionNode.swift */,
 			);
 			name = utils;
-			path = ..;
 			sourceTree = "<group>";
 		};
 		A9AB6FFB1FF27EDF009A4695 = {
@@ -175,7 +174,7 @@
 		A9AB70061FF27EE0009A4695 /* Quartett */ = {
 			isa = PBXGroup;
 			children = (
-				A905F5591FF50B830017B06F /* utils */,
+				A96591DE1FFC1B62001116E7 /* utils */,
 				A9AB70071FF27EE0009A4695 /* AppDelegate.swift */,
 				A9AB700B1FF27EE0009A4695 /* Actions.sks */,
 				A9AB700F1FF27EE0009A4695 /* GameViewController.swift */,
