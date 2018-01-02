@@ -15,38 +15,29 @@ class GroupActionNode: ActionNode {
     var onTouchGroup: () -> Void = { print("no group touch set")}
     var onTouchEndGroup: () -> Void = { print("no group touch end set")}
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
+    override func handleTouch() {
+        super.handleTouch()
         onTouchGroup()
     }
     
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesEnded(touches, with: event)
+    override func handleTouchEnd() {
+        super.handleTouchEnd()
         onTouchEndGroup()
     }
     
-    func addToGroup(_ newMember: GroupActionNode) {
-        for member in group {
-            member.group.append(newMember)
-            newMember.group.append(member)
-        }
-        group.append(newMember)
-        newMember.group.append(self)
-    }
-    
-    func setOnTouchGroup(function: @escaping () -> Void) {
-        onTouchGroup = function
-        for member in group {
-            member.onTouchGroup = function
+    func setUpGroup(_ newGroup: [GroupActionNode]) {
+        for member in newGroup {
+            member.appendToGroup(newGroup)
         }
     }
     
-    func setOnTouchEndGroup(function: @escaping () -> Void) {
-        onTouchEndGroup = function
-        for member in group {
-            member.onTouchEndGroup = function
+    func appendToGroup(_ newGroup: [GroupActionNode]) {
+        group.removeAll()
+        for member in newGroup {
+            if member != self {
+                group.append(member)
+            }
         }
     }
-    
-    
 }
+
