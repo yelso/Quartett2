@@ -8,7 +8,23 @@
 
 import Foundation
 
-struct CardSets: Codable {
+enum CardSets: String {
+    case tuning = "tuning"
+    case bikes = "bikes"
     
-    var cardsets: [String]
+    static func decode(resource name: CardSets) -> CardSet? {
+        if let path = Bundle.main.path(forResource: name.rawValue, ofType: "json") {
+            let jsonData = try? Data(contentsOf: URL(fileURLWithPath: path), options: .alwaysMapped)
+            let decoder = JSONDecoder()
+            var cardSet: CardSet?
+            do {
+                try cardSet = decoder.decode(CardSet.self, from: jsonData!)
+            } catch let error {
+                print(error)
+            }
+            
+            return cardSet!
+        }
+        return nil
+    }
 }

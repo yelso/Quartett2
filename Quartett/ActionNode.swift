@@ -47,16 +47,11 @@ class ActionNode: SKSpriteNode {
                     handleTouchEnd()
                 }
             } else {
-                // Create a scale action to make the button look like it is slightly depressed.
-                let newScale: CGFloat = isHighlighted ? 0.99 : 1.01
-                let scaleAction = SKAction.scale(by: newScale, duration: 0.15)
-            
-                // Create a color blend action to darken the button slightly when it is depressed.
-                let newColorBlendFactor: CGFloat = isHighlighted ? 1.0 : 0.0
-                let colorBlendAction = SKAction.colorize(withColorBlendFactor: newColorBlendFactor, duration: 0.15)
-            
-                // Run the two actions at the same time.
-                run(SKAction.group([scaleAction, colorBlendAction]))
+                if isHighlighted {
+                    run(defaultOnTouchAnimation())
+                } else {
+                    run(defaultOnTouchEndAnimation())
+                }
             }
         }
     }
@@ -88,5 +83,17 @@ class ActionNode: SKSpriteNode {
     
     func handleTouchEnd() {
         onTouchEnd()
+    }
+    
+    func defaultOnTouchAnimation() -> SKAction {
+        let scaleAction = SKAction.scale(by: 0.99, duration: 0.15)
+        let colorBlendAction = SKAction.colorize(withColorBlendFactor: 0.5, duration: 0.15)
+        return SKAction.group([scaleAction, colorBlendAction])
+    }
+    
+    func defaultOnTouchEndAnimation() -> SKAction {
+        let scaleAction = SKAction.scale(by: 1.01, duration: 0.15)
+        let colorBlendAction = SKAction.colorize(withColorBlendFactor: 0.0, duration: 0.15)
+        return SKAction.group([scaleAction, colorBlendAction])
     }
 }

@@ -9,12 +9,12 @@
 import Foundation
 
 class CardSet : Codable {
-    private let name: String
-    private let cards: [Card]
+    let name: String
+    let cards: [Card]
     private let description: Description?
-    private let properties: [Propertie]
+    let properties: [Property]
     
-    init(withName name: String, cards: [Card], description: Description?, properties: [Propertie]) {
+    init(withName name: String, cards: [Card], description: Description?, properties: [Property]) {
         self.name = name
         self.cards = cards
         self.properties = properties
@@ -33,6 +33,15 @@ class CardSet : Codable {
             }
         
             return cardSet!
+        }
+        return nil
+    }
+    
+    func getProperty(withId id: String) -> Property? {
+        for property in properties {
+            if property.id == id {
+                return property
+            }
         }
         return nil
     }

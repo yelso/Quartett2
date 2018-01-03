@@ -7,9 +7,18 @@
 //
 
 import Foundation
-
 class Player {
     
     var cards = [Card]()
-
+    var currentCard: Card?
+    
+    func nextCard() -> Bool {
+        if cards.count > 0 {
+            currentCard = cards.popLast()
+            return true
+        } else {
+            return false
+        }
+    }
+    
 }

@@ -10,9 +10,20 @@ import Foundation
 
 class AI {
     
+    var cards = [Card]()
+    var currentCard: Card?
     var difficulty = 1
     
-    static func selectPropertie(card fromCard: Card) -> Propertie? {
+    func nextCard() -> Bool {
+        if cards.count > 0 {
+            currentCard = cards.popLast()
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    static func selectProperty(card fromCard: Card) -> Property? {
         // TODO: select propertie based on the difficulty
         return nil
     }

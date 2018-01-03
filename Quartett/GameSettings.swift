@@ -10,8 +10,8 @@ import Foundation
 
 class GameSettings {
     
-    let maxRounds: Int = 0 // maximum amount of rounds
-    let difficulty: Int = 0
-    let cardSetName: String = ""
+    var maxRounds: Int = 0 // maximum amount of rounds
+    var difficulty: Int = 0
+    var cardSetName: String = ""
     
 }

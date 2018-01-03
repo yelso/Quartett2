@@ -10,6 +10,6 @@ import Foundation
 
 struct Value: Codable {
     
-    private let value: String
-    private let propertyId: String
+    let value: String
+    let propertyId: String
 }

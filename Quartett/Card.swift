@@ -10,10 +10,10 @@ import Foundation
 
 struct Card: Codable {
     
-    private let images : [Image]
-    private let values : [Value]
-    private let id : String
-    private let name : String
+    let images : [Image]
+    let values : [Value]
+    let id : String
+    let name : String
     private let description: Description?
     
     init(withId id: String, name: String, description: Description?, values: [Value], images: [Image]) {

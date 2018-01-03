@@ -8,12 +8,12 @@
 
 import Foundation
 
-struct Propertie : Codable {
+struct Property : Codable {
     
-    private let text: String?
+    let text: String?
     private let compare: String?
-    private let id: String?
-    private let unit: String?
+    let id: String?
+    var unit: String
     private let precision: String?
     
     init(withText text: String, compare: String, id: String, unit: String, precision: String) {

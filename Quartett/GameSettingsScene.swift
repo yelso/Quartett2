@@ -15,6 +15,7 @@ class GameSettingsScene: SKScene {
     var rounds2Button: GroupActionNode!
     var rounds3Button: GroupActionNode!
     var startGameButton: ActionNode!
+    var settings: GameSettings = GameSettings()
     
     override func didMove(to view: SKView) {
         
@@ -40,14 +41,21 @@ class GameSettingsScene: SKScene {
             // TODO: what happens to other group members after tap ended on one member?
         }
         
+        rounds1Button.action = {
+            self.settings.maxRounds = 10
+        }
+        
+        settings.difficulty = 1
+        settings.cardSetName = "tuning"
         // Group Difficulty Buttons
         // TODO
         
         startGameButton = self.childNode(withName: "startGameButton") as! ActionNode
         // TODO: onTouch(End) func
         startGameButton.action = {
-            if let scene = SKScene(fileNamed: "GameScene") {
+            if let scene = SKScene(fileNamed: "GameScene") as? GameScene {
                 // Set the scale mode to scale to fit the window
+                scene.game = Game(withSettings: self.settings)
                 scene.scaleMode = .aspectFill
                 let transition = SKTransition.push(with: .left, duration: 0.5)
                 // Present the scene
