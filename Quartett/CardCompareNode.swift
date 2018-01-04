@@ -16,7 +16,7 @@ class CardCompareNode: SKSpriteNode {
     override init(texture: SKTexture?, color: UIColor, size: CGSize) {
         super.init(texture: texture, color: color, size: size)
         img1 = SKSpriteNode(texture: SKTexture(imageNamed: "bikes1"))
-        img1?.position = CGPoint(x: 0, y: 0)
+        img1?.position = CGPoint(x: 0, y: 0) // TODO
         self.addChild(img1!)
     }
     
@@ -24,8 +24,9 @@ class CardCompareNode: SKSpriteNode {
         super.init(coder: aDecoder)
     }
     
-    func updateDetail(forWinner winner: Card?, loser: Card?) {
+    func updateDetail(forWinner winner: Card, loser: Card) {
         img1 = SKSpriteNode(texture: SKTexture(imageNamed: "tuning8"))
+        // TODO
     
     }
     
