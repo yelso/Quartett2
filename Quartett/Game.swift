@@ -38,15 +38,40 @@ class Game {
         selectNextCard()
     }
     
-    func selectNextCard() {
+    func selectNextCard() -> Bool {
         if player.nextCard() {
             if !ai.nextCard() {
                 // TODO: AI LOSE
+                return false
             }
         } else {
             // TODO: PLAYER LOSE
+            return false
         }
         
+        return true
+    }
+    
+    func calculateResult(forSelectedIndex index: Int) {
+        // TODO:
+    }
+    
+    func nextRound() -> Bool{
+        // TODO
+        return selectNextCard()
+    }
+    
+    func getCurPCard() -> Card {
+        return player.currentCard!
+    }
+    
+    func getCurAICard() -> Card {
+        return ai.currentCard!
+    }
+    
+    // return CardSet + Player Card Image name without suffix at index
+    func getCSPCardImageNameWithoudSuffix(atIndex index: Int) -> String {
+        return cardSet!.name.lowercased() + player.currentCard!.getImageNameWithoutSuffix(atIndex: index)
     }
     
 }

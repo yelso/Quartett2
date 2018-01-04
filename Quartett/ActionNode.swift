@@ -86,13 +86,13 @@ class ActionNode: SKSpriteNode {
     }
     
     func defaultOnTouchAnimation() -> SKAction {
-        let scaleAction = SKAction.scale(by: 0.99, duration: 0.15)
+        let scaleAction = SKAction.scale(to: 0.97, duration: 0.15)
         let colorBlendAction = SKAction.colorize(withColorBlendFactor: 0.5, duration: 0.15)
         return SKAction.group([scaleAction, colorBlendAction])
     }
     
     func defaultOnTouchEndAnimation() -> SKAction {
-        let scaleAction = SKAction.scale(by: 1.01, duration: 0.15)
+        let scaleAction = SKAction.scale(to: 1.00, duration: 0.15)
         let colorBlendAction = SKAction.colorize(withColorBlendFactor: 0.0, duration: 0.15)
         return SKAction.group([scaleAction, colorBlendAction])
     }

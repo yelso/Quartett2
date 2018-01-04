@@ -23,4 +23,12 @@ struct Property : Codable {
         self.unit = unit
         self.precision = precision
     }
+    
+    func getStylizedUnit() -> String {
+        if unit.starts(with: "1") {
+            return "\(self.unit.dropFirst())"
+        } else {
+            return " \(unit)"
+        }
+    }
 }

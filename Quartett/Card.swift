@@ -23,4 +23,8 @@ struct Card: Codable {
         self.images = images
         self.description = description
     }
+    
+    func getImageNameWithoutSuffix(atIndex index: Int) -> String {
+        return String(images[index].filename.dropLast(4))
+    }
 }
