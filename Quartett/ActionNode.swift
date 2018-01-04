@@ -11,6 +11,7 @@ import SpriteKit
 
 class ActionNode: SKSpriteNode {
     
+    
     init(texture: SKTexture?) {
         super.init(texture: texture, color: UIColor.clear, size: (texture?.size())!)
         self.isUserInteractionEnabled = true
@@ -29,42 +30,57 @@ class ActionNode: SKSpriteNode {
     var action: () -> Void = { print("No action set") }
     var onTouch: () -> Void = { print("no touch set") }
     var onTouchEnd: () -> Void = { print("no touch end set") }
+    var onTouchEndInside: () -> Void = { print("no on touch end inside set") }
+    var onReset: () -> Void = { print("No on reset set") }
     
     var customAnimationEnabled = false
-    
-    private var isHighlighted = false {
+    var isHighlightButton = false
+    var isHighlighted = false
+    private var isTapped = false {
         didSet {
             // Guard against repeating the same action.
-            guard oldValue != isHighlighted else { return }
+            guard oldValue != isTapped else { return }
             
             // Remove any existing animations that may be in progress.
             removeAllActions()
             
             if customAnimationEnabled {
-                if isHighlighted {
+                if isTapped {
                     handleTouch()
                 } else {
-                    handleTouchEnd()
+                    if isHighlightButton && isHighlighted {
+                        handleTouchEndInside()
+                    } else {
+                        handleTouchEnd()
+                    }
                 }
             } else {
-                if isHighlighted {
+                if isTapped {
                     run(defaultOnTouchAnimation())
                 } else {
-                    run(defaultOnTouchEndAnimation())
+                    if isHighlightButton && isHighlighted {
+                        handleTouchEndInside()
+                    } else {
+                        run(defaultOnTouchEndAnimation())
+                    }
                 }
             }
         }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        isHighlighted = true
+        isTapped = true
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if isHighlighted && containsTouches(touches: touches) {
+        if isTapped && containsTouches(touches: touches) {
+            isHighlighted = true
+            isTapped = false
             action()
+        } else {
+            isHighlighted = false
+            isTapped = false
         }
-        isHighlighted = false
     }
     
     private func containsTouches(touches: Set<UITouch>) -> Bool {
@@ -85,6 +101,10 @@ class ActionNode: SKSpriteNode {
         onTouchEnd()
     }
     
+    func handleTouchEndInside() {
+        onTouchEndInside()
+    }
+    
     func defaultOnTouchAnimation() -> SKAction {
         let scaleAction = SKAction.scale(to: 0.97, duration: 0.15)
         let colorBlendAction = SKAction.colorize(withColorBlendFactor: 0.5, duration: 0.15)
@@ -95,5 +115,9 @@ class ActionNode: SKSpriteNode {
         let scaleAction = SKAction.scale(to: 1.00, duration: 0.15)
         let colorBlendAction = SKAction.colorize(withColorBlendFactor: 0.0, duration: 0.15)
         return SKAction.group([scaleAction, colorBlendAction])
+    }
+    
+    func handleReset() {
+        onReset()
     }
 }

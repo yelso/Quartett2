@@ -31,7 +31,8 @@ class GameScene: SKScene, CardDelegate {
         gamePointsLabel = self.childNode(withName: "gamePointsLabel") as! SKLabelNode
     
         gamePointsLabel.text = playerCardAmount + " : " + aiCardAmount + " : " + allCardAmount
-        selectButton = self.childNode(withName: "selectButton") as! ActionNode
+        selectButton = ActionNode(texture: SKTexture(imageNamed: "placeholder_50x50"))
+        selectButton.position = CGPoint(x: 124, y: -240) // self.childNode(withName: "selectButton") as! ActionNode
         selectButton.isHidden = true
         selectButton.zPosition = 1
         
@@ -40,6 +41,7 @@ class GameScene: SKScene, CardDelegate {
         pointsNode = GamePointsNode(color: Color.cardMain, size: CGSize(width: self.size.width, height: 80), position: CGPoint(x: 0, y: self.size.height/2 * -1 + 40))
         print(self.view!.frame.width)
         
+        self.addChild(selectButton)
         self.addChild(cardNode!)
         self.addChild(pointsNode!)
         
@@ -57,9 +59,14 @@ class GameScene: SKScene, CardDelegate {
         guard selectButton.isHidden else { return }
         selectButton.isHidden = false
         // animation
+        let scaleUpAction = SKAction.scale(to: 1.1, duration: 0.15)
+        let scaleNormalAction = SKAction.scale(to: 1.0, duration: 0.15)
+        let scaleDownAction = SKAction.scale(to: 0.9, duration: 0.15)
+        selectButton.run(SKAction.sequence([scaleUpAction, scaleDownAction, scaleNormalAction]))
         selectButton.action = {
             print("onAction!!!")
             self.startNextRound()
+            self.selectButton.isHidden = true
         }
     }
     

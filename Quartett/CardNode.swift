@@ -69,19 +69,28 @@ class CardNode: SKSpriteNode {
         
         for index in 0..<propertyGroupNodes.count {
             let propertyNode = propertyGroupNodes[index]
+            propertyNode.isHighlightButton = true
             propertyNode.action = {
                 self.delegate?.didSelectProperty(atIndex: index)
+            }
+            propertyNode.onReset = {
+                propertyNode.setScale(1.0)
+                propertyNode.color = Color.cardMain
+                propertyNode.colorBlendFactor = 0.0
             }
             propertyNode.onTouch = {
                 propertyNode.run(propertyNode.defaultOnTouchAnimation())
             }
             propertyNode.onTouchEnd = {
+                propertyNode.run(propertyNode.defaultOnTouchEndAnimation())
+            }
+            propertyNode.onTouchEndInside = {
                 let scaleAction = SKAction.scale(to: 1.00, duration: 0.15)
                 let colorizeAction = SKAction.colorize(with: .green, colorBlendFactor: 0.25, duration: 0.15)
                 propertyNode.run(SKAction.group([scaleAction, colorizeAction]))
                 
             }
-            propertyNode.onTouchEndGroup = {
+            propertyNode.onTouchEndInsideGroup = {
                 for member in propertyNode.group {
                     member.colorBlendFactor = 0
                     member.color = Color.cardMain
@@ -125,6 +134,11 @@ class CardNode: SKSpriteNode {
             propertyNameAndValue = getPropertyNameAndValue(forIndex: index, game)
             propertyNames[index].text = propertyNameAndValue.name
             propertyValues[index].text = propertyNameAndValue.value
+        }
+        for index in 0..<propertyGroupNodes.count {
+            if propertyGroupNodes[index].isHighlighted {
+                propertyGroupNodes[index].handleReset()
+            }
         }
     }
     
