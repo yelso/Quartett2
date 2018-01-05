@@ -18,7 +18,6 @@ class CardNode: SKSpriteNode {
     var propertyGroupNodes = [GroupActionNode]()
     var propertyNames = [SKLabelNode]()
     var propertyValues = [SKLabelNode]()
-    //var propertyNodes = [(group: GroupActionNode, name: SKLabelNode, value: SKLabelNode)]()
     
     init(game: Game, color: UIColor, size: CGSize, position: CGPoint) {
         super.init(texture: nil, color: color, size: size)
@@ -31,17 +30,15 @@ class CardNode: SKSpriteNode {
     }
     
     func setUpChildren(for game: Game) {
-        var imageName = "propertyCellEndBackground"
-        
-        let cell = SKSpriteNode(texture: SKTexture(imageNamed: "cardCellTitleBar"))
+        let cell = SKSpriteNode(texture: SKTexture(imageNamed: "cellTop"))
         cell.position = CGPoint(x:0, y: 226)
         let label = SKLabelNode(text: game.getCurPCard().name)
-        label.position = CGPoint(x: (cell.size.width/2) * 0.95 * -1 , y: 0)
+        label.position = CGPoint(x: (cell.size.width/2) * 0.94 * -1 , y: 0)
         label.horizontalAlignmentMode = .left
         label.verticalAlignmentMode = .center
-        label.fontSize = 20
+        label.fontSize = 18
         label.fontColor = Color.cardTitle
-        label.fontName = FontNames.HelveticaNeueLight
+        label.fontName = Font.cardTitle
         titleLabel = label
         
         img = SKSpriteNode(texture: SKTexture(imageNamed: game.getCSPCardImageNameWithoudSuffix(atIndex: 0)))
@@ -53,15 +50,13 @@ class CardNode: SKSpriteNode {
         self.addChild(cell)
         
         for index in 1...game.getCurPCard().values.count {
-            imageName = index == game.getCurPCard().values.count ? "propertyCellEndBackground" : "propertyCellBackground"
-            let cell = setUpCell(withImageNamed: imageName, color: Color.cardMain, blendFactor: 0, position: CGPoint(x:0, y: (-20 + (-42 * (index-1)))), anchorPoint: CGPoint(x: 0.5, y: 0.35)) //
+            let cell = setUpCell(withImageNamed: "cell\(game.getCurPCard().values.count - index)", color: UIColor.black, blendFactor: 0, position: CGPoint(x:0, y: (-20 + (-42 * (index-1)))), anchorPoint: CGPoint(x: 0.5, y: 0.35)) //
             let labels = setUpLabels(for: cell, game: game, index: index-1)
             cell.addChild(labels.name)
             cell.addChild(labels.value)
             propertyGroupNodes.append(cell)
             propertyNames.append(labels.name)
             propertyValues.append(labels.value)
-            //propertyNodes.append((cell, labels.name, labels.value))
             self.addChild(cell)
         }
         
@@ -70,12 +65,13 @@ class CardNode: SKSpriteNode {
         for index in 0..<propertyGroupNodes.count {
             let propertyNode = propertyGroupNodes[index]
             propertyNode.isHighlightButton = true
+            propertyNode.customAnimationEnabled = true
             propertyNode.action = {
                 self.delegate?.didSelectProperty(atIndex: index)
             }
             propertyNode.onReset = {
                 propertyNode.setScale(1.0)
-                propertyNode.color = Color.cardMain
+                propertyNode.color = UIColor.black
                 propertyNode.colorBlendFactor = 0.0
             }
             propertyNode.onTouch = {
@@ -86,21 +82,21 @@ class CardNode: SKSpriteNode {
             }
             propertyNode.onTouchEndInside = {
                 let scaleAction = SKAction.scale(to: 1.00, duration: 0.15)
-                let colorizeAction = SKAction.colorize(with: .green, colorBlendFactor: 0.25, duration: 0.15)
+                let colorizeAction = SKAction.colorize(with: UIColor.orange, colorBlendFactor: 1, duration: 0.15)
                 propertyNode.run(SKAction.group([scaleAction, colorizeAction]))
                 
             }
             propertyNode.onTouchEndInsideGroup = {
                 for member in propertyNode.group {
                     member.colorBlendFactor = 0
-                    member.color = Color.cardMain
+                    member.color = UIColor.black
                 }
             }
-            propertyNode.customAnimationEnabled = true
         }
     }
     
     func setUpCell(withImageNamed image: String, color: UIColor, blendFactor: CGFloat, position: CGPoint, anchorPoint: CGPoint) -> GroupActionNode {
+        print("using image: \(image)")
         let cell = GroupActionNode(texture: SKTexture(imageNamed: image))
         cell.color = color
         cell.colorBlendFactor = blendFactor
@@ -115,12 +111,14 @@ class CardNode: SKSpriteNode {
         nameLabel.position = CGPoint(x: (cell.size.width/2) * 0.95 * -1 , y: 0)
         nameLabel.horizontalAlignmentMode = .left
         nameLabel.fontColor = Color.cardText
-        nameLabel.fontSize = 16
+        nameLabel.fontName = Font.cardText
+        nameLabel.fontSize = 15
         let valueLabel = SKLabelNode(text: propertyNameAndValue.value)
-        valueLabel.fontColor = Color.cardText
         valueLabel.position = CGPoint(x: (cell.size.width/2) * 0.95, y: 0)
-        valueLabel.fontSize = 16
         valueLabel.horizontalAlignmentMode = .right
+        valueLabel.fontColor = Color.cardText
+        valueLabel.fontName = Font.cardText
+        valueLabel.fontSize = 15
         
         return (nameLabel, valueLabel)
     }
