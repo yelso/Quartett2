@@ -639,9 +639,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = F6A9YCMBHM;
+				DEVELOPMENT_TEAM = B3CRTN6SZR;
 				INFOPLIST_FILE = Quartett/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "de.uni-ulm.Quartett";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -655,9 +655,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = F6A9YCMBHM;
+				DEVELOPMENT_TEAM = B3CRTN6SZR;
 				INFOPLIST_FILE = Quartett/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "de.uni-ulm.Quartett";
 				PRODUCT_NAME = "$(TARGET_NAME)";
