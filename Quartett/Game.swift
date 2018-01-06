@@ -80,4 +80,7 @@ class Game {
         return cardSet!.name.lowercased() + player.currentCard!.getImageNameWithoutSuffix(atIndex: index)
     }
     
+    func getCSAICardImageNameWithoudSuffix(atIndex index: Int) -> String {
+        return cardSet!.name.lowercased() + ai.currentCard!.getImageNameWithoutSuffix(atIndex: index)
+    }
 }
