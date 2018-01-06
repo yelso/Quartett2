@@ -14,6 +14,7 @@ class GroupActionNode: ActionNode {
     var group = [GroupActionNode]()
     var onTouchGroup: () -> Void = { print("no group touch set")}
     var onTouchEndGroup: () -> Void = { print("no group touch end set")}
+    var onTouchEndInsideGroup: () -> Void = { print("no group touch end inside set")}
     
     override func handleTouch() {
         super.handleTouch()
@@ -23,6 +24,11 @@ class GroupActionNode: ActionNode {
     override func handleTouchEnd() {
         super.handleTouchEnd()
         onTouchEndGroup()
+    }
+    
+    override func handleTouchEndInside() {
+        super.handleTouchEndInside()
+        onTouchEndInsideGroup()
     }
     
     func setUpGroup(_ newGroup: [GroupActionNode]) {

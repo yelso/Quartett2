@@ -11,15 +11,7 @@ import GameplayKit
 
 class GameScene: SKScene, CardDelegate {
     
-   // private var label : SKLabelNode?
-   // private var spinnyNode : SKShapeNode?
     var game: Game?
-    var gamePointsBackgroundColor: SKSpriteNode!
-    var gamePointsLabel: SKLabelNode!
-    var playerCardAmount = "27"
-    var aiCardAmount = "05"
-    var allCardAmount = "02"
-    var selectors = [GroupActionNode]()
     var selectButton: ActionNode!
     var cardNode: CardNode?
     var pointsNode: GamePointsNode?
@@ -31,23 +23,31 @@ class GameScene: SKScene, CardDelegate {
         self.addChild(cardCompareNode!)
         cardCompareNode!.zPosition = 5
         cardCompareNode!.position = CGPoint(x: 0, y: 1000)
-        gamePointsBackgroundColor = self.childNode(withName: "gamePointsBackgroundColor") as! SKSpriteNode
-        gamePointsLabel = self.childNode(withName: "gamePointsLabel") as! SKLabelNode
-    
-        gamePointsLabel.text = playerCardAmount + " : " + aiCardAmount + " : " + allCardAmount
-        selectButton = self.childNode(withName: "selectButton") as! ActionNode
-        selectButton.isHidden = true
+        selectButton = ActionNode(texture: SKTexture(imageNamed: "nextButtonOrange"))
+        selectButton.position = CGPoint(x: 124, y: -250)
         selectButton.zPosition = 1
+        selectButton.setScale(0.01)
+        selectButton.isHidden = true
+        selectButton.action = {
+            print("onAction!!!")
+          self.cardCompareNode!.position = CGPoint(x: 0, y: 0)
+            self.cardCompareNode!.updateDetail(forWinner: self.game!.getCurPCard(), loser: self.game!.getCurAICard(), game: self.game!)
+            
+            self.startNextRound()
+            self.hideSelectButton()
+          
+        }
         
         cardNode = CardNode(game: game!, color: .clear, size: self.size, position: CGPoint(x: 0, y: 40))
         cardNode?.delegate = self
-        pointsNode = GamePointsNode(color: Color.cardMain, size: CGSize(width: self.size.width, height: 80), position: CGPoint(x: 0, y: self.size.height/2 * -1 + 40))
+        pointsNode = GamePointsNode(color: Color.cardMain, size: CGSize(width: self.size.width, height: 40), position: CGPoint(x: 0, y: self.size.height/2 * -1 + 60))
         print(self.view!.frame.width)
         
+        self.addChild(selectButton)
         self.addChild(cardNode!)
         self.addChild(pointsNode!)
-        
         let myHud = CardCompareNode(texture: nil, color: UIColor.clear, size: self.size)
+        
         myHud.setVisible(to: false)
         self.addChild(myHud)
     }
@@ -61,12 +61,10 @@ class GameScene: SKScene, CardDelegate {
         guard selectButton.isHidden else { return }
         selectButton.isHidden = false
         // animation
-        selectButton.action = {
-            self.cardCompareNode!.position = CGPoint(x: 0, y: 0)
-            self.cardCompareNode!.updateDetail(forWinner: self.game!.getCurPCard(), loser: self.game!.getCurAICard(), game: self.game!)
-            print("onAction!!!")
-            self.startNextRound()
-        }
+        let scaleUpAction = SKAction.scale(to: 1.2, duration: 0.15)
+        let scaleNormalAction = SKAction.scale(to: 1.0, duration: 0.15)
+        let scaleDownAction = SKAction.scale(to: 0.8, duration: 0.15)
+        selectButton.run(SKAction.sequence([scaleUpAction, scaleDownAction, scaleNormalAction, SKAction.run({self.selectButton.isUserInteractionEnabled = true})]))
     }
     
     func startNextRound() {
@@ -81,8 +79,9 @@ class GameScene: SKScene, CardDelegate {
     }
     
     func hideSelectButton() {
-        selectButton.removeAllActions()
-        selectButton.isHidden = true
+        let scaleUpAction = SKAction.scale(to: 1.3, duration: 0.2)
+        let scaleDownAction = SKAction.scale(to: 0.01, duration: 0.15)
+        selectButton.run(SKAction.sequence([SKAction.run({self.selectButton.isUserInteractionEnabled = false}), scaleUpAction,  scaleDownAction, SKAction.run({self.selectButton.isHidden = true})]))
     }
     
     override func update(_ currentTime: TimeInterval) {
