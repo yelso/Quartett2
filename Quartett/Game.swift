@@ -15,6 +15,7 @@ class Game {
     var player = Player()
     var ai = AI()
     var cardSet: CardSet?
+    var rounds = Rounds()
     init(withSettings settings: GameSettings) {
         self.settings = settings
         loadCards()
@@ -35,7 +36,8 @@ class Game {
                 ai.cards.append(cards[index] )
             }
         }
-        selectNextCard()
+        nextRound()
+        //selectNextCard()
     }
     
     func selectNextCard() -> Bool {
@@ -56,9 +58,13 @@ class Game {
         // TODO:
     }
     
-    func nextRound() -> Bool{
-        // TODO
-        return selectNextCard()
+    func nextRound() -> Bool {
+        if rounds.curRound < settings!.maxRounds {
+            rounds.curRound += 1
+            return selectNextCard()
+        } else {
+            return false
+        }
     }
     
     func getCurPCard() -> Card {
