@@ -44,4 +44,6 @@ struct Color {
 struct Font {
     static let cardTitle = "Helvetica Neue Medium"
     static let cardText = "Helvetica Neue Light"
+    static let solutionText = "Georgia"
+    static let solutionText2 = "Helvetica Neue Light Italic"
 }

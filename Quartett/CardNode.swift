@@ -30,6 +30,7 @@ class CardNode: SKSpriteNode {
     }
     
     func setUpChildren(for game: Game) {
+        // create top cell with title and image
         let cell = SKSpriteNode(texture: SKTexture(imageNamed: "cellTop"))
         cell.position = CGPoint(x:0, y: 226)
         let label = SKLabelNode(text: game.getCurPCard().name)
@@ -49,6 +50,7 @@ class CardNode: SKSpriteNode {
         self.addChild(img!)
         self.addChild(cell)
         
+        // fill each cell with property values and names
         for index in 1...game.getCurPCard().values.count {
             let cell = setUpCell(withImageNamed: "cell\(game.getCurPCard().values.count - index)", color: UIColor.black, blendFactor: 0, position: CGPoint(x:0, y: (-20 + (-42 * (index-1)))), anchorPoint: CGPoint(x: 0.5, y: 0.35)) //
             let labels = setUpLabels(for: cell, game: game, index: index-1)
@@ -94,7 +96,7 @@ class CardNode: SKSpriteNode {
             }
         }
     }
-    
+    // creates a cell with an image
     func setUpCell(withImageNamed image: String, color: UIColor, blendFactor: CGFloat, position: CGPoint, anchorPoint: CGPoint) -> GroupActionNode {
         print("using image: \(image)")
         let cell = GroupActionNode(texture: SKTexture(imageNamed: image))
