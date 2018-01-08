@@ -15,16 +15,19 @@ class ActionNode: SKSpriteNode {
     init(texture: SKTexture?) {
         super.init(texture: texture, color: UIColor.clear, size: (texture?.size())!)
         self.isUserInteractionEnabled = true
+        self.initialColor = color
     }
     
     init(color: UIColor, size: CGSize) {
         super.init(texture: nil, color: color, size: size)
         self.isUserInteractionEnabled = true
+        self.initialColor = color
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.isUserInteractionEnabled = true
+        self.initialColor = UIColor.clear
     }
     
     var action: () -> Void = { print("No action set") }
@@ -36,6 +39,8 @@ class ActionNode: SKSpriteNode {
     var customAnimationEnabled = false
     var isHighlightButton = false
     var isHighlighted = false
+    var initialColor: UIColor?
+    
     private var isTapped = false {
         didSet {
             // Guard against repeating the same action.

@@ -23,8 +23,20 @@ class AI {
         }
     }
     
-    static func selectProperty(card fromCard: Card) -> Property? {
-        // TODO: select propertie based on the difficulty
-        return nil
+    func selectProperty(cardOpponent: Card, game: Game) -> Int {
+        if arc4random_uniform(100) < (19 + difficulty * 30) { // easy 20%, medium 50%, hard 80% chance
+            for index in 0..<currentCard!.values.count {
+                let propertyCompare = Int(game.cardSet!.getProperty(withId: currentCard!.values[index].propertyId)!.compare!)
+                let myVal = Int(currentCard!.values[index].value)!
+                let valP = Int(cardOpponent.values[index].value)!
+                
+                if propertyCompare == 0 && myVal < valP {
+                    return index
+                } else if propertyCompare == 1 && myVal > valP {
+                    return index
+                }
+            }
+        }
+        return Int(arc4random_uniform(UInt32(currentCard!.values.count)))
     }
 }
