@@ -41,7 +41,7 @@ class Game {
         }
         selectNextCard()
     }
-    
+    //DRAW???
     func selectNextCard() -> Bool {
         if player.nextCard() {
             if !ai.nextCard() {
