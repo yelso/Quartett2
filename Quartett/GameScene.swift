@@ -19,7 +19,7 @@ class GameScene: SKScene, CardDelegate {
     var cardCompareNode : CardCompareNode?
     
     override func didMove(to view: SKView) {
-        cardCompareNode = CardCompareNode(texture: nil, color: UIColor.clear, size: self.size)
+        cardCompareNode = CardCompareNode(texture: nil, color: Color.background, size: self.size, game: game!)
         self.addChild(cardCompareNode!)
         cardCompareNode!.zPosition = 5
         cardCompareNode!.position = CGPoint(x: 0, y: 1000)
@@ -30,8 +30,8 @@ class GameScene: SKScene, CardDelegate {
         selectButton.isHidden = true
         selectButton.action = {
             print("onAction!!!")
-            self.cardCompareNode!.position = CGPoint(x: 0, y: 0)
-            self.cardCompareNode!.updateDetail(forWinner: self.game!.getCurPCard(), loser: self.game!.getCurAICard(), game: self.game!)
+          self.cardCompareNode!.position = CGPoint(x: 0, y: 0)
+            self.cardCompareNode!.updateDetail(forWinner: self.game!.getCurPCard(), loser: self.game!.getCurAICard(), game: self.game!, selectedIndex: self.selectedIndex)
             
             self.startNextRound()
             self.hideSelectButton()

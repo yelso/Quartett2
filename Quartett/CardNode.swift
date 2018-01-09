@@ -49,7 +49,6 @@ class CardNode: SKSpriteNode {
         self.amount = game.getCurPCard().values.count
         self.height = CGFloat(((amount + 1) * 42) + 195) // property amounts + cell top + imageHeight/2
         self.size = CGSize(width: size.width, height: height)
-        
         let cell = SKSpriteNode(texture: SKTexture(imageNamed: "cellTop"))
         cell.position = CGPoint(x:0, y: height/2 - 20) // 20 is half of cells height
         let label = SKLabelNode(text: game.getCurPCard().name)
@@ -120,7 +119,7 @@ class CardNode: SKSpriteNode {
             }
         }
     }
-    
+    // creates a cell with an image
     func setUpCell(withImageNamed image: String, color: UIColor, blendFactor: CGFloat, position: CGPoint, anchorPoint: CGPoint) -> GroupActionNode {
         print("using image: \(image)")
         let cell = GroupActionNode(texture: SKTexture(imageNamed: image))
