@@ -16,7 +16,8 @@ class GameScene: SKScene, CardDelegate {
     var cardNode: CardNode?
     var pointsNode: GamePointsNode?
     var selectedIndex = 0
-    var cardCompareNode : CardCompareNode?
+    var cardCompareNode: CardCompareNode?
+    var gameEndNode: GameEndNode?
     
     override func didMove(to view: SKView) {
         cardCompareNode = CardCompareNode(texture: nil, color: Color.background, size: self.size, game: game!)
@@ -78,12 +79,18 @@ class GameScene: SKScene, CardDelegate {
     
     func startNextRound() {
         if game!.nextRound() {
+            
             print("updating values")
             cardNode!.update(game!)
             pointsNode!.update()
         } else {
             // TODO
             print("GAME_END")
+            gameEndNode = GameEndNode(texture: nil, color: Color.background, size: self.size, game: game!)
+        
+            self.addChild(gameEndNode!)
+            gameEndNode!.zPosition = 5
+            gameEndNode!.position = CGPoint(x: 0, y: 0)
         }
     }
     
