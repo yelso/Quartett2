@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A2C80F120051126004DD440 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A2C80F020051125004DD440 /* Assets.xcassets */; };
 		7AE5A89F1FF6B78400104C2A /* CardSetOverviewDetailScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE5A89E1FF6B78400104C2A /* CardSetOverviewDetailScene.swift */; };
 		A905F5521FF440A70017B06F /* CardSets.swift in Sources */ = {isa = PBXBuildFile; fileRef = A905F5511FF440A70017B06F /* CardSets.swift */; };
 		A905F55B1FF50C870017B06F /* GameSettingsScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = A905F55A1FF50C870017B06F /* GameSettingsScene.sks */; };
@@ -24,7 +25,6 @@
 		A9AB700E1FF27EE0009A4695 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9AB700D1FF27EE0009A4695 /* GameScene.swift */; };
 		A9AB70101FF27EE0009A4695 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9AB700F1FF27EE0009A4695 /* GameViewController.swift */; };
 		A9AB70131FF27EE0009A4695 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A9AB70111FF27EE0009A4695 /* Main.storyboard */; };
-		A9AB70151FF27EE0009A4695 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9AB70141FF27EE0009A4695 /* Assets.xcassets */; };
 		A9AB70181FF27EE0009A4695 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A9AB70161FF27EE0009A4695 /* LaunchScreen.storyboard */; };
 		A9AB70231FF27EE0009A4695 /* QuartettTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9AB70221FF27EE0009A4695 /* QuartettTests.swift */; };
 		A9AB702E1FF27EE0009A4695 /* QuartettUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9AB702D1FF27EE0009A4695 /* QuartettUITests.swift */; };
@@ -70,6 +70,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7A2C80F020051125004DD440 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7AE5A89E1FF6B78400104C2A /* CardSetOverviewDetailScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSetOverviewDetailScene.swift; sourceTree = "<group>"; };
 		A905F5511FF440A70017B06F /* CardSets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSets.swift; sourceTree = "<group>"; };
 		A905F55A1FF50C870017B06F /* GameSettingsScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameSettingsScene.sks; sourceTree = "<group>"; };
@@ -88,7 +89,6 @@
 		A9AB700D1FF27EE0009A4695 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		A9AB700F1FF27EE0009A4695 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		A9AB70121FF27EE0009A4695 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		A9AB70141FF27EE0009A4695 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A9AB70171FF27EE0009A4695 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A9AB70191FF27EE0009A4695 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A9AB701E1FF27EE0009A4695 /* QuartettTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuartettTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -211,8 +211,8 @@
 				A9AB700B1FF27EE0009A4695 /* Actions.sks */,
 				A9AB700F1FF27EE0009A4695 /* GameViewController.swift */,
 				A96B659B1FFD1E78002D7D18 /* Constants.swift */,
-				A9AB70141FF27EE0009A4695 /* Assets.xcassets */,
 				A9AB70191FF27EE0009A4695 /* Info.plist */,
+				7A2C80F020051125004DD440 /* Assets.xcassets */,
 				A96B65981FFD1D88002D7D18 /* uiNodes */,
 				A9AB70591FF2825A009A4695 /* ui */,
 				A9AB70571FF28236009A4695 /* scene */,
@@ -406,11 +406,11 @@
 			files = (
 				A9AB70131FF27EE0009A4695 /* Main.storyboard in Resources */,
 				A905F55B1FF50C870017B06F /* GameSettingsScene.sks in Resources */,
+				7A2C80F120051126004DD440 /* Assets.xcassets in Resources */,
 				A9AB70671FF2C160009A4695 /* CardSetOverviewDetailScene.sks in Resources */,
 				A9AB70561FF2822E009A4695 /* tuning.json in Resources */,
 				A9AB70611FF2BC73009A4695 /* CardSetOverviewScene.sks in Resources */,
 				A9AB700A1FF27EE0009A4695 /* GameScene.sks in Resources */,
-				A9AB70151FF27EE0009A4695 /* Assets.xcassets in Resources */,
 				A9AB70631FF2BEB4009A4695 /* bikes.json in Resources */,
 				A9AB70181FF27EE0009A4695 /* LaunchScreen.storyboard in Resources */,
 				A9AB703E1FF27F50009A4695 /* MainMenuScene.sks in Resources */,
@@ -635,11 +635,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = F6A9YCMBHM;
+				DEVELOPMENT_TEAM = XCHRDE5GW9;
 				INFOPLIST_FILE = Quartett/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "de.uni-ulm.puja.Quartett";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.uni-ulm.linda.Quartett";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -651,11 +651,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = F6A9YCMBHM;
+				DEVELOPMENT_TEAM = XCHRDE5GW9;
 				INFOPLIST_FILE = Quartett/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "de.uni-ulm.puja.Quartett";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.uni-ulm.linda.Quartett";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
