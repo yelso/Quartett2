@@ -24,16 +24,16 @@ class AI {
         }
     }
     
-    func selectProperty(cardOpponent: Card, game: Game) {
-        if arc4random_uniform(100) < (19 + difficulty * 30) { // easy 20%, medium 50%, hard 80% chance
+    func selectProperty(cardOpponent: Card, game: Game) -> Int {
+        if arc4random_uniform(100) < (19 + game.settings!.difficulty * 30) { // easy 20%, medium 50%, hard 80% chance
             for index in 0..<currentCard!.values.count {
                 let propertyCompare = Int(game.cardSet!.getProperty(withId: currentCard!.values[index].propertyId)!.compare!)
                 let val = currentCard!.values[index]
                 let myVal = Float(val.value)!
                 let valP = Float(cardOpponent.values[index].value)!
                 
-                if propertyCompare == 0 && myVal < valP {
-                    selectedIndex = index
+                if propertyCompare == -1 && myVal < valP {
+                    return index
                 } else if propertyCompare == 1 && myVal > valP {
                     selectedIndex = index
                 }

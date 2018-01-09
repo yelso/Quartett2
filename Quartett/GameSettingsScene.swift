@@ -112,8 +112,8 @@ class GameSettingsScene: SKScene {
         buttonArray[5].addChild(difficulttyH)
         
         //Cardset Button Text
-        let cardSet1 = SKLabelNode(text: "Karten 1")
-        let cardSet2 = SKLabelNode(text: "Karten 2")
+        let cardSet1 = SKLabelNode(text: CardSets.bikes.rawValue)
+        let cardSet2 = SKLabelNode(text: CardSets.tuning.rawValue)
         
         cardSet1.fontSize = 25
         cardSet2.fontSize = 25
