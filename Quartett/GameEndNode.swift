@@ -15,6 +15,7 @@ class GameEndNode: SKSpriteNode {
     var cell: SKSpriteNode!
     var toMainMenuButton: ActionNode!
     var playAgainButton: ActionNode!
+    var resultLabel: SKLabelNode?
     
     
     init(texture: SKTexture?, color: UIColor, size: CGSize, game: Game) {
@@ -31,10 +32,10 @@ class GameEndNode: SKSpriteNode {
         toMainMenuButton.isHidden = false
         
         toMainMenuButton.action = {
-            print("onAction!!!")
-            self.run(SKAction.sequence([changeScreenAction, SKAction.run {
+            print("onActigfgfgon!!!")
+           // self.run(SKAction.sequence([changeScreenAction, SKAction.run {
                 
-                }]))
+             //   }]))
         }
         
         playAgainButton = ActionNode(texture: SKTexture(imageNamed: "nextButtonOrange"))
@@ -44,17 +45,31 @@ class GameEndNode: SKSpriteNode {
         playAgainButton.isHidden = false
         
         playAgainButton.action = {
-            print("onAction!!!")
-            self.run(SKAction.sequence([changeScreenAction, SKAction.run {
+            print("onAction!!!hgghghgh")
+           // self.run(SKAction.sequence([changeScreenAction, SKAction.run {
                 
-                }]))
+             //..   }]))
         }
         cell = setUpCell(withImageNamed: "cell1", color: UIColor.black, blendFactor: 0, position: CGPoint(x:0, y: 0), anchorPoint: CGPoint(x: 0.5, y: 0.5))
+        resultLabel?.text = "ERGEBNIS"
+        resultLabel?.position = CGPoint(x: 0, y: 0)
+        if(game.gameResult! == .playerWin){
+            self.resultLabel?.text = "GEWONNEN!!!"
+        }else if(game.gameResult! == .playerLose){
+            self.resultLabel?.text = "VERLOREN"
+        }else if(game.gameResult! == .draw){
+            self.resultLabel?.text = "UNENTSCHIEDEN"
+            self.resultLabel?.fontSize = (self.resultLabel?.fontSize)! - 8
+        }
+        
         
         cell.size = CGSize(width: 414, height: 41)
         
+//        cell.addChild(resultLabel!)
+        
         cell.addChild(toMainMenuButton)
         cell.addChild(playAgainButton)
+//        self.addChild(resultLabel!)
         self.addChild(cell)
         
     }
@@ -65,7 +80,7 @@ class GameEndNode: SKSpriteNode {
     func setUpCell(withImageNamed image: String, color: UIColor, blendFactor: CGFloat, position: CGPoint, anchorPoint: CGPoint) -> SKSpriteNode {
         print("using image: \(image)")
         let cell = SKSpriteNode(texture: SKTexture(imageNamed: image))
-        cell.color = color
+        cell.color = Color.blue1
         cell.colorBlendFactor = blendFactor
         cell.anchorPoint = anchorPoint
         cell.position = position

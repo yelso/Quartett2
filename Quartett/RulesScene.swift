@@ -17,15 +17,15 @@ class RulesScene: SKScene {
     
     override func didMove(to view: SKView) {
         backButton = ActionNode(color: Color.background, size: CGSize(width: 150, height: 50))
-        textField = SKLabelNode(text: "Es werden Attribute verglichen,\ndas stärkere Attribut gewinnt. \nEs wird gegen den PC gespielt. \nDabei ist immer nur die obere Karte sichtbar. \nDer Gewinner der dieser Runde,\nbeginnt die nächste Runde.\nBei Gelichstand landen die Karten \nauf dem Stichhaufen (XX-XX-SH). \nGewonnen hat, wer alle Karten \nbesitzt oder nach Ablauf der Rundenzahl\ndie meisten Karten besitzt.")
-        textField.fontSize = 15
+        textField = SKLabelNode(text: "Es werden Attribute verglichen,\ndas stärkere Attribut gewinnt. \nEs wird gegen den PC gespielt. \nDabei ist immer nur die obere Karte sichtbar. \nDer Gewinner der dieser Runde,\nbeginnt die nächste Runde.\nBei Gelichstand landen die Karten \nauf dem Stichhaufen (XX-SH-XX). \nGewonnen hat, wer alle Karten \nbesitzt oder nach Ablauf der Rundenzahl\ndie meisten Karten besitzt.")
+        textField.fontSize = 17
         textField.numberOfLines = 0
         textField.lineBreakMode = .byCharWrapping
-        textField.position = CGPoint(x: -180, y: 0)
+        textField.position = CGPoint(x: -180, y: -30)
         textField.horizontalAlignmentMode = .left
         
         ruleLabel = SKLabelNode(text: "Regeln")
-        ruleLabel.position = CGPoint(x: -180, y: 200)
+        ruleLabel.position = CGPoint(x: -180, y: 220)
         ruleLabel.horizontalAlignmentMode = .left
         
         
