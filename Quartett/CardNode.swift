@@ -32,15 +32,8 @@ class CardNode: SKSpriteNode {
             scaleFactor = 0.05
             self.setScale(scale)
         }
-        print("height \(UIScreen.main.bounds.height)")
     }
-    
-    func modelIdentifier() -> String {
-        if let simulatorModelIdentifier = ProcessInfo().environment["SIMULATOR_MODEL_IDENTIFIER"] { return simulatorModelIdentifier }
-        var sysinfo = utsname()
-        uname(&sysinfo) // ignore return value
-        return String(bytes: Data(bytes: &sysinfo.machine, count: Int(_SYS_NAMELEN)), encoding: .ascii)!.trimmingCharacters(in: .controlCharacters)
-    }
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -52,8 +45,8 @@ class CardNode: SKSpriteNode {
         let cell = SKSpriteNode(texture: SKTexture(imageNamed: "cellTop"))
         cell.position = CGPoint(x:0, y: height/2 - 20) // 20 is half of cells height
         let label = SKLabelNode(text: game.getCurPCard().name)
-        label.position = CGPoint(x: (cell.size.width/2) * 0.96 * -1 , y: 0)
-        label.horizontalAlignmentMode = .left
+        //label.position = CGPoint(x: (cell.size.width/2) * 0.96 * -1 , y: 0)
+        label.horizontalAlignmentMode = .center
         label.verticalAlignmentMode = .center
         label.fontSize = 17
         label.fontColor = Color.cardTitle
@@ -83,8 +76,8 @@ class CardNode: SKSpriteNode {
         
         if amount > 6 {
             self.setScale(scale - (CGFloat(amount-6) * scaleFactor))
-            print("scale\(self.xScale)")
         }
+        
         propertyGroupNodes[0].setUpGroup(propertyGroupNodes)
         
         for index in 0..<amount {
@@ -121,7 +114,6 @@ class CardNode: SKSpriteNode {
     }
     // creates a cell with an image
     func setUpCell(withImageNamed image: String, color: UIColor, blendFactor: CGFloat, position: CGPoint, anchorPoint: CGPoint) -> GroupActionNode {
-        print("using image: \(image)")
         let cell = GroupActionNode(texture: SKTexture(imageNamed: image))
         cell.color = color
         cell.colorBlendFactor = blendFactor
