@@ -32,10 +32,10 @@ class GameViewController: UIViewController {
         }
     }
 
-    override var shouldAutorotate: Bool {
+  /*  override var shouldAutorotate: Bool {
         return true
     }
-
+*/
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         if UIDevice.current.userInterfaceIdiom == .phone {
             return .allButUpsideDown
@@ -49,7 +49,12 @@ class GameViewController: UIViewController {
         // Release any cached data, images, etc that aren't in use.
     }
 
+    /*
     override var prefersStatusBarHidden: Bool {
         return true
+    }*/
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent 
     }
 }

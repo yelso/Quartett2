@@ -11,7 +11,7 @@ import Foundation
 struct Property : Codable {
     
     let text: String?
-    private let compare: String?
+    let compare: String?
     let id: String?
     var unit: String
     private let precision: String?
