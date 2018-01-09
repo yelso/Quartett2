@@ -11,6 +11,7 @@ import SpriteKit
 import UIKit
 
 class CardCompareNode: SKSpriteNode {
+    var delegate: CardDelegate?
     
     var cell: SKSpriteNode!
     var nextRoundButton: ActionNode!
@@ -54,7 +55,9 @@ class CardCompareNode: SKSpriteNode {
             self.img2?.removeAllActions()
             self.timers.removeAll()
             self.hideNextRoundButton()
-            self.run(changeScreenAction)
+            self.run(SKAction.sequence([changeScreenAction, SKAction.run {
+                self.delegate?.didCloseCardCompareNode()
+            }]))
         }
         
         cell = setUpCell(withImageNamed: "cell1", color: UIColor.black, blendFactor: 0, position: CGPoint(x:0, y: 0), anchorPoint: CGPoint(x: 0.5, y: 0.5)) //
@@ -117,11 +120,11 @@ class CardCompareNode: SKSpriteNode {
         img1!.run(moveimg1RightAction)
         img2!.run(moveimg2LeftAction)
     }
-    func updateDetail(forWinner winner: Card, loser: Card, game: Game, selectedIndex: Int) {
+    func updateDetail(withResult result: Result, pCard: Card, aiCard: Card, game: Game, selectedIndex: Int) {
         resetActions()
         
         
-        titleLabel?.text = winner.name + " " + loser.name
+        titleLabel?.text = pCard.name + " " + aiCard.name
         //cardToCompare.images = [winner.images, loser.images]
         img1?.texture = SKTexture(imageNamed: game.getCSPCardImageNameWithoudSuffix(atIndex: 0))
         img2?.texture = SKTexture(imageNamed: game.getCSAICardImageNameWithoudSuffix(atIndex: 0))
@@ -131,7 +134,7 @@ class CardCompareNode: SKSpriteNode {
         
         
         //if the human player wins the round (pic and values are left side)(winnerpic is above loser pic) else ki wins round
-        if game.getCurPCard().name == winner.name {
+        if result == Result.playerWin {
         
             let setLabelSizeTo0Action = SKAction.scale(to: 0, duration: 0.5)
             let resetLabelSizeAction = SKAction.scale(to: 1, duration: 0.5)
@@ -141,12 +144,21 @@ class CardCompareNode: SKSpriteNode {
                     self.labels[0].run(resetLabelSizeAction)
                     }]))
             })
-        } else if(game.getCurPCard().name == loser.name){
+        } else if result == Result.playerLose {
             let setLabelSizeTo0Action = SKAction.scale(to: 0, duration: 0.5)
             let resetLabelSizeAction = SKAction.scale(to: 1, duration: 0.5)
             timers.append(Timer.scheduledTimer(withTimeInterval: 0.4, repeats: false) { (_) in
                 self.labels[0].run(SKAction.sequence([setLabelSizeTo0Action, SKAction.run {
                     self.labels[0].text = "VERLOREN"
+                    self.labels[0].run(resetLabelSizeAction)
+                    }]))
+            })
+        } else { // draw
+            let setLabelSizeTo0Action = SKAction.scale(to: 0, duration: 0.5)
+            let resetLabelSizeAction = SKAction.scale(to: 1, duration: 0.5)
+            timers.append(Timer.scheduledTimer(withTimeInterval: 0.4, repeats: false) { (_) in
+                self.labels[0].run(SKAction.sequence([setLabelSizeTo0Action, SKAction.run {
+                    self.labels[0].text = "UNENTSCHIEDEN"
                     self.labels[0].run(resetLabelSizeAction)
                     }]))
             })

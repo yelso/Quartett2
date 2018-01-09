@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		7AE5A89F1FF6B78400104C2A /* CardSetOverviewDetailScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE5A89E1FF6B78400104C2A /* CardSetOverviewDetailScene.swift */; };
-		A905F54E1FF43EF40017B06F /* GameDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A905F54D1FF43EF40017B06F /* GameDelegate.swift */; };
 		A905F5521FF440A70017B06F /* CardSets.swift in Sources */ = {isa = PBXBuildFile; fileRef = A905F5511FF440A70017B06F /* CardSets.swift */; };
 		A905F55B1FF50C870017B06F /* GameSettingsScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = A905F55A1FF50C870017B06F /* GameSettingsScene.sks */; };
 		A905F55D1FF50C9D0017B06F /* GameSettingsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A905F55C1FF50C9D0017B06F /* GameSettingsScene.swift */; };
@@ -72,7 +71,6 @@
 
 /* Begin PBXFileReference section */
 		7AE5A89E1FF6B78400104C2A /* CardSetOverviewDetailScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSetOverviewDetailScene.swift; sourceTree = "<group>"; };
-		A905F54D1FF43EF40017B06F /* GameDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDelegate.swift; sourceTree = "<group>"; };
 		A905F5511FF440A70017B06F /* CardSets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSets.swift; sourceTree = "<group>"; };
 		A905F55A1FF50C870017B06F /* GameSettingsScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameSettingsScene.sks; sourceTree = "<group>"; };
 		A905F55C1FF50C9D0017B06F /* GameSettingsScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettingsScene.swift; sourceTree = "<group>"; };
@@ -285,7 +283,6 @@
 				A9AB703B1FF27F10009A4695 /* MainMenuScene.swift */,
 				7AE5A89E1FF6B78400104C2A /* CardSetOverviewDetailScene.swift */,
 				A9AB705E1FF2BC07009A4695 /* CardSetOverviewScene.swift */,
-				A905F54D1FF43EF40017B06F /* GameDelegate.swift */,
 				A905F55C1FF50C9D0017B06F /* GameSettingsScene.swift */,
 			);
 			name = scene;
@@ -464,7 +461,6 @@
 				A9AB70401FF28060009A4695 /* Value.swift in Sources */,
 				A9EE91191FF69B6300057B07 /* Statistic.swift in Sources */,
 				A905F5521FF440A70017B06F /* CardSets.swift in Sources */,
-				A905F54E1FF43EF40017B06F /* GameDelegate.swift in Sources */,
 				A9AB703C1FF27F10009A4695 /* MainMenuScene.swift in Sources */,
 				A905F55D1FF50C9D0017B06F /* GameSettingsScene.swift in Sources */,
 				A9AB70461FF280FD009A4695 /* CardSet.swift in Sources */,
