@@ -19,7 +19,7 @@ class GameSettingsScene: SKScene {
     override func didMove(to view: SKView) {
         settings.difficulty = 1
         settings.cardSetName = "tuning"
-        settings.maxRounds = 10
+        settings.maxRounds = 1
 
         // Group Round Buttons
         buttonArray.append(GroupActionNode(color: Color.blue1, size: CGSize(width: 110, height: 50)))
