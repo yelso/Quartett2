@@ -30,13 +30,12 @@ class GameScene: SKScene, CardDelegate {
         selectButton.setScale(0.01)
         selectButton.isHidden = true
         selectButton.action = {
-            print("onAction!!!")
             self.calculateResultAndShowCompareNode(withIndex: self.selectedIndex)
         }
         
         cardNode = CardNode(game: game!, color: .clear, size: self.size, position: CGPoint(x: 0, y: 20))
         cardNode?.delegate = self
-        pointsNode = GamePointsNode(color: Color.cardMain, size: CGSize(width: self.size.width, height: 40), position: CGPoint(x: 0, y: self.size.height/2 * -1 + 45))
+        pointsNode = GamePointsNode(color: Color.cardMain, size: CGSize(width: self.size.width, height: 40), position: CGPoint(x: 0, y: self.size.height/2 * -1 + 45), game: game!)
         print(self.view!.frame.width)
         
         self.addChild(selectButton)
@@ -50,19 +49,21 @@ class GameScene: SKScene, CardDelegate {
     }
     
     func didCloseCardCompareNode() {
-        if game!.isPlayersTurn {
-            cardNode?.setInteractionEnabledTo(true)
-        } else {
-            Timer.scheduledTimer(withTimeInterval: 1.2, repeats: false, block: { (_) in
-                self.cardNode!.propertyGroupNodes[self.game!.getAiSelection()].handleTouch()
-                self.cardNode!.propertyGroupNodes[self.game!.getAiSelection()].isHighlighted = true
-                Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
-                    self.cardNode!.propertyGroupNodes[self.game!.getAiSelection()].handleTouchEndInside()
-                    Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false, block: { (_) in
-                        self.calculateResultAndShowCompareNode(withIndex: self.game!.getAiSelection())
+        if game!.isRunning {
+            if game!.isPlayersTurn {
+                cardNode?.setInteractionEnabledTo(true)
+            } else {
+                Timer.scheduledTimer(withTimeInterval: 1.2, repeats: false, block: { (_) in
+                    self.cardNode!.propertyGroupNodes[self.game!.getAiSelection()].handleTouch()
+                    self.cardNode!.propertyGroupNodes[self.game!.getAiSelection()].isHighlighted = true
+                    Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
+                        self.cardNode!.propertyGroupNodes[self.game!.getAiSelection()].handleTouchEndInside()
+                        Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false, block: { (_) in
+                            self.calculateResultAndShowCompareNode(withIndex: self.game!.getAiSelection())
+                        })
                     })
                 })
-            })
+            }
         }
     }
     
@@ -78,9 +79,8 @@ class GameScene: SKScene, CardDelegate {
     
     func startNextRound() {
         if game!.nextRound() {
-            print("updating values")
             cardNode!.update(game!)
-            pointsNode!.update()
+            pointsNode!.update(game!)
         } else {
             // TODO
             print("GAME_END")
@@ -97,7 +97,7 @@ class GameScene: SKScene, CardDelegate {
     func calculateResultAndShowCompareNode(withIndex index: Int) {
         cardNode?.setInteractionEnabledTo(false) // todo fix exception when playing too fast
         self.hideSelectButton()
-        let result = game!.calculateResult(forSelectedIndex: index)
+        let result = game!.calculateRoundResult(forSelectedIndex: index)
         self.cardCompareNode!.position = CGPoint(x: 0, y: 0)
         self.cardCompareNode!.updateDetail(withResult: result, pCard: self.game!.getCurPCard(), aiCard: self.game!.getCurAICard(), game: self.game!, selectedIndex: index)
         

@@ -14,10 +14,12 @@ class Game {
     let settings : GameSettings?
     var player = Player()
     var ai = AI()
+    var drawPile = [Card]()
     var cardSet: CardSet?
     var rounds = Rounds()
     var gameResult: Result?
     var isPlayersTurn = true
+    var isRunning = true
     
     init(withSettings settings: GameSettings) {
         self.settings = settings
@@ -46,25 +48,30 @@ class Game {
         if player.nextCard() {
             if !ai.nextCard() {
                 gameResult = Result.playerWin
-                return false
+                isRunning = false
+            } else {
+                if !isPlayersTurn {
+                    ai.selectProperty(cardOpponent: player.currentCard!, game: self)
+                }
+                return true
             }
-        } else {
+        } else if ai.nextCard() {
             gameResult = Result.playerLose
-            return false
+            isRunning = false
+        } else {
+            gameResult = Result.draw
+            isRunning = false
         }
-        if !isPlayersTurn {
-            ai.selectProperty(cardOpponent: player.currentCard!, game: self)
-        }
-        return true
+        return false
     }
     
-    func calculateResult(forSelectedIndex index: Int) -> Result {
+    func calculateRoundResult(forSelectedIndex index: Int) -> Result {
         let propertyCompare = Int(cardSet!.getProperty(withId: getCurPCard().values[index].propertyId)!.compare!)
         let pVal = Float(getCurPCard().values[index].value)!
         let aiVal = Float(getCurAICard().values[index].value)!
         
         var result = Result.draw
-        if propertyCompare == 0 {
+        if propertyCompare == -1 {
             if pVal < aiVal {
                 result = Result.playerWin
             } else if aiVal < pVal {
@@ -82,14 +89,26 @@ class Game {
             }
         }
         if result == Result.playerWin {
+            for card in drawPile {
+                player.cards.insert(card, at: 0)
+            }
+            player.cards.insert(getCurPCard(), at: 0)
             player.cards.insert(getCurAICard(), at: 0)
             isPlayersTurn = true
+            drawPile.removeAll()
         } else if result == Result.playerLose {
+            for card in drawPile {
+                ai.cards.insert(card, at: 0)
+            }
+            ai.cards.insert(getCurAICard(), at: 0)
             ai.cards.insert(getCurPCard(), at: 0)
             isPlayersTurn = false
+            drawPile.removeAll()
         } else {
-            isPlayersTurn = !isPlayersTurn
+            drawPile.append(getCurPCard())
+            drawPile.append(getCurAICard())
         }
+        
         rounds.results.append(result)
         return result
     }
@@ -106,6 +125,7 @@ class Game {
             } else {
                 gameResult = Result.draw
             }
+            isRunning = false
             return false
         }
     }

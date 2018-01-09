@@ -77,26 +77,5 @@ class MainMenuScene: SKScene {
         rulesButton.action = {
             print("rules button tapped")
         }
-        
-    
-    
-    
-    /*override func didMove(to view: SKView) {
-        let backgroundAnim = SKSpriteNode(texture: SKTexture(image: UIImage(named: "shine_1")!))
-        backgroundAnim.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        backgroundAnim.position = CGPoint(x: 0, y: 0)
-        queue.async {
-            backgroundAnim.run(SKAction.repeatForever(SKAction.rotate(byAngle: 1, duration: 12)))
-        }
-        backgroundAnim.zPosition = -1
-        self.addChild(backgroundAnim)
-     
-        let logo = SKSpriteNode(texture: SKTexture(image: UIImage(named:"logo_farbe")!))
-        logo.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        logo.position = CGPoint(x: 0, y: 150)
-        self.addChild(logo)
-        */
-        
-        
     }
 }
