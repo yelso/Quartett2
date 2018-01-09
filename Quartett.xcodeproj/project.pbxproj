@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		7A2C80F120051126004DD440 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A2C80F020051125004DD440 /* Assets.xcassets */; };
+		7A2C80F320051EA5004DD440 /* RulesScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2C80F220051EA5004DD440 /* RulesScene.swift */; };
+		7A2C80F520052173004DD440 /* RulesScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7A2C80F420052173004DD440 /* RulesScene.sks */; };
 		7AE5A89F1FF6B78400104C2A /* CardSetOverviewDetailScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE5A89E1FF6B78400104C2A /* CardSetOverviewDetailScene.swift */; };
 		A905F5521FF440A70017B06F /* CardSets.swift in Sources */ = {isa = PBXBuildFile; fileRef = A905F5511FF440A70017B06F /* CardSets.swift */; };
 		A905F55B1FF50C870017B06F /* GameSettingsScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = A905F55A1FF50C870017B06F /* GameSettingsScene.sks */; };
@@ -50,6 +52,7 @@
 		A9EE91151FF6992200057B07 /* AI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9EE91141FF6992200057B07 /* AI.swift */; };
 		A9EE91171FF69B3D00057B07 /* Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9EE91161FF69B3D00057B07 /* Statistics.swift */; };
 		A9EE91191FF69B6300057B07 /* Statistic.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9EE91181FF69B6300057B07 /* Statistic.swift */; };
+		D77D91FC2005028F00323D52 /* GameEndNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77D91FB2005028F00323D52 /* GameEndNode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +74,8 @@
 
 /* Begin PBXFileReference section */
 		7A2C80F020051125004DD440 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7A2C80F220051EA5004DD440 /* RulesScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesScene.swift; sourceTree = "<group>"; };
+		7A2C80F420052173004DD440 /* RulesScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = RulesScene.sks; sourceTree = "<group>"; };
 		7AE5A89E1FF6B78400104C2A /* CardSetOverviewDetailScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSetOverviewDetailScene.swift; sourceTree = "<group>"; };
 		A905F5511FF440A70017B06F /* CardSets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSets.swift; sourceTree = "<group>"; };
 		A905F55A1FF50C870017B06F /* GameSettingsScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameSettingsScene.sks; sourceTree = "<group>"; };
@@ -119,6 +124,7 @@
 		A9EE91141FF6992200057B07 /* AI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AI.swift; sourceTree = "<group>"; };
 		A9EE91161FF69B3D00057B07 /* Statistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statistics.swift; sourceTree = "<group>"; };
 		A9EE91181FF69B6300057B07 /* Statistic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statistic.swift; sourceTree = "<group>"; };
+		D77D91FB2005028F00323D52 /* GameEndNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEndNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +183,7 @@
 				A96591DC1FFC19A2001116E7 /* GroupActionNode.swift */,
 				A96B65941FFD0E91002D7D18 /* CardNode.swift */,
 				A96B65961FFD1D15002D7D18 /* GamePointsNode.swift */,
+				D77D91FB2005028F00323D52 /* GameEndNode.swift */,
 			);
 			name = uiNodes;
 			sourceTree = "<group>";
@@ -284,6 +291,8 @@
 				7AE5A89E1FF6B78400104C2A /* CardSetOverviewDetailScene.swift */,
 				A9AB705E1FF2BC07009A4695 /* CardSetOverviewScene.swift */,
 				A905F55C1FF50C9D0017B06F /* GameSettingsScene.swift */,
+				7A2C80F220051EA5004DD440 /* RulesScene.swift */,
+				7A2C80F420052173004DD440 /* RulesScene.sks */,
 			);
 			name = scene;
 			sourceTree = "<group>";
@@ -414,6 +423,7 @@
 				A9AB70631FF2BEB4009A4695 /* bikes.json in Resources */,
 				A9AB70181FF27EE0009A4695 /* LaunchScreen.storyboard in Resources */,
 				A9AB703E1FF27F50009A4695 /* MainMenuScene.sks in Resources */,
+				7A2C80F520052173004DD440 /* RulesScene.sks in Resources */,
 				A9AB700C1FF27EE0009A4695 /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -442,10 +452,12 @@
 				A9EE91131FF698CF00057B07 /* Player.swift in Sources */,
 				A9AB705F1FF2BC07009A4695 /* CardSetOverviewScene.swift in Sources */,
 				A9AB70441FF280DE009A4695 /* Image.swift in Sources */,
+				D77D91FC2005028F00323D52 /* GameEndNode.swift in Sources */,
 				A9AB70501FF281DA009A4695 /* Result.swift in Sources */,
 				A9AB700E1FF27EE0009A4695 /* GameScene.swift in Sources */,
 				A96B659C1FFD1E78002D7D18 /* Constants.swift in Sources */,
 				A96591D91FFB9E44001116E7 /* CardCompareNode.swift in Sources */,
+				7A2C80F320051EA5004DD440 /* RulesScene.swift in Sources */,
 				A9AB704E1FF281C7009A4695 /* Rounds.swift in Sources */,
 				A9AB705D1FF299B6009A4695 /* SpriteKit-Spring.swift in Sources */,
 				A9AB704C1FF281B2009A4695 /* GameSettings.swift in Sources */,
