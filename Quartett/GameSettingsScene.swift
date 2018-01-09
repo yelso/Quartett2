@@ -37,7 +37,7 @@ class GameSettingsScene: SKScene {
         buttonArray.append(GroupActionNode(color: Color.green2, size: CGSize(width: 110, height: 50)))
     
         //Start Button
-        startGameButton = GroupActionNode(color: Color.background, size: CGSize(width: 110, height: 50))
+        startGameButton = ActionNode(color: Color.background, size: CGSize(width: 110, height: 50))
         let startLabel = SKLabelNode(text: "Start >")
         startGameButton.position = CGPoint(x: 130, y: -320)
         startLabel.fontSize = 25
@@ -45,7 +45,7 @@ class GameSettingsScene: SKScene {
         startGameButton.addChild(startLabel)
         
         //Back Button
-        backButton = GroupActionNode(color: Color.background, size: CGSize(width: 110, height: 50))
+        backButton = ActionNode(color: Color.background, size: CGSize(width: 110, height: 50))
         let endLabel = SKLabelNode(text: "< Zurück")
         backButton.position = CGPoint(x: -130, y: -320)
         endLabel.fontSize = 25
@@ -202,6 +202,12 @@ class GameSettingsScene: SKScene {
                 scene.scaleMode = .aspectFill
                 let transition = SKTransition.push(with: .left, duration: 0.5)
                 // Present the scene
+                view.presentScene(scene, transition: transition)
+            }
+        }
+        backButton.action = {
+            if let scene = SKScene(fileNamed: "MainMenuScene") as? MainMenuScene {
+                let transition = SKTransition.push(with: .right, duration: 0.5)
                 view.presentScene(scene, transition: transition)
             }
         }
