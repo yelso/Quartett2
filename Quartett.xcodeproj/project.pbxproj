@@ -52,6 +52,7 @@
 		A9EE91151FF6992200057B07 /* AI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9EE91141FF6992200057B07 /* AI.swift */; };
 		A9EE91171FF69B3D00057B07 /* Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9EE91161FF69B3D00057B07 /* Statistics.swift */; };
 		A9EE91191FF69B6300057B07 /* Statistic.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9EE91181FF69B6300057B07 /* Statistic.swift */; };
+		D77D91FC2005028F00323D52 /* GameEndNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77D91FB2005028F00323D52 /* GameEndNode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -123,6 +124,7 @@
 		A9EE91141FF6992200057B07 /* AI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AI.swift; sourceTree = "<group>"; };
 		A9EE91161FF69B3D00057B07 /* Statistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statistics.swift; sourceTree = "<group>"; };
 		A9EE91181FF69B6300057B07 /* Statistic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statistic.swift; sourceTree = "<group>"; };
+		D77D91FB2005028F00323D52 /* GameEndNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEndNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,6 +183,7 @@
 				A96591DC1FFC19A2001116E7 /* GroupActionNode.swift */,
 				A96B65941FFD0E91002D7D18 /* CardNode.swift */,
 				A96B65961FFD1D15002D7D18 /* GamePointsNode.swift */,
+				D77D91FB2005028F00323D52 /* GameEndNode.swift */,
 			);
 			name = uiNodes;
 			sourceTree = "<group>";
@@ -449,6 +452,7 @@
 				A9EE91131FF698CF00057B07 /* Player.swift in Sources */,
 				A9AB705F1FF2BC07009A4695 /* CardSetOverviewScene.swift in Sources */,
 				A9AB70441FF280DE009A4695 /* Image.swift in Sources */,
+				D77D91FC2005028F00323D52 /* GameEndNode.swift in Sources */,
 				A9AB70501FF281DA009A4695 /* Result.swift in Sources */,
 				A9AB700E1FF27EE0009A4695 /* GameScene.swift in Sources */,
 				A96B659C1FFD1E78002D7D18 /* Constants.swift in Sources */,
