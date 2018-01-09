@@ -164,10 +164,10 @@ class GameSettingsScene: SKScene {
             self.settings.difficulty = 2
         }
         buttonArray[6].action = {
-            self.settings.cardSetName = "Karten1"
+            self.settings.cardSetName = CardSets.tuning.rawValue
         }
-        buttonArray[6].action = {
-            self.settings.cardSetName = "Karten2"
+        buttonArray[7].action = {
+            self.settings.cardSetName = CardSets.bikes.rawValue
         }
         
         for index in 0..<buttonArray.count {
