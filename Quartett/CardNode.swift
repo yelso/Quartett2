@@ -169,4 +169,10 @@ class CardNode: SKSpriteNode {
         let property = game.cardSet!.getProperty(withId: game.getCurPCard().values[index].propertyId)!
         return (property.text!, game.getCurPCard().values[index].value + property.getStylizedUnit())
     }
+    
+    func setInteractionEnabledTo(_ value: Bool) {
+        for node in propertyGroupNodes {
+            node.isUserInteractionEnabled = value
+        }
+    }
 }
