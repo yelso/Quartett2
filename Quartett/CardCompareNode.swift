@@ -14,6 +14,7 @@ class CardCompareNode: SKSpriteNode {
     var delegate: CardDelegate?
     
     var cell: SKSpriteNode!
+    var blackCell: SKSpriteNode!
     var nextRoundButton: ActionNode!
     var img1: SKSpriteNode?
     var img2: SKSpriteNode?
@@ -23,7 +24,7 @@ class CardCompareNode: SKSpriteNode {
     var propertyCellNodes = [SKSpriteNode]()
     
 
-    
+    // nil, Color.background, self.size, game!
     init(texture: SKTexture?, color: UIColor, size: CGSize, game: Game) {
         super.init(texture: texture, color: color, size: size)
         img1 = SKSpriteNode(texture: SKTexture(imageNamed: "tuning8"))
@@ -33,6 +34,14 @@ class CardCompareNode: SKSpriteNode {
         img1!.size = CGSize(width: 572, height: 370)
         img2!.size = CGSize(width: 572, height: 370)
         
+//        blackCell?.position = CGPoint(x: 0, y: 0)
+//        blackCell?.size = CGSize(width: 600, height: 800)
+//        blackCell?.color = UIColor.black
+//        blackCell?.zPosition = 6
+//        blackCell!.addChild(SKNode())
+//
+//        //
+//        self.addChild(blackCell)
         self.addChild(img2!)
         self.addChild(img1!)
         
@@ -60,7 +69,7 @@ class CardCompareNode: SKSpriteNode {
             }]))
         }
         
-        cell = setUpCell(withImageNamed: "cell1", color: UIColor.black, blendFactor: 0, position: CGPoint(x:0, y: 0), anchorPoint: CGPoint(x: 0.5, y: 0.5)) //
+        cell = setUpCell(withImageNamed: "cell1", color: UIColor.black, blendFactor: 0, position: CGPoint(x:0, y: 0), anchorPoint: CGPoint(x: 0.5, y: 0.5))
         cell.size = CGSize(width: 414, height: 41)
         
         
@@ -96,6 +105,7 @@ class CardCompareNode: SKSpriteNode {
         labels[0].position = CGPoint(x: 0 , y: 0)
         labels[0].setScale(1)
         labels[0].text = "VS"
+        labels[0].fontSize = 50
         labels[1].position = CGPoint(x: -600 , y: 50)
         labels[2].position = CGPoint(x: 600 , y: -50)
         removeAllActions()
@@ -114,14 +124,15 @@ class CardCompareNode: SKSpriteNode {
         let moveValueAIBackAction = SKAction.moveTo(x: (cell.size.width/2) * 3, duration: 0)
         labels[2].run(SKAction.sequence([moveValue1LeftAction, moveValue2LeftAction, moveValue3LeftAction, moveValueAIBackAction]))
         
-        let moveimg1RightAction = SKAction.moveTo(x: 80, duration: 11)
-        let moveimg2LeftAction = SKAction.moveTo(x: -80, duration: 11)
+        let moveimg1RightAction = SKAction.moveTo(x: 40, duration: 11)
+        let moveimg2LeftAction = SKAction.moveTo(x: -40, duration: 11)
         
         img1!.run(moveimg1RightAction)
         img2!.run(moveimg2LeftAction)
     }
     func updateDetail(withResult result: Result, pCard: Card, aiCard: Card, game: Game, selectedIndex: Int) {
         resetActions()
+        
         
         
         titleLabel?.text = pCard.name + " " + aiCard.name
@@ -158,6 +169,9 @@ class CardCompareNode: SKSpriteNode {
             let resetLabelSizeAction = SKAction.scale(to: 1, duration: 0.5)
             timers.append(Timer.scheduledTimer(withTimeInterval: 0.4, repeats: false) { (_) in
                 self.labels[0].run(SKAction.sequence([setLabelSizeTo0Action, SKAction.run {
+                    let temp = self.labels[0].fontSize
+                    print(self.labels[0].fontSize)
+                    self.labels[0].fontSize = temp - 8
                     self.labels[0].text = "UNENTSCHIEDEN"
                     self.labels[0].run(resetLabelSizeAction)
                     }]))
