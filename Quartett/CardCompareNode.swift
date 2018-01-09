@@ -181,7 +181,7 @@ class CardCompareNode: SKSpriteNode {
         allActions()
         
         timers.append(Timer.scheduledTimer(withTimeInterval: 8, repeats: false) { (_) in
-            print("timer in card compare node")
+            print("timer  card compare node")
             self.nextRoundButton.action()
             
         })

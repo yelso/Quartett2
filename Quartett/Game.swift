@@ -114,7 +114,7 @@ class Game {
     }
     
     func nextRound() -> Bool {
-        if rounds.curRound < settings!.maxRounds || settings?.maxRounds == -1 {
+        if (rounds.curRound+1) < settings!.maxRounds || settings?.maxRounds == -1 {
             rounds.curRound += 1
             return selectNextCard()
         } else {

@@ -50,6 +50,7 @@ class GameScene: SKScene, CardDelegate {
     }
     
     func didCloseCardCompareNode() {
+        startNextRound()
         if game!.isRunning {
             if game!.isPlayersTurn {
                 cardNode?.setInteractionEnabledTo(true)
@@ -86,9 +87,9 @@ class GameScene: SKScene, CardDelegate {
             // TODO
             gameEndNode = GameEndNode(texture: nil, color: Color.background, size: self.size, game: game!)
         
-            self.addChild(gameEndNode!)
             gameEndNode!.zPosition = 5
             gameEndNode!.position = CGPoint(x: 0, y: 0)
+            self.addChild(gameEndNode!)
         }
     }
     
@@ -105,8 +106,6 @@ class GameScene: SKScene, CardDelegate {
         let result = game!.calculateRoundResult(forSelectedIndex: index)
         self.cardCompareNode!.position = CGPoint(x: 0, y: 0)
         self.cardCompareNode!.updateDetail(withResult: result, pCard: self.game!.getCurPCard(), aiCard: self.game!.getCurAICard(), game: self.game!, selectedIndex: index)
-        
-        self.startNextRound()
     }
     
     override func update(_ currentTime: TimeInterval) {
