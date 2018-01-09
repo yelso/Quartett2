@@ -57,7 +57,7 @@ class MainMenuScene: SKScene {
         startButton.action =  {
             if let scene = SKScene(fileNamed: "GameSettingsScene") {
                 // Set the scale mode to scale to fit the window
-                scene.scaleMode = .resizeFill
+                scene.scaleMode = .aspectFill
                 let transition = SKTransition.push(with: .left, duration: 0.5)
                 // Present the scene
                 view.presentScene(scene, transition: transition)
@@ -75,7 +75,7 @@ class MainMenuScene: SKScene {
         rulesButton.action = {
             if let scene = SKScene(fileNamed: "RulesScene") {
                 // Set the scale mode to scale to fit the window
-                scene.scaleMode = .resizeFill
+                scene.scaleMode = .aspectFill
                 let transition = SKTransition.push(with: .left, duration: 0.5)
                 // Present the scene
                 view.presentScene(scene, transition: transition)
