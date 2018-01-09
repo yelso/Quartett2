@@ -11,7 +11,12 @@ import SpriteKit
 
 class GamePointsNode: SKSpriteNode {
     
-    init(color: UIColor, size: CGSize, position: CGPoint) {
+    var playerCards = 0
+    var aiCards = 0
+    var drawCards = 0
+    var points: SKLabelNode?
+    
+    init(color: UIColor, size: CGSize, position: CGPoint, game: Game) {
         super.init(texture: nil, color: .clear, size: size)
         self.position = position
         //let background = SKSpriteNode(color: Color.cardMain, size: CGSize(width: self.size.width, height: size.height/2))
@@ -28,13 +33,13 @@ class GamePointsNode: SKSpriteNode {
         let background = SKSpriteNode(texture: SKTexture(imageNamed: "pointsBackground"))
         //background.anchorPoint = CGPoint(x: 0.5, y: 0.0)
         
-        let points = SKLabelNode(text: "20 - 2 - 10")
-        points.fontName = Font.cardTitle
-        points.fontColor = .white
-        points.fontSize = 22
-        points.horizontalAlignmentMode = .center
-        points.verticalAlignmentMode = .center
-        background.addChild(points)
+        points = SKLabelNode(text: "\(game.player.cards.count) - \(game.drawPile.count) - \(game.ai.cards.count)")
+        points!.fontName = Font.cardTitle
+        points!.fontColor = .white
+        points!.fontSize = 22
+        points!.horizontalAlignmentMode = .center
+        points!.verticalAlignmentMode = .center
+        background.addChild(points!)
         self.addChild(background)
     }
     
@@ -42,7 +47,7 @@ class GamePointsNode: SKSpriteNode {
         super.init(coder: aDecoder)
     }
     
-    func update() {
-        // TODO
+    func update(_ game: Game) {
+       points?.text = "\(game.player.cards.count) - \(game.drawPile.count) - \(game.ai.cards.count)"
     }
 }

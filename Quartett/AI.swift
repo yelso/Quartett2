@@ -31,13 +31,12 @@ class AI {
                 let val = currentCard!.values[index]
                 let myVal = Float(val.value)!
                 let valP = Float(cardOpponent.values[index].value)!
-                
                 if (propertyCompare == -1 && myVal < valP) || (propertyCompare == 1 && myVal > valP) {
                     selectedIndex = index
+                    break
                 }
             }
-        } else {
-            selectedIndex = Int(arc4random_uniform(UInt32(currentCard!.values.count)))
         }
+        selectedIndex = Int(arc4random_uniform(UInt32(currentCard!.values.count)))
     }
 }
