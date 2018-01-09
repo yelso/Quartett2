@@ -20,6 +20,7 @@ class GameScene: SKScene, CardDelegate {
     
     override func didMove(to view: SKView) {
         cardCompareNode = CardCompareNode(texture: nil, color: Color.background, size: self.size, game: game!)
+        cardCompareNode?.delegate = self
         self.addChild(cardCompareNode!)
         cardCompareNode!.zPosition = 5
         cardCompareNode!.position = CGPoint(x: 0, y: 1000)
@@ -30,11 +31,7 @@ class GameScene: SKScene, CardDelegate {
         selectButton.isHidden = true
         selectButton.action = {
             print("onAction!!!")
-          self.cardCompareNode!.position = CGPoint(x: 0, y: 0)
-            self.cardCompareNode!.updateDetail(forWinner: self.game!.getCurPCard(), loser: self.game!.getCurAICard(), game: self.game!, selectedIndex: self.selectedIndex)
-            
-            self.startNextRound()
-            self.hideSelectButton()
+            self.calculateResultAndShowCompareNode(withIndex: self.selectedIndex)
         }
         
         cardNode = CardNode(game: game!, color: .clear, size: self.size, position: CGPoint(x: 0, y: 20))
@@ -52,6 +49,23 @@ class GameScene: SKScene, CardDelegate {
         showSelectButton()
     }
     
+    func didCloseCardCompareNode() {
+        if game!.isPlayersTurn {
+            cardNode?.setInteractionEnabledTo(true)
+        } else {
+            Timer.scheduledTimer(withTimeInterval: 1.2, repeats: false, block: { (_) in
+                self.cardNode!.propertyGroupNodes[self.game!.getAiSelection()].handleTouch()
+                self.cardNode!.propertyGroupNodes[self.game!.getAiSelection()].isHighlighted = true
+                Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
+                    self.cardNode!.propertyGroupNodes[self.game!.getAiSelection()].handleTouchEndInside()
+                    Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false, block: { (_) in
+                        self.calculateResultAndShowCompareNode(withIndex: self.game!.getAiSelection())
+                    })
+                })
+            })
+        }
+    }
+    
     func showSelectButton() {
         guard selectButton.isHidden else { return }
         selectButton.isHidden = false
@@ -63,23 +77,36 @@ class GameScene: SKScene, CardDelegate {
     }
     
     func startNextRound() {
-        game!.calculateResult(forSelectedIndex: selectedIndex)
         if game!.nextRound() {
             print("updating values")
             cardNode!.update(game!)
             pointsNode!.update()
         } else {
             // TODO
+            print("GAME_END")
         }
     }
     
     func hideSelectButton() {
+        selectButton.isUserInteractionEnabled = false
         let scaleUpAction = SKAction.scale(to: 1.3, duration: 0.2)
         let scaleDownAction = SKAction.scale(to: 0.01, duration: 0.15)
-        selectButton.run(SKAction.sequence([SKAction.run({self.selectButton.isUserInteractionEnabled = false}), scaleUpAction,  scaleDownAction, SKAction.run({self.selectButton.isHidden = true})]))
+        selectButton.run(SKAction.sequence([scaleUpAction,  scaleDownAction, SKAction.run({self.selectButton.isHidden = true})]))
+    }
+    
+    func calculateResultAndShowCompareNode(withIndex index: Int) {
+        cardNode?.setInteractionEnabledTo(false) // todo fix exception when playing too fast
+        self.hideSelectButton()
+        let result = game!.calculateResult(forSelectedIndex: index)
+        self.cardCompareNode!.position = CGPoint(x: 0, y: 0)
+        self.cardCompareNode!.updateDetail(withResult: result, pCard: self.game!.getCurPCard(), aiCard: self.game!.getCurAICard(), game: self.game!, selectedIndex: index)
+        
+        self.startNextRound()
     }
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
     }
+    
+    
 }

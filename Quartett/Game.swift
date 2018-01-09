@@ -16,6 +16,9 @@ class Game {
     var ai = AI()
     var cardSet: CardSet?
     var rounds = Rounds()
+    var gameResult: Result?
+    var isPlayersTurn = true
+    
     init(withSettings settings: GameSettings) {
         self.settings = settings
         loadCards()
@@ -36,33 +39,73 @@ class Game {
                 ai.cards.append(cards[index] )
             }
         }
-        nextRound()
-        //selectNextCard()
+        selectNextCard()
     }
     
     func selectNextCard() -> Bool {
         if player.nextCard() {
             if !ai.nextCard() {
-                // TODO: AI LOSE
+                gameResult = Result.playerWin
                 return false
             }
         } else {
-            // TODO: PLAYER LOSE
+            gameResult = Result.playerLose
             return false
         }
-        
+        if !isPlayersTurn {
+            ai.selectProperty(cardOpponent: player.currentCard!, game: self)
+        }
         return true
     }
     
-    func calculateResult(forSelectedIndex index: Int) {
-        // TODO:
+    func calculateResult(forSelectedIndex index: Int) -> Result {
+        let propertyCompare = Int(cardSet!.getProperty(withId: getCurPCard().values[index].propertyId)!.compare!)
+        let pVal = Float(getCurPCard().values[index].value)!
+        let aiVal = Float(getCurAICard().values[index].value)!
+        
+        var result = Result.draw
+        if propertyCompare == 0 {
+            if pVal < aiVal {
+                result = Result.playerWin
+            } else if aiVal < pVal {
+                result = Result.playerLose
+            } else {
+                result = Result.draw
+            }
+        } else if propertyCompare == 1 {
+            if pVal > aiVal {
+                result = Result.playerWin
+            } else if aiVal > pVal {
+                result = Result.playerLose
+            } else {
+                result = Result.draw
+            }
+        }
+        if result == Result.playerWin {
+            player.cards.insert(getCurAICard(), at: 0)
+            isPlayersTurn = true
+        } else if result == Result.playerLose {
+            ai.cards.insert(getCurPCard(), at: 0)
+            isPlayersTurn = false
+        } else {
+            isPlayersTurn = !isPlayersTurn
+        }
+        rounds.results.append(result)
+        return result
     }
     
     func nextRound() -> Bool {
-        if rounds.curRound < settings!.maxRounds {
+        if rounds.curRound < settings!.maxRounds || settings?.maxRounds == -1 {
             rounds.curRound += 1
             return selectNextCard()
         } else {
+            if player.cards.count > ai.cards.count {
+                gameResult = Result.playerWin
+            } else if ai.cards.count > player.cards.count {
+                gameResult = Result.playerLose
+            } else {
+                gameResult = Result.draw
+            }
             return false
         }
     }
@@ -82,5 +125,9 @@ class Game {
     
     func getCSAICardImageNameWithoudSuffix(atIndex index: Int) -> String {
         return cardSet!.name.lowercased() + ai.currentCard!.getImageNameWithoutSuffix(atIndex: index)
+    }
+    
+    func getAiSelection() -> Int {
+        return ai.selectedIndex
     }
 }

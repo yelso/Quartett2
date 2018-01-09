@@ -10,4 +10,5 @@ import Foundation
 
 protocol CardDelegate {
     func didSelectProperty(atIndex index: Int)
+    func didCloseCardCompareNode()
 }
