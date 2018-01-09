@@ -11,27 +11,49 @@ import SpriteKit
 
 class MainMenuScene: SKScene {
     
-    let queue = DispatchQueue.global()
+    //let queue = DispatchQueue.global()
+
     var startButton: ActionNode!
-    var cardsButton: ActionNode!
+    var cardSetButton: ActionNode!
     var rulesButton: ActionNode!
+    var logo: SKSpriteNode?
+    
     
     override func didMove(to view: SKView) {
-        let backgroundAnim = SKSpriteNode(texture: SKTexture(image: UIImage(named: "shine_1")!))
-        backgroundAnim.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        backgroundAnim.position = CGPoint(x: 0, y: 0)
-        queue.async {
-            backgroundAnim.run(SKAction.repeatForever(SKAction.rotate(byAngle: 1, duration: 12)))
-        }
-        backgroundAnim.zPosition = -1
-        self.addChild(backgroundAnim)
         
-        let logo = SKSpriteNode(texture: SKTexture(image: UIImage(named:"logo_farbe")!))
-        logo.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        logo.position = CGPoint(x: 0, y: 150)
-        self.addChild(logo)
+        startButton = ActionNode(color: Color.darkOrange, size: CGSize(width: 150, height: 50))
+        cardSetButton = ActionNode(color: Color.middleOrange, size: CGSize(width: 150, height: 50))
+        rulesButton = ActionNode(color: Color.lightOrange, size: CGSize(width: 150, height: 50))
         
-        startButton = self.childNode(withName: "startButton") as! ActionNode
+        
+        logo = SKSpriteNode(texture: SKTexture(imageNamed: "logo_bunt"))
+        logo?.position = CGPoint(x: 0, y: 180)
+        self.addChild(logo!)
+        
+        let startLabel = SKLabelNode(text: "Start")
+        startButton.position = CGPoint(x: 0, y: 20)
+        startLabel.fontSize = 35
+        startLabel.verticalAlignmentMode = .center
+        //startLabel.fontColor = Color.background
+        startButton.addChild(startLabel)
+        self.addChild(startButton)
+        
+        let cardSetLabel = SKLabelNode(text: "Karten")
+        cardSetButton.position = CGPoint(x: 0, y: -60)
+        cardSetLabel.fontSize = 35
+        cardSetLabel.verticalAlignmentMode = .center
+        //cardSetLabel.fontColor = Color.background
+        cardSetButton.addChild(cardSetLabel)
+        self.addChild(cardSetButton)
+        
+        let rulesLabel = SKLabelNode(text: "Regeln")
+        rulesButton.position = CGPoint(x: 0, y: -140)
+        rulesLabel.fontSize = 35
+        rulesLabel.verticalAlignmentMode = .center
+        //rulesLabel.fontColor = Color.background
+        rulesButton.addChild(rulesLabel)
+        self.addChild(rulesButton)
+        
         startButton.action =  {
             if let scene = SKScene(fileNamed: "GameSettingsScene") {
                 // Set the scale mode to scale to fit the window
@@ -42,23 +64,44 @@ class MainMenuScene: SKScene {
             }
             
         }
-        cardsButton = self.childNode(withName: "cardsButton") as! ActionNode
-        cardsButton.action = {
+        cardSetButton.action = {
             if let scene = SKScene(fileNamed: "CardSetOverviewScene") {
                 // Set the scale mode to scale to fit the window
                 scene.scaleMode = .aspectFill
                 let transition = SKTransition.push(with: .left, duration: 0.5)
                 // Present the scene
                 view.presentScene(scene, transition: transition)
-                
             }
         }
-
-        rulesButton = self.childNode(withName: "rulesButton") as! ActionNode
-        
         rulesButton.action = {
-            print("rules button tapped")
+            if let scene = SKScene(fileNamed: "RulesScene") {
+                // Set the scale mode to scale to fit the window
+                scene.scaleMode = .aspectFill
+                let transition = SKTransition.push(with: .left, duration: 0.5)
+                // Present the scene
+                view.presentScene(scene, transition: transition)
+            }
         }
+        
+    
+    
+    
+    /*override func didMove(to view: SKView) {
+        let backgroundAnim = SKSpriteNode(texture: SKTexture(image: UIImage(named: "shine_1")!))
+        backgroundAnim.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        backgroundAnim.position = CGPoint(x: 0, y: 0)
+        queue.async {
+            backgroundAnim.run(SKAction.repeatForever(SKAction.rotate(byAngle: 1, duration: 12)))
+        }
+        backgroundAnim.zPosition = -1
+        self.addChild(backgroundAnim)
+     
+        let logo = SKSpriteNode(texture: SKTexture(image: UIImage(named:"logo_farbe")!))
+        logo.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        logo.position = CGPoint(x: 0, y: 150)
+        self.addChild(logo)
+        */
+        
         
     }
 }
