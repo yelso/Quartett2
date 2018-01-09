@@ -24,32 +24,27 @@ class GameScene: SKScene, CardDelegate {
         cardCompareNode!.zPosition = 5
         cardCompareNode!.position = CGPoint(x: 0, y: 1000)
         selectButton = ActionNode(texture: SKTexture(imageNamed: "nextButtonOrange"))
-        selectButton.position = CGPoint(x: 124, y: -250)
+        selectButton.position = CGPoint(x: 124, y: -290)
         selectButton.zPosition = 1
         selectButton.setScale(0.01)
         selectButton.isHidden = true
         selectButton.action = {
             print("onAction!!!")
-          self.cardCompareNode!.position = CGPoint(x: 0, y: 0)
+            self.cardCompareNode!.position = CGPoint(x: 0, y: 0)
             self.cardCompareNode!.updateDetail(forWinner: self.game!.getCurPCard(), loser: self.game!.getCurAICard(), game: self.game!)
             
             self.startNextRound()
             self.hideSelectButton()
-          
         }
         
-        cardNode = CardNode(game: game!, color: .clear, size: self.size, position: CGPoint(x: 0, y: 40))
+        cardNode = CardNode(game: game!, color: .clear, size: self.size, position: CGPoint(x: 0, y: 20))
         cardNode?.delegate = self
-        pointsNode = GamePointsNode(color: Color.cardMain, size: CGSize(width: self.size.width, height: 40), position: CGPoint(x: 0, y: self.size.height/2 * -1 + 60))
+        pointsNode = GamePointsNode(color: Color.cardMain, size: CGSize(width: self.size.width, height: 40), position: CGPoint(x: 0, y: self.size.height/2 * -1 + 45))
         print(self.view!.frame.width)
         
         self.addChild(selectButton)
         self.addChild(cardNode!)
         self.addChild(pointsNode!)
-        let myHud = CardCompareNode(texture: nil, color: UIColor.clear, size: self.size)
-        
-        myHud.setVisible(to: false)
-        self.addChild(myHud)
     }
 
     func didSelectProperty(atIndex index: Int) {

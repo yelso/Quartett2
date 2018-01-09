@@ -45,6 +45,7 @@ class GameSettingsScene: SKScene {
             self.settings.maxRounds = 10
         }
         
+        self.settings.maxRounds = 10
         settings.difficulty = 1
         settings.cardSetName = "tuning"
         // Group Difficulty Buttons

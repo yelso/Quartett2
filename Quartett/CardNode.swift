@@ -18,39 +18,60 @@ class CardNode: SKSpriteNode {
     var propertyGroupNodes = [GroupActionNode]()
     var propertyNames = [SKLabelNode]()
     var propertyValues = [SKLabelNode]()
+    var height: CGFloat = 0
+    var amount = 0
+    var scaleFactor: CGFloat = 0.03
+    var scale: CGFloat = 1.0
     
     init(game: Game, color: UIColor, size: CGSize, position: CGPoint) {
         super.init(texture: nil, color: color, size: size)
         self.position = position
         setUpChildren(for: game)
+        if UIScreen.main.bounds.height != 812 { // all but iPhone X
+            scale = 1.05
+            scaleFactor = 0.05
+            self.setScale(scale)
+        }
+        print("height \(UIScreen.main.bounds.height)")
     }
     
+    func modelIdentifier() -> String {
+        if let simulatorModelIdentifier = ProcessInfo().environment["SIMULATOR_MODEL_IDENTIFIER"] { return simulatorModelIdentifier }
+        var sysinfo = utsname()
+        uname(&sysinfo) // ignore return value
+        return String(bytes: Data(bytes: &sysinfo.machine, count: Int(_SYS_NAMELEN)), encoding: .ascii)!.trimmingCharacters(in: .controlCharacters)
+    }
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
     func setUpChildren(for game: Game) {
+        self.amount = game.getCurPCard().values.count
+        self.height = CGFloat(((amount + 1) * 42) + 195) // property amounts + cell top + imageHeight/2
+        self.size = CGSize(width: size.width, height: height)
+        
         let cell = SKSpriteNode(texture: SKTexture(imageNamed: "cellTop"))
-        cell.position = CGPoint(x:0, y: 226)
+        cell.position = CGPoint(x:0, y: height/2 - 20) // 20 is half of cells height
         let label = SKLabelNode(text: game.getCurPCard().name)
-        label.position = CGPoint(x: (cell.size.width/2) * 0.94 * -1 , y: 0)
+        label.position = CGPoint(x: (cell.size.width/2) * 0.96 * -1 , y: 0)
         label.horizontalAlignmentMode = .left
         label.verticalAlignmentMode = .center
-        label.fontSize = 18
+        label.fontSize = 17
         label.fontColor = Color.cardTitle
         label.fontName = Font.cardTitle
         titleLabel = label
         
         img = SKSpriteNode(texture: SKTexture(imageNamed: game.getCSPCardImageNameWithoudSuffix(atIndex: 0)))
-        img!.position = CGPoint(x: 0, y: 106.5)
         img!.scale(to: CGSize(width: 300, height: 195))
+        img!.position = CGPoint(x: 0, y: height/2 - 139.5) // 195/2 +40 (cell height) + 2 spacer
         
         cell.addChild(label)
         self.addChild(img!)
         self.addChild(cell)
+        var pos: CGFloat = img!.position.y - img!.size.height/2 - 22 // 20 cell height + 2 spacer
         
-        for index in 1...game.getCurPCard().values.count {
-            let cell = setUpCell(withImageNamed: "cell\(game.getCurPCard().values.count - index)", color: UIColor.black, blendFactor: 0, position: CGPoint(x:0, y: (-20 + (-42 * (index-1)))), anchorPoint: CGPoint(x: 0.5, y: 0.35)) //
+        for index in 1...amount {
+            let cell = setUpCell(withImageNamed: "cell\(amount - index)", color: UIColor.black, blendFactor: 0, position: CGPoint(x: 0, y: (pos + CGFloat(-42 * (index-1)))), anchorPoint: CGPoint(x: 0.5, y: 0.5)) //
             let labels = setUpLabels(for: cell, game: game, index: index-1)
             cell.addChild(labels.name)
             cell.addChild(labels.value)
@@ -60,9 +81,14 @@ class CardNode: SKSpriteNode {
             self.addChild(cell)
         }
         
+        
+        if amount > 6 {
+            self.setScale(scale - (CGFloat(amount-6) * scaleFactor))
+            print("scale\(self.xScale)")
+        }
         propertyGroupNodes[0].setUpGroup(propertyGroupNodes)
         
-        for index in 0..<propertyGroupNodes.count {
+        for index in 0..<amount {
             let propertyNode = propertyGroupNodes[index]
             propertyNode.isHighlightButton = true
             propertyNode.customAnimationEnabled = true
@@ -128,7 +154,7 @@ class CardNode: SKSpriteNode {
         titleLabel?.text = newCard.name
         img?.texture = SKTexture(imageNamed: game.getCSPCardImageNameWithoudSuffix(atIndex: 0))
         var propertyNameAndValue = (name: "NAME", value: "VALUE")
-        for index in 0..<propertyNames.count {
+        for index in 0..<amount {
             propertyNameAndValue = getPropertyNameAndValue(forIndex: index, game)
             propertyNames[index].text = propertyNameAndValue.name
             propertyValues[index].text = propertyNameAndValue.value
@@ -141,7 +167,9 @@ class CardNode: SKSpriteNode {
     }
     
     func getPropertyNameAndValue(forIndex index: Int, _ game: Game) -> (name: String, value: String) {
-        let property = game.cardSet!.getProperty(withId: game.getCurPCard().values[index].propertyId)!
-        return (property.text!, game.getCurPCard().values[index].value + property.getStylizedUnit())
+        
+        return ("HELLO", "TEST")
+        //let property = game.cardSet!.getProperty(withId: game.getCurPCard().values[index].propertyId)!
+        //return (property.text!, game.getCurPCard().values[index].value + property.getStylizedUnit())
     }
 }
