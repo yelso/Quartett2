@@ -53,6 +53,9 @@
 		A9EE91171FF69B3D00057B07 /* Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9EE91161FF69B3D00057B07 /* Statistics.swift */; };
 		A9EE91191FF69B6300057B07 /* Statistic.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9EE91181FF69B6300057B07 /* Statistic.swift */; };
 		D77D91FC2005028F00323D52 /* GameEndNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77D91FB2005028F00323D52 /* GameEndNode.swift */; };
+		D77D91FF2005706600323D52 /* winParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = D77D91FE2005706600323D52 /* winParticle.sks */; };
+		D77D92012005791F00323D52 /* loseParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = D77D92002005791F00323D52 /* loseParticle.sks */; };
+		D77D920320057A7D00323D52 /* drawParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = D77D920220057A7D00323D52 /* drawParticle.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -125,6 +128,9 @@
 		A9EE91161FF69B3D00057B07 /* Statistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statistics.swift; sourceTree = "<group>"; };
 		A9EE91181FF69B6300057B07 /* Statistic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statistic.swift; sourceTree = "<group>"; };
 		D77D91FB2005028F00323D52 /* GameEndNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEndNode.swift; sourceTree = "<group>"; };
+		D77D91FE2005706600323D52 /* winParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = winParticle.sks; sourceTree = "<group>"; };
+		D77D92002005791F00323D52 /* loseParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = loseParticle.sks; sourceTree = "<group>"; };
+		D77D920220057A7D00323D52 /* drawParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = drawParticle.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -211,6 +217,7 @@
 		A9AB70061FF27EE0009A4695 /* Quartett */ = {
 			isa = PBXGroup;
 			children = (
+				D77D91FD20056F9B00323D52 /* particles */,
 				A932C2F91FFDBDFE0066B7D9 /* delegates */,
 				A96591DF1FFC34C4001116E7 /* core */,
 				A96591DE1FFC1B62001116E7 /* utils */,
@@ -304,6 +311,16 @@
 				A9AB70161FF27EE0009A4695 /* LaunchScreen.storyboard */,
 			);
 			name = ui;
+			sourceTree = "<group>";
+		};
+		D77D91FD20056F9B00323D52 /* particles */ = {
+			isa = PBXGroup;
+			children = (
+				D77D91FE2005706600323D52 /* winParticle.sks */,
+				D77D92002005791F00323D52 /* loseParticle.sks */,
+				D77D920220057A7D00323D52 /* drawParticle.sks */,
+			);
+			name = particles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -415,6 +432,7 @@
 			files = (
 				A9AB70131FF27EE0009A4695 /* Main.storyboard in Resources */,
 				A905F55B1FF50C870017B06F /* GameSettingsScene.sks in Resources */,
+				D77D920320057A7D00323D52 /* drawParticle.sks in Resources */,
 				7A2C80F120051126004DD440 /* Assets.xcassets in Resources */,
 				A9AB70671FF2C160009A4695 /* CardSetOverviewDetailScene.sks in Resources */,
 				A9AB70561FF2822E009A4695 /* tuning.json in Resources */,
@@ -422,8 +440,10 @@
 				A9AB700A1FF27EE0009A4695 /* GameScene.sks in Resources */,
 				A9AB70631FF2BEB4009A4695 /* bikes.json in Resources */,
 				A9AB70181FF27EE0009A4695 /* LaunchScreen.storyboard in Resources */,
+				D77D91FF2005706600323D52 /* winParticle.sks in Resources */,
 				A9AB703E1FF27F50009A4695 /* MainMenuScene.sks in Resources */,
 				7A2C80F520052173004DD440 /* RulesScene.sks in Resources */,
+				D77D92012005791F00323D52 /* loseParticle.sks in Resources */,
 				A9AB700C1FF27EE0009A4695 /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -647,7 +667,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = F6A9YCMBHM;
+				DEVELOPMENT_TEAM = B3CRTN6SZR;
 				INFOPLIST_FILE = Quartett/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -663,7 +683,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = F6A9YCMBHM;
+				DEVELOPMENT_TEAM = B3CRTN6SZR;
 				INFOPLIST_FILE = Quartett/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
