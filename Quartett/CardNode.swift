@@ -166,9 +166,7 @@ class CardNode: SKSpriteNode {
     }
     
     func getPropertyNameAndValue(forIndex index: Int, _ game: Game) -> (name: String, value: String) {
-        
-        return ("HELLO", "TEST")
-        //let property = game.cardSet!.getProperty(withId: game.getCurPCard().values[index].propertyId)!
-        //return (property.text!, game.getCurPCard().values[index].value + property.getStylizedUnit())
+        let property = game.cardSet!.getProperty(withId: game.getCurPCard().values[index].propertyId)!
+        return (property.text!, game.getCurPCard().values[index].value + property.getStylizedUnit())
     }
 }
