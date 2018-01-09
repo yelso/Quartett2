@@ -15,7 +15,7 @@ class CardCompareNode: SKSpriteNode {
     
     var cell: SKSpriteNode!
     var blackCell: SKSpriteNode!
-    var nextRoundButton: ActionNode!
+    private var nextRoundButton: ActionNode!
     var img1: SKSpriteNode?
     var img2: SKSpriteNode?
     var titleLabel: SKLabelNode?
@@ -26,6 +26,7 @@ class CardCompareNode: SKSpriteNode {
 
     // nil, Color.background, self.size, game!
     init(texture: SKTexture?, color: UIColor, size: CGSize, game: Game) {
+        print("init card compare node")
         super.init(texture: texture, color: color, size: size)
         img1 = SKSpriteNode(texture: SKTexture(imageNamed: "tuning8"))
         img2 = SKSpriteNode(texture: SKTexture(imageNamed: "tuning7"))
@@ -53,7 +54,7 @@ class CardCompareNode: SKSpriteNode {
         nextRoundButton.setScale(0.01)
         nextRoundButton.isHidden = false
         nextRoundButton.action = {
-            print("onAction!!!")
+            print("onAction!!1!")
             for timer in self.timers {
                 timer.invalidate()
             }
@@ -180,6 +181,7 @@ class CardCompareNode: SKSpriteNode {
         allActions()
         
         timers.append(Timer.scheduledTimer(withTimeInterval: 8, repeats: false) { (_) in
+            print("timer in card compare node")
             self.nextRoundButton.action()
             
         })
