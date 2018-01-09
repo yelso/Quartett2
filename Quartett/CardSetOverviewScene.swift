@@ -38,7 +38,7 @@ class CardSetOverviewScene: SKScene {
         
         //Back Button
         let endLabel = SKLabelNode(text: "< Zurück")
-        backButton.position = CGPoint(x: -130, y: -320)
+        backButton.position = CGPoint(x: self.size.width/2 * 0.65 * -1, y: self.size.height/2 * 0.85 * -1)
         endLabel.fontSize = 25
         endLabel.verticalAlignmentMode = .center
         backButton.addChild(endLabel)

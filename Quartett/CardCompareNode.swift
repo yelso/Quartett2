@@ -49,7 +49,7 @@ class CardCompareNode: SKSpriteNode {
         let changeScreenAction = SKAction.moveTo(y: -1000, duration: 0.6)
         
         nextRoundButton = ActionNode(texture: SKTexture(imageNamed: "nextButtonOrange"))
-        nextRoundButton.position = CGPoint(x: 124, y: -250)
+        nextRoundButton.position = CGPoint(x: self.size.width/2 * 0.65, y: self.size.height/2 * 0.85 * -1)
         nextRoundButton.zPosition = 6
         nextRoundButton.setScale(0.01)
         nextRoundButton.isHidden = false
