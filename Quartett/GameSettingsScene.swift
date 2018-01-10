@@ -25,7 +25,7 @@ class GameSettingsScene: SKScene {
         }
         settings.difficulty = 1
         settings.cardSetName = "tuning"
-        settings.maxRounds = 1
+        settings.maxRounds = 10
 
         // Group Round Buttons
         buttonArray.append(GroupActionNode(color: Color.blue1, size: CGSize(width: 105, height: 50)))
@@ -45,13 +45,14 @@ class GameSettingsScene: SKScene {
         //Start Button
         startGameButton = ActionNode(texture: SKTexture(imageNamed: "nextButtonOrange"))// ActionNode(color: Color.background, size: CGSize(width: 110, height: 50))
         startGameButton.position = CGPoint(x: self.size.width/2 * 0.65 , y: self.size.height/2 * 0.85 * -1)
+
         startGameButton.setScale(0.01)
         startGameButton.isUserInteractionEnabled = false
         startGameButton.isHidden = true
         
         //Back Button
         backButton = ActionNode(texture: SKTexture(imageNamed: "closeButton")) //ActionNode(color: Color.background, size: CGSize(width: 110, height: 50))
-        backButton.position = CGPoint(x: -140, y: -320)
+        backButton.position = CGPoint(x: self.size.width/2 * 0.65 * -1, y: self.size.height/2 * 0.85 * -1)
         
         
         buttonArray[0].position = CGPoint(x: -110, y: 220)

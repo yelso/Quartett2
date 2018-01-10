@@ -27,7 +27,7 @@ class GameScene: SKScene, CardDelegate {
         cardCompareNode!.zPosition = 5
         cardCompareNode!.position = CGPoint(x: 0, y: 1000)
         selectButton = ActionNode(texture: SKTexture(imageNamed: "nextButtonOrange"))
-        selectButton.position = CGPoint(x: 124, y: -290)
+        selectButton.position = CGPoint(x: self.size.width/2 * 0.65, y: self.size.height/2 * 0.85 * -1)
         selectButton.zPosition = 1
         selectButton.setScale(0.01)
         selectButton.isHidden = true

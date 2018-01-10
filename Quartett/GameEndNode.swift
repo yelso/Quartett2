@@ -45,12 +45,12 @@ class GameEndNode: SKSpriteNode {
             }
         }
         self.zPosition = 40
-        let changeScreenAction = SKAction.moveTo(y: -1000, duration: 0.6)
+//        let changeScreenAction = SKAction.moveTo(y: -1000, duration: 0.6)
         self.position = CGPoint(x: 0, y: 0)
         
         
-        toSettingsButton = ActionNode(texture: SKTexture(imageNamed: "nextButtonOrange"))
-        toSettingsButton.position = CGPoint(x: 124, y: -250)
+        toSettingsButton = ActionNode(texture: SKTexture(imageNamed: "retryButtonOrange"))
+        toSettingsButton.position = CGPoint(x: self.size.width/2 * 0.65, y: self.size.height/2 * 0.85 * -1)
         toSettingsButton.zPosition = 6
         toSettingsButton.setScale(1)
         //toMainMenuButton.isHidden = false
@@ -67,8 +67,8 @@ class GameEndNode: SKSpriteNode {
             }
         }
         
-        toMainMenuButton = ActionNode(texture: SKTexture(imageNamed: "nextButtonOrange"))
-        toMainMenuButton.position = CGPoint(x: -124, y: -320)
+        toMainMenuButton = ActionNode(texture: SKTexture(imageNamed: "closeButton"))
+        toMainMenuButton.position = CGPoint(x: self.size.width/2 * 0.65 * -1, y: self.size.height/2 * 0.85 * -1)
         toMainMenuButton.zPosition = 6
         toMainMenuButton.setScale(1)
         toMainMenuButton.isHidden = false
@@ -113,6 +113,10 @@ class GameEndNode: SKSpriteNode {
         statisticLabels[1].fontSize = 40
         statisticLabels[2].fontSize = 40
         
+        statisticLabels[0].fontName = Font.buttonFont
+        statisticLabels[1].fontName = Font.buttonFont
+        statisticLabels[2].fontName = Font.buttonFont
+        
         statisticValueLabels[0].fontName = Font.solutionText
         statisticValueLabels[1].fontName = Font.solutionText
         statisticValueLabels[2].fontName = Font.solutionText
@@ -148,10 +152,12 @@ class GameEndNode: SKSpriteNode {
             self.emojiLabel?.text = "😐"
             self.resultLabel?.fontSize = (self.resultLabel?.fontSize)! - 8
         }
-        
+        var img = SKSpriteNode(texture: SKTexture(imageNamed: "iconQuartett"))
+        img.setScale(0.5)
+        img.position = CGPoint(x: 0, y: -35)
         
         cell.size = CGSize(width: 0, height: 0)
-        
+        cell.addChild(img)
         cell.addChild(self.statisticValueLabels[0])
         cell.addChild(self.statisticValueLabels[1])
         cell.addChild(self.statisticValueLabels[2])
