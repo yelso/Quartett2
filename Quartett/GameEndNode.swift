@@ -22,7 +22,6 @@ class GameEndNode: SKSpriteNode {
     
     
     init(texture: SKTexture?, color: UIColor, size: CGSize, game: Game) {
-        print("init game end node")
         super.init(texture: nil, color: color, size: size)
         
         if game.gameResult == Result.playerWin {

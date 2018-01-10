@@ -25,7 +25,6 @@ class CardCompareNode: SKSpriteNode {
    
     // nil, Color.background, self.size, game!
     init(texture: SKTexture?, color: UIColor, size: CGSize, game: Game) {
-        print("init card compare node")
         super.init(texture: texture, color: color, size: size)
         img1 = SKSpriteNode(texture: SKTexture(imageNamed: "tuning8"))
         img2 = SKSpriteNode(texture: SKTexture(imageNamed: "tuning7"))
@@ -161,7 +160,6 @@ class CardCompareNode: SKSpriteNode {
             timers.append(Timer.scheduledTimer(withTimeInterval: 0.4, repeats: false) { (_) in
                 self.labels[0].run(SKAction.sequence([setLabelSizeTo0Action, SKAction.run {
                     let temp = self.labels[0].fontSize
-                    print(self.labels[0].fontSize)
                     self.labels[0].fontSize = temp - 8
                     self.labels[0].text = "UNENTSCHIEDEN"
                     self.labels[0].run(resetLabelSizeAction)
@@ -196,7 +194,6 @@ class CardCompareNode: SKSpriteNode {
     }
     
     func setUpCell(withImageNamed image: String, color: UIColor, blendFactor: CGFloat, position: CGPoint, anchorPoint: CGPoint) -> SKSpriteNode {
-        print("using image: \(image)")
         let cell = SKSpriteNode(texture: SKTexture(imageNamed: image))
         cell.color = color
         cell.colorBlendFactor = blendFactor
