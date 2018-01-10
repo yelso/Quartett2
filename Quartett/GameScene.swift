@@ -52,6 +52,18 @@ class GameScene: SKScene, CardDelegate {
         self.addChild(cardNode!)
         self.addChild(pointsNode!)
         self.addChild(turnLabel!)
+        let closeButton = ActionNode(texture: SKTexture(imageNamed: "closeButton"))
+        closeButton.position = CGPoint(x: self.size.width/2 * -0.65, y: self.size.height/2 * 0.85 * -1)
+        closeButton.action = {
+            if let scene = SKScene(fileNamed: "MainMenuScene") {
+                // Set the scene mode to scale to fit the window
+                scene.scaleMode = .aspectFill
+                let transition = SKTransition.push(with: .right, duration: 0.5)
+                // Present the scene
+                view.presentScene(scene, transition: transition)
+            }
+        }
+        self.addChild(closeButton)
     }
 
     func didSelectProperty(atIndex index: Int) {
