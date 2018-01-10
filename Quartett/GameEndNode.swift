@@ -32,8 +32,8 @@ class GameEndNode: SKSpriteNode {
                 addChild(particles)
             }
         } else if game.gameResult == Result.playerLose {
-            if let particles = SKEmitterNode(fileNamed: "drawParticle") {
-                particles.position = CGPoint(x: 0, y: self.size.height/2 + 10)
+            if let particles = SKEmitterNode(fileNamed: "loseParticle") {
+                particles.position = CGPoint(x: 30, y: self.size.height/2 + 10)
                 particles.zPosition = 6
                 addChild(particles)
             }

@@ -18,6 +18,7 @@ class GameScene: SKScene, CardDelegate {
     var selectedIndex = 0
     var cardCompareNode: CardCompareNode?
     var gameEndNode: GameEndNode?
+    var turnLabel: SKLabelNode?
     
     override func didMove(to view: SKView) {
         cardCompareNode = CardCompareNode(texture: nil, color: Color.background, size: self.size, game: game!)
@@ -33,15 +34,20 @@ class GameScene: SKScene, CardDelegate {
         selectButton.action = {
             self.calculateResultAndShowCompareNode(withIndex: self.selectedIndex)
         }
-        
         cardNode = CardNode(game: game!, color: .clear, size: self.size, position: CGPoint(x: 0, y: 20))
         cardNode?.delegate = self
         pointsNode = GamePointsNode(color: Color.cardMain, size: CGSize(width: self.size.width, height: 40), position: CGPoint(x: 0, y: self.size.height/2 * -1 + 45), game: game!)
-        print(self.view!.frame.width)
+        turnLabel = SKLabelNode(text: "Du bist am Zug")
+        turnLabel!.verticalAlignmentMode = .bottom
+        turnLabel?.horizontalAlignmentMode = .center
+        turnLabel!.fontName = Font.buttonFont
+        turnLabel!.fontSize = 16
+        turnLabel!.position = CGPoint(x: 0, y: cardNode!.size.height/2 + 25)
         
         self.addChild(selectButton)
         self.addChild(cardNode!)
         self.addChild(pointsNode!)
+        self.addChild(turnLabel!)
     }
 
     func didSelectProperty(atIndex index: Int) {
@@ -53,8 +59,10 @@ class GameScene: SKScene, CardDelegate {
         startNextRound()
         if game!.isRunning {
             if game!.isPlayersTurn {
+                turnLabel?.text = "Du bist am Zug"
                 cardNode?.setInteractionEnabledTo(true)
             } else {
+                turnLabel?.text = "Gegner ist am Zug"
                 Timer.scheduledTimer(withTimeInterval: 1.2, repeats: false, block: { (_) in
                     self.cardNode!.propertyGroupNodes[self.game!.getAiSelection()].handleTouch()
                     self.cardNode!.propertyGroupNodes[self.game!.getAiSelection()].isHighlighted = true
