@@ -51,7 +51,7 @@ class GameEndNode: SKSpriteNode {
         
         toSettingsButton = ActionNode(texture: SKTexture(imageNamed: "retryButtonOrange"))
         toSettingsButton.position = CGPoint(x: self.size.width/2 * 0.65, y: self.size.height/2 * 0.85 * -1)
-        toSettingsButton.zPosition = 6
+        toSettingsButton.zPosition = 7
         toSettingsButton.setScale(1)
         //toMainMenuButton.isHidden = false
         
@@ -69,7 +69,7 @@ class GameEndNode: SKSpriteNode {
         
         toMainMenuButton = ActionNode(texture: SKTexture(imageNamed: "closeButton"))
         toMainMenuButton.position = CGPoint(x: self.size.width/2 * 0.65 * -1, y: self.size.height/2 * 0.85 * -1)
-        toMainMenuButton.zPosition = 6
+        toMainMenuButton.zPosition = 7
         toMainMenuButton.setScale(1)
         toMainMenuButton.isHidden = false
         
@@ -95,10 +95,12 @@ class GameEndNode: SKSpriteNode {
         resultLabel = SKLabelNode(text: "ERGEBNIS")
         resultLabel?.fontName = Font.solutionText
         resultLabel?.fontSize = 60
+        resultLabel?.zPosition = 7
         resultLabel?.position = CGPoint(x: 0, y: 250)
         
         emojiLabel = SKLabelNode(text: "EMOJI")
         emojiLabel?.fontSize = 90
+        emojiLabel?.zPosition = 7
         emojiLabel?.position = CGPoint(x: 0, y: 135)
         
         statisticLabels.append(SKLabelNode(text: " Deine Punkte: "))
@@ -109,50 +111,32 @@ class GameEndNode: SKSpriteNode {
         statisticValueLabels.append(SKLabelNode(text: "\(game.ai.cards.count)"))
         statisticValueLabels.append(SKLabelNode(text: "\(game.rounds.curRound + 1)"))
         
-        statisticLabels[0].fontSize = 40
-        statisticLabels[1].fontSize = 40
-        statisticLabels[2].fontSize = 40
-        
-        statisticLabels[0].fontName = Font.buttonFont
-        statisticLabels[1].fontName = Font.buttonFont
-        statisticLabels[2].fontName = Font.buttonFont
-        
-        statisticValueLabels[0].fontName = Font.solutionText
-        statisticValueLabels[1].fontName = Font.solutionText
-        statisticValueLabels[2].fontName = Font.solutionText
-        
-        statisticValueLabels[0].fontSize = 55
-        statisticValueLabels[1].fontSize = 55
-        statisticValueLabels[2].fontSize = 55
-        
-        statisticLabels[0].position = CGPoint(x: -190, y: 0)
-        statisticLabels[1].position = CGPoint(x: -190, y: -60)
-        statisticLabels[2].position = CGPoint(x: -190, y: -120)
-        
-        statisticValueLabels[0].position = CGPoint(x: 160, y: 0)
-        statisticValueLabels[1].position = CGPoint(x: 160, y: -60)
-        statisticValueLabels[2].position = CGPoint(x: 160, y: -120)
-        
-        statisticValueLabels[0].horizontalAlignmentMode = .right
-        statisticValueLabels[1].horizontalAlignmentMode = .right
-        statisticValueLabels[2].horizontalAlignmentMode = .right
-        
-        statisticLabels[0].horizontalAlignmentMode = .left
-        statisticLabels[1].horizontalAlignmentMode = .left
-        statisticLabels[2].horizontalAlignmentMode = .left
-        
-        if(game.gameResult! == .playerWin){
+        for index in 0...2 {
+            statisticLabels[index].fontSize = 40
+            statisticLabels[index].fontName = Font.buttonFont
+            statisticLabels[index].position = CGPoint(x: -190, y: index * -60)
+            statisticLabels[index].horizontalAlignmentMode = .left
+            statisticLabels[index].zPosition = 7
+            statisticValueLabels[index].fontSize = 55
+            statisticValueLabels[index].fontName = Font.solutionText
+            statisticValueLabels[index].position = CGPoint(x: 160, y: index * -60)
+            statisticValueLabels[index].horizontalAlignmentMode = .right
+            statisticValueLabels[index].zPosition = 7
+        }
+   
+        if(game.gameResult! == .playerWin) {
             self.resultLabel?.text = "GEWONNEN"
             self.emojiLabel?.text = "😎"
-        }else if(game.gameResult! == .playerLose){
+        } else if(game.gameResult! == .playerLose) {
             self.resultLabel?.text = "VERLOREN"
             self.emojiLabel?.text = "😭"
-        }else if(game.gameResult! == .draw){
+        } else if(game.gameResult! == .draw) {
             self.resultLabel?.text = "UNENTSCHIEDEN"
             self.emojiLabel?.text = "😐"
             self.resultLabel?.fontSize = (self.resultLabel?.fontSize)! - 8
         }
-        var img = SKSpriteNode(texture: SKTexture(imageNamed: "iconQuartett"))
+        
+        let img = SKSpriteNode(texture: SKTexture(imageNamed: "iconQuartett"))
         img.setScale(0.5)
         img.position = CGPoint(x: 0, y: -35)
         
@@ -171,9 +155,7 @@ class GameEndNode: SKSpriteNode {
         cell.addChild(toSettingsButton)
         cell.addChild(toMainMenuButton)
         
-//        self.addChild(resultLabel!)
         self.addChild(cell)
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -181,7 +163,6 @@ class GameEndNode: SKSpriteNode {
     }
     
     func setUpCell(withImageNamed image: String, color: UIColor, blendFactor: CGFloat, position: CGPoint, anchorPoint: CGPoint) -> SKSpriteNode {
-        print("using image: \(image)")
         let cell = SKSpriteNode(texture: SKTexture(imageNamed: image))
         cell.color = Color.blue1
         cell.colorBlendFactor = blendFactor

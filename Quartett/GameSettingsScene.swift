@@ -156,7 +156,7 @@ class GameSettingsScene: SKScene {
         buttonArray[6].setUpGroup([buttonArray[6], buttonArray[7]])
         
         buttonArray[0].action = {
-            self.settings.maxRounds = 10
+            self.settings.maxRounds = 1
             self.didSelectRounds = true
             self.showStartButton()
         }
