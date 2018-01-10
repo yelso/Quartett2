@@ -15,63 +15,66 @@ class GameSettingsScene: SKScene {
     var startGameButton: ActionNode!
     var backButton: ActionNode!
     var settings: GameSettings = GameSettings()
+    var didSelectRounds = false
+    var didSelectDifficulty = false
+    var didSelectCardSet = false
     
     override func didMove(to view: SKView) {
         settings.difficulty = 1
         settings.cardSetName = "tuning"
-        settings.maxRounds = 1
+        settings.maxRounds = 10
 
         // Group Round Buttons
-        buttonArray.append(GroupActionNode(color: Color.blue1, size: CGSize(width: 110, height: 50)))
-        buttonArray.append(GroupActionNode(color: Color.blue2, size: CGSize(width: 110, height: 50)))
-        buttonArray.append(GroupActionNode(color: Color.blue3, size: CGSize(width: 110, height: 50)))
+        buttonArray.append(GroupActionNode(color: Color.blue1, size: CGSize(width: 105, height: 50)))
+        buttonArray.append(GroupActionNode(color: Color.blue2, size: CGSize(width: 105, height: 50)))
+        buttonArray.append(GroupActionNode(color: Color.blue3, size: CGSize(width: 105, height: 50)))
         
         
         //Group Difficulty Button
-        buttonArray.append(GroupActionNode(color: Color.lightOrange, size: CGSize(width: 110, height: 50)))
-        buttonArray.append(GroupActionNode(color: Color.middleOrange, size: CGSize(width: 110, height: 50)))
-        buttonArray.append(GroupActionNode(color: Color.darkOrange, size: CGSize(width: 110, height: 50)))
+        buttonArray.append(GroupActionNode(color: Color.lightOrange, size: CGSize(width: 105, height: 50)))
+        buttonArray.append(GroupActionNode(color: Color.middleOrange, size: CGSize(width: 105, height: 50)))
+        buttonArray.append(GroupActionNode(color: Color.darkOrange, size: CGSize(width: 105, height: 50)))
    
         //Group Cardset
-        buttonArray.append(GroupActionNode(color: Color.green1, size: CGSize(width: 110, height: 50)))
-        buttonArray.append(GroupActionNode(color: Color.green2, size: CGSize(width: 110, height: 50)))
+        buttonArray.append(GroupActionNode(color: Color.green1, size: CGSize(width: 105, height: 50)))
+        buttonArray.append(GroupActionNode(color: Color.green2, size: CGSize(width: 105, height: 50)))
     
         //Start Button
-        startGameButton = ActionNode(color: Color.background, size: CGSize(width: 110, height: 50))
-        let startLabel = SKLabelNode(text: "Start >")
-        startGameButton.position = CGPoint(x: 130, y: -320)
-        startLabel.fontSize = 25
-        //startLabel.verticalAlignmentMode = .center
-        startGameButton.addChild(startLabel)
+        startGameButton = ActionNode(texture: SKTexture(imageNamed: "nextButtonOrange"))// ActionNode(color: Color.background, size: CGSize(width: 110, height: 50))
+        startGameButton.position = CGPoint(x: self.size.width/2 * 0.65 , y: self.size.height/2 * 0.85 * -1)
+
+        startGameButton.setScale(0.01)
+        startGameButton.isUserInteractionEnabled = false
+        startGameButton.isHidden = true
         
         //Back Button
-        backButton = ActionNode(color: Color.background, size: CGSize(width: 110, height: 50))
-        let endLabel = SKLabelNode(text: "< Zurück")
-        backButton.position = CGPoint(x: -130, y: -320)
-        endLabel.fontSize = 25
-        //endLabel.verticalAlignmentMode = .center
-        backButton.addChild(endLabel)
+        backButton = ActionNode(texture: SKTexture(imageNamed: "closeButton")) //ActionNode(color: Color.background, size: CGSize(width: 110, height: 50))
+        backButton.position = CGPoint(x: self.size.width/2 * 0.65 * -1, y: self.size.height/2 * 0.85 * -1)
         
         
-        buttonArray[0].position = CGPoint(x: -125, y: 220)
-        buttonArray[1].position = CGPoint(x: -10, y: 220)
-        buttonArray[2].position = CGPoint(x: 105, y: 220)
+        buttonArray[0].position = CGPoint(x: -110, y: 220)
+        buttonArray[1].position = CGPoint(x: 0, y: 220)
+        buttonArray[2].position = CGPoint(x: 110, y: 220)
         
-        buttonArray[3].position = CGPoint(x: -125, y: 80)
-        buttonArray[4].position = CGPoint(x: -10, y: 80)
-        buttonArray[5].position = CGPoint(x: 105, y: 80)
+        buttonArray[3].position = CGPoint(x: -110, y: 80)
+        buttonArray[4].position = CGPoint(x: 0, y: 80)
+        buttonArray[5].position = CGPoint(x: 110, y: 80)
         
-        buttonArray[6].position = CGPoint(x: -125, y: -60)
-        buttonArray[7].position = CGPoint(x: -10, y: -60)
+        buttonArray[6].position = CGPoint(x: -110, y: -60)
+        buttonArray[7].position = CGPoint(x: 0, y: -60)
         
         //Labels
         let roundsLabel =  SKLabelNode(text: "Runden")
         let difficultyLabel =  SKLabelNode(text: "Schwierigkeit")
         let cardSetLabel = SKLabelNode(text: "Kartenset")
         
-        roundsLabel.position = CGPoint(x: -180, y: 260)
-        difficultyLabel.position = CGPoint(x: -180, y: 120)
-        cardSetLabel.position = CGPoint(x: -180, y:-20)
+        roundsLabel.fontName = Font.buttonFont
+        difficultyLabel.fontName = Font.buttonFont
+        cardSetLabel.fontName = Font.buttonFont
+        
+        roundsLabel.position = CGPoint(x: -160, y: 260)
+        difficultyLabel.position = CGPoint(x: -160, y: 120)
+        cardSetLabel.position = CGPoint(x: -160, y:-20)
         
         roundsLabel.horizontalAlignmentMode = .left
         difficultyLabel.horizontalAlignmentMode = .left
@@ -82,9 +85,13 @@ class GameSettingsScene: SKScene {
         let rounds20 =  SKLabelNode(text: "20")
         let roundsInf =  SKLabelNode(text: "∞")
         
+        rounds10.fontName = Font.buttonFont
+        rounds20.fontName = Font.buttonFont
+        roundsInf.fontName = Font.buttonFont
+        
         rounds10.fontSize = 30
         rounds20.fontSize = 30
-        roundsInf.fontSize = 30
+        roundsInf.fontSize = 40
 
         rounds10.verticalAlignmentMode = .center
         rounds20.verticalAlignmentMode = .center
@@ -103,6 +110,10 @@ class GameSettingsScene: SKScene {
         difficulttyM.fontSize = 25
         difficulttyH.fontSize = 25
         
+        difficulttyE.fontName = Font.buttonFont
+        difficulttyM.fontName = Font.buttonFont
+        difficulttyH.fontName = Font.buttonFont
+        
         difficulttyE.verticalAlignmentMode = .center
         difficulttyM.verticalAlignmentMode = .center
         difficulttyH.verticalAlignmentMode = .center
@@ -112,11 +123,14 @@ class GameSettingsScene: SKScene {
         buttonArray[5].addChild(difficulttyH)
         
         //Cardset Button Text
-        let cardSet1 = SKLabelNode(text: CardSets.bikes.rawValue)
-        let cardSet2 = SKLabelNode(text: CardSets.tuning.rawValue)
+        let cardSet1 = SKLabelNode(text: CardSets.tuning.rawValue)
+        let cardSet2 = SKLabelNode(text: CardSets.bikes.rawValue)
         
-        cardSet1.fontSize = 25
-        cardSet2.fontSize = 25
+        cardSet1.fontSize = 30
+        cardSet2.fontSize = 30
+        
+        cardSet1.fontName = Font.buttonFont
+        cardSet2.fontName = Font.buttonFont
         
         cardSet1.verticalAlignmentMode = .center
         cardSet2.verticalAlignmentMode = .center
@@ -130,44 +144,54 @@ class GameSettingsScene: SKScene {
         self.addChild(cardSetLabel)
         self.addChild(startGameButton)
         self.addChild(backButton)
-        self.addChild(buttonArray[0])
-        self.addChild(buttonArray[1])
-        self.addChild(buttonArray[2])
-        self.addChild(buttonArray[3])
-        self.addChild(buttonArray[4])
-        self.addChild(buttonArray[5])
-        self.addChild(buttonArray[6])
-        self.addChild(buttonArray[7])
-        
+        for node in buttonArray {
+            self.addChild(node)
+        }
         
         buttonArray[0].setUpGroup([buttonArray[0], buttonArray[1], buttonArray[2]])
         buttonArray[3].setUpGroup([buttonArray[3], buttonArray[4],buttonArray[5]])
         buttonArray[6].setUpGroup([buttonArray[6], buttonArray[7]])
         
         buttonArray[0].action = {
-            self.settings.maxRounds = 10
+            self.settings.maxRounds = 1
+            self.didSelectRounds = true
+            self.showStartButton()
         }
         buttonArray[1].action = {
             self.settings.maxRounds = 20
+            self.didSelectRounds = true
+            self.showStartButton()
         }
         buttonArray[2].action = {
             self.settings.maxRounds = -1
+            self.didSelectRounds = true
+            self.showStartButton()
         }
         
         buttonArray[3].action = {
             self.settings.difficulty = 0
+            self.didSelectDifficulty = true
+            self.showStartButton()
         }
         buttonArray[4].action = {
             self.settings.difficulty = 1
+            self.didSelectDifficulty = true
+            self.showStartButton()
         }
         buttonArray[5].action = {
             self.settings.difficulty = 2
+            self.didSelectDifficulty = true
+            self.showStartButton()
         }
         buttonArray[6].action = {
             self.settings.cardSetName = CardSets.tuning.rawValue
+            self.didSelectCardSet = true
+            self.showStartButton()
         }
         buttonArray[7].action = {
             self.settings.cardSetName = CardSets.bikes.rawValue
+            self.didSelectCardSet = true
+            self.showStartButton()
         }
         
         for index in 0..<buttonArray.count {
@@ -190,7 +214,6 @@ class GameSettingsScene: SKScene {
                 for member in self.buttonArray[index].group {
                     member.colorBlendFactor = 0
                     member.color = UIColor.gray
-                    
                 }
             }
         }
@@ -207,9 +230,22 @@ class GameSettingsScene: SKScene {
         }
         backButton.action = {
             if let scene = SKScene(fileNamed: "MainMenuScene") as? MainMenuScene {
+                scene.scaleMode = .aspectFill
                 let transition = SKTransition.push(with: .right, duration: 0.5)
                 view.presentScene(scene, transition: transition)
             }
+        }
+    }
+    
+    func showStartButton() {
+        if didSelectRounds && didSelectDifficulty && didSelectCardSet {
+            guard startGameButton.isHidden else { return }
+            startGameButton.isHidden = false
+            // animation
+            let scaleUpAction = SKAction.scale(to: 1.2, duration: 0.15)
+            let scaleNormalAction = SKAction.scale(to: 1.0, duration: 0.15)
+            let scaleDownAction = SKAction.scale(to: 0.8, duration: 0.15)
+            startGameButton.run(SKAction.sequence([scaleUpAction, scaleDownAction, scaleNormalAction, SKAction.run({self.startGameButton.isUserInteractionEnabled = true})]))
         }
     }
     

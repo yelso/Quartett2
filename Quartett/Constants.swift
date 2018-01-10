@@ -41,9 +41,28 @@ struct Color {
     
 }
 
+struct Scale {
+    static var widthMultiplier: Float {
+        if UIScreen.main.bounds.height != 812 { // all but iPhone X
+            return 0.65
+        } else {
+            return 0.6
+        }
+    }
+    
+    static var heightMultiplier: Float {
+        if UIScreen.main.bounds.height != 812 { // all but iPhone X
+            return 0.85
+        } else {
+            return 0.8
+        }
+    }
+}
+
 struct Font {
     static let cardTitle = "Helvetica Neue Medium"
     static let cardText = "Helvetica Neue Light"
+    static let buttonFont = "Helvetica Neue Thin"
     static let solutionText = "Georgia"
     static let solutionText2 = "Helvetica Neue Light Italic"
 }

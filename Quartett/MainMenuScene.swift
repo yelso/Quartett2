@@ -27,42 +27,41 @@ class MainMenuScene: SKScene {
         
         
         logo = SKSpriteNode(texture: SKTexture(imageNamed: "logo_bunt"))
-        logo?.position = CGPoint(x: 0, y: 180)
+        logo?.position = CGPoint(x: 0, y: 170)
         self.addChild(logo!)
         
         let startLabel = SKLabelNode(text: "Start")
         startButton.position = CGPoint(x: 0, y: 20)
         startLabel.fontSize = 35
+        startLabel.fontName = Font.buttonFont
         startLabel.verticalAlignmentMode = .center
-        //startLabel.fontColor = Color.background
         startButton.addChild(startLabel)
         self.addChild(startButton)
         
         let cardSetLabel = SKLabelNode(text: "Karten")
         cardSetButton.position = CGPoint(x: 0, y: -60)
         cardSetLabel.fontSize = 35
+        cardSetLabel.fontName = Font.buttonFont
         cardSetLabel.verticalAlignmentMode = .center
-        //cardSetLabel.fontColor = Color.background
         cardSetButton.addChild(cardSetLabel)
         self.addChild(cardSetButton)
         
         let rulesLabel = SKLabelNode(text: "Regeln")
         rulesButton.position = CGPoint(x: 0, y: -140)
         rulesLabel.fontSize = 35
+        rulesLabel.fontName = Font.buttonFont
         rulesLabel.verticalAlignmentMode = .center
-        //rulesLabel.fontColor = Color.background
         rulesButton.addChild(rulesLabel)
         self.addChild(rulesButton)
         
         startButton.action =  {
             if let scene = SKScene(fileNamed: "GameSettingsScene") {
                 // Set the scale mode to scale to fit the window
-                scene.scaleMode = .resizeFill
+                scene.scaleMode = .aspectFill
                 let transition = SKTransition.push(with: .left, duration: 0.5)
                 // Present the scene
                 view.presentScene(scene, transition: transition)
             }
-            
         }
         cardSetButton.action = {
             if let scene = SKScene(fileNamed: "CardSetOverviewScene") {
