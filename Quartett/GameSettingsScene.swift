@@ -20,9 +20,6 @@ class GameSettingsScene: SKScene {
     var didSelectCardSet = false
     
     override func didMove(to view: SKView) {
-        if UIScreen.main.bounds.height == 812 { // all but iPhone X
-            self.setScale(0.85)
-        }
         settings.difficulty = 1
         settings.cardSetName = "tuning"
         settings.maxRounds = 10
@@ -156,7 +153,7 @@ class GameSettingsScene: SKScene {
         buttonArray[6].setUpGroup([buttonArray[6], buttonArray[7]])
         
         buttonArray[0].action = {
-            self.settings.maxRounds = 10
+            self.settings.maxRounds = 1
             self.didSelectRounds = true
             self.showStartButton()
         }

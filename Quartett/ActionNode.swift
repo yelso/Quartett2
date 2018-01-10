@@ -30,11 +30,11 @@ class ActionNode: SKSpriteNode {
         self.initialColor = UIColor.clear
     }
     
-    var action: () -> Void = { print("No action set") }
-    var onTouch: () -> Void = { print("no touch set") }
-    var onTouchEnd: () -> Void = { print("no touch end set") }
-    var onTouchEndInside: () -> Void = { print("no on touch end inside set") }
-    var onReset: () -> Void = { print("No on reset set") }
+    var action: () -> Void = { }
+    var onTouch: () -> Void = { }
+    var onTouchEnd: () -> Void = { }
+    var onTouchEndInside: () -> Void = {  }
+    var onReset: () -> Void = { }
     
     var customAnimationEnabled = false
     var isHighlightButton = false

@@ -32,7 +32,11 @@ class GameScene: SKScene, CardDelegate {
         selectButton.setScale(0.01)
         selectButton.isHidden = true
         selectButton.action = {
-            self.calculateResultAndShowCompareNode(withIndex: self.selectedIndex)
+            self.hideSelectButton()
+            Timer.scheduledTimer(withTimeInterval: 0.4, repeats: false, block: { (_) in
+                self.calculateResultAndShowCompareNode(withIndex: self.selectedIndex)
+
+            })
         }
         cardNode = CardNode(game: game!, color: .clear, size: self.size, position: CGPoint(x: 0, y: 20))
         cardNode?.delegate = self
@@ -92,9 +96,7 @@ class GameScene: SKScene, CardDelegate {
             cardNode!.update(game!)
             pointsNode!.update(game!)
         } else {
-            // TODO
             gameEndNode = GameEndNode(texture: nil, color: Color.background, size: self.size, game: game!)
-        
             gameEndNode!.zPosition = 5
             gameEndNode!.position = CGPoint(x: 0, y: 0)
             self.addChild(gameEndNode!)
@@ -110,7 +112,6 @@ class GameScene: SKScene, CardDelegate {
     
     func calculateResultAndShowCompareNode(withIndex index: Int) {
         cardNode?.setInteractionEnabledTo(false) // todo fix exception when playing too fast
-        self.hideSelectButton()
         let result = game!.calculateRoundResult(forSelectedIndex: index)
         self.cardCompareNode!.position = CGPoint(x: 0, y: 0)
         self.cardCompareNode!.updateDetail(withResult: result, pCard: self.game!.getCurPCard(), aiCard: self.game!.getCurAICard(), game: self.game!, selectedIndex: index)
@@ -119,6 +120,4 @@ class GameScene: SKScene, CardDelegate {
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
     }
-    
-    
 }
