@@ -12,9 +12,9 @@ import SpriteKit
 class GroupActionNode: ActionNode {
     
     var group = [GroupActionNode]()
-    var onTouchGroup: () -> Void = { print("no group touch set")}
-    var onTouchEndGroup: () -> Void = { print("no group touch end set")}
-    var onTouchEndInsideGroup: () -> Void = { print("no group touch end inside set")}
+    var onTouchGroup: () -> Void = { }
+    var onTouchEndGroup: () -> Void = { }
+    var onTouchEndInsideGroup: () -> Void = { }
     
     override func handleTouch() {
         super.handleTouch()

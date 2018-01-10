@@ -16,26 +16,22 @@ class RulesScene: SKScene {
     var ruleLabel: SKLabelNode!
     
     override func didMove(to view: SKView) {
-        backButton = ActionNode(color: Color.background, size: CGSize(width: 150, height: 50))
-        textField = SKLabelNode(text: "Es werden Attribute verglichen,\ndas stärkere Attribut gewinnt. \nEs wird gegen den PC gespielt. \nDabei ist immer nur die obere Karte sichtbar. \nDer Gewinner der dieser Runde,\nbeginnt die nächste Runde.\nBei Gelichstand landen die Karten \nauf dem Stichhaufen (XX-SH-XX). \nGewonnen hat, wer alle Karten \nbesitzt oder nach Ablauf der Rundenzahl\ndie meisten Karten besitzt.")
+        textField = SKLabelNode(text: "Es werden Attribute verglichen,\ndas stärkere Attribut gewinnt. \nEs wird gegen den PC gespielt. \nDabei ist immer nur die obere Karte sichtbar. \nDer Gewinner dieser Runde,\nbeginnt die nächste Runde.\nBei Gleichstand landen die Karten \nauf dem Stichhaufen (XX-SH-XX). \nGewonnen hat, wer alle Karten \noder nach Ablauf der Rundenzahl\ndie meisten Karten besitzt.")
         textField.fontSize = 17
         textField.numberOfLines = 0
         textField.lineBreakMode = .byCharWrapping
-        textField.position = CGPoint(x: -180, y: -30)
+        textField.position = CGPoint(x: -160, y: 10)
         textField.horizontalAlignmentMode = .left
+        textField.fontName = Font.buttonFont
         
         ruleLabel = SKLabelNode(text: "Regeln")
-        ruleLabel.position = CGPoint(x: -180, y: 220)
+        ruleLabel.position = CGPoint(x: -160, y: 260)
         ruleLabel.horizontalAlignmentMode = .left
-        
-        
+        ruleLabel.fontName = Font.buttonFont
         
         //Back Button
-        let endLabel = SKLabelNode(text: "< Zurück")
-        backButton.position = CGPoint(x: -130, y: -320)
-        endLabel.fontSize = 25
-        endLabel.verticalAlignmentMode = .center
-        backButton.addChild(endLabel)
+        backButton = ActionNode(texture: SKTexture(imageNamed: "backButtonOrange"))
+        backButton.position = CGPoint(x: self.size.width/2 * 0.65 * -1, y: self.size.height/2 * 0.85 * -1)
         
         self.addChild(textField)
         self.addChild(backButton)
