@@ -32,7 +32,7 @@ class GameSettingsScene: SKScene {
         
         //Group Difficulty Button
         buttonArray.append(GroupActionNode(color: Color.lightOrange, size: CGSize(width: 105, height: 50)))
-        buttonArray.append(GroupActionNode(color: Color.middleOrange, size: CGSize(width: 105, height: 50)))
+        buttonArray.append(GroupActionNode(color: Color.softOrange, size: CGSize(width: 105, height: 50)))
         buttonArray.append(GroupActionNode(color: Color.darkOrange, size: CGSize(width: 105, height: 50)))
    
         //Group Cardset
@@ -40,7 +40,7 @@ class GameSettingsScene: SKScene {
         buttonArray.append(GroupActionNode(color: Color.green2, size: CGSize(width: 105, height: 50)))
     
         //Start Button
-        startGameButton = ActionNode(texture: SKTexture(imageNamed: "nextButtonOrange"))// ActionNode(color: Color.background, size: CGSize(width: 110, height: 50))
+        startGameButton = ActionNode(texture: SKTexture(imageNamed: "nextButtonOrange"))
         startGameButton.position = CGPoint(x: self.size.width/2 * 0.65 , y: self.size.height/2 * 0.85 * -1)
 
         startGameButton.setScale(0.01)
@@ -48,7 +48,7 @@ class GameSettingsScene: SKScene {
         startGameButton.isHidden = true
         
         //Back Button
-        backButton = ActionNode(texture: SKTexture(imageNamed: "closeButton")) //ActionNode(color: Color.background, size: CGSize(width: 110, height: 50))
+        backButton = ActionNode(texture: SKTexture(imageNamed: "backButtonOrange")) 
         backButton.position = CGPoint(x: self.size.width/2 * 0.65 * -1, y: self.size.height/2 * 0.85 * -1)
         
         

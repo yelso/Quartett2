@@ -43,12 +43,12 @@ class CardDetailNode: SKSpriteNode {
     }
     
     func setUpChildren(for cardSet: CardSet) {
-        self.amount = cardSet.cards[0].values.count
+        self.amount = cardSet.cards![0].values.count
         self.height = CGFloat(((amount + 1) * 42) + 195) // property amounts + cell top + imageHeight/2
         self.size = CGSize(width: size.width, height: height)
         let cell = SKSpriteNode(texture: SKTexture(imageNamed: "cellTop"))
         cell.position = CGPoint(x:0, y: height/2 - 20) // 20 is half of cells height
-        let label = SKLabelNode(text: cardSet.cards[0].name)
+        let label = SKLabelNode(text: cardSet.cards![0].name)
         label.horizontalAlignmentMode = .center
         label.verticalAlignmentMode = .center
         label.fontSize = 17
@@ -56,7 +56,7 @@ class CardDetailNode: SKSpriteNode {
         label.fontName = Font.cardTitle
         titleLabel = label
         
-        img = SKSpriteNode(texture: SKTexture(imageNamed: (cardSet.name.lowercased() + cardSet.cards[0].getImageNameWithoutSuffix(atIndex: 0))))
+        img = SKSpriteNode(texture: SKTexture(imageNamed: (cardSet.name.lowercased() + cardSet.cards![0].getImageNameWithoutSuffix(atIndex: 0))))
         img!.scale(to: CGSize(width: 300, height: 195))
         img!.position = CGPoint(x: 0, y: height/2 - 139.5) // 195/2 +40 (cell height) + 2 spacer
         
@@ -90,7 +90,7 @@ class CardDetailNode: SKSpriteNode {
     }
     
     func setUpLabels(for cell: SKSpriteNode, cardSet: CardSet, index: Int) -> (name: SKLabelNode, value: SKLabelNode) {
-        let propertyNameAndValue = getPropertyNameAndValue(forIndex: index, cardSet, cardSet.cards[0])
+        let propertyNameAndValue = getPropertyNameAndValue(forIndex: index, cardSet, cardSet.cards![0])
         let nameLabel = SKLabelNode(text: propertyNameAndValue.name)
         nameLabel.position = CGPoint(x: (cell.size.width/2) * 0.95 * -1 , y: 0)
         nameLabel.horizontalAlignmentMode = .left

@@ -9,8 +9,9 @@
 import Foundation
 
 class CardSet : Codable {
+    var id: Int?
     let name: String
-    let cards: [Card]
+    var cards: [Card]?
     private let description: Description?
     let properties: [Property]
     

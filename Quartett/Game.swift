@@ -33,7 +33,7 @@ class Game {
         }
         self.cardSet = cardSet
         
-        let cards = GKRandomSource.sharedRandom().arrayByShufflingObjects(in: cardSet.cards) as! [Card]
+        let cards = GKRandomSource.sharedRandom().arrayByShufflingObjects(in: cardSet.cards!) as! [Card]
         for index in 0..<cards.count {
             if (index+1)%2 == 0 {
                 player.cards.append(cards[index] )
@@ -41,7 +41,7 @@ class Game {
                 ai.cards.append(cards[index] )
             }
         }
-        selectNextCard()
+        let _ = selectNextCard()
     }
     //DRAW???
     func selectNextCard() -> Bool {
