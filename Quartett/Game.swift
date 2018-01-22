@@ -27,7 +27,7 @@ class Game {
     }
     
     func loadCards() {
-        guard let cardSet = CardSets.decode(resource: (CardSets(rawValue: settings!.cardSetName))!) else {
+        guard let cardSet = CardSets.decode(resource: settings!.cardSetName) else {
             print ("ERROR LOADING CARDSET \(settings!.cardSetName)")
             return
         }

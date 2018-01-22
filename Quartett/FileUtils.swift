@@ -10,12 +10,11 @@ import Foundation
 
 class FileUtils {
     
-    static func filesWithExtension() {
+    static func filesWithExtension() -> [String] {
         let enumerator = FileManager.default.enumerator(atPath: Bundle.main.bundlePath)
         let filePaths = enumerator?.allObjects as! [String]
         let txtFilePaths = filePaths.filter{$0.contains(".json")}
-        for txtFilePath in txtFilePaths {
-            print(txtFilePath)
-        }
+        return txtFilePaths
     }
 }
+
