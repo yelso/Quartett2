@@ -24,6 +24,12 @@ class ActionNode: SKSpriteNode {
         self.initialColor = color
     }
     
+    override init(texture: SKTexture?, color: UIColor, size: CGSize) {
+        super.init(texture: texture, color: color, size: size)
+        self.isUserInteractionEnabled = false
+        
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.isUserInteractionEnabled = true
