@@ -13,6 +13,7 @@ class GameSettingsScene: SKScene {
 
     var buttonArray = [GroupActionNode]()
     var startGameButton: ActionNode!
+    var buttonPlus: ActionNode!
     var backButton: ActionNode!
     var settings: GameSettings = GameSettings()
     var didSelectRounds = false
@@ -34,10 +35,6 @@ class GameSettingsScene: SKScene {
         buttonArray.append(GroupActionNode(color: Color.lightOrange, size: CGSize(width: 105, height: 50)))
         buttonArray.append(GroupActionNode(color: Color.softOrange, size: CGSize(width: 105, height: 50)))
         buttonArray.append(GroupActionNode(color: Color.darkOrange, size: CGSize(width: 105, height: 50)))
-   
-        //Group Cardset
-        buttonArray.append(GroupActionNode(color: Color.green1, size: CGSize(width: 105, height: 50)))
-        buttonArray.append(GroupActionNode(color: Color.green2, size: CGSize(width: 105, height: 50)))
     
         //Start Button
         startGameButton = ActionNode(texture: SKTexture(imageNamed: "nextButtonOrange"))
@@ -59,10 +56,7 @@ class GameSettingsScene: SKScene {
         buttonArray[3].position = CGPoint(x: -110, y: 80)
         buttonArray[4].position = CGPoint(x: 0, y: 80)
         buttonArray[5].position = CGPoint(x: 110, y: 80)
-        
-        buttonArray[6].position = CGPoint(x: -110, y: -60)
-        buttonArray[7].position = CGPoint(x: 0, y: -60)
-        
+   
         //Labels
         let roundsLabel =  SKLabelNode(text: "Runden")
         let difficultyLabel =  SKLabelNode(text: "Schwierigkeit")
@@ -122,23 +116,41 @@ class GameSettingsScene: SKScene {
         buttonArray[4].addChild(difficulttyM)
         buttonArray[5].addChild(difficulttyH)
         
-        //Cardset Button Text
-        let cardSet1 = SKLabelNode(text: CardSets.tuning.rawValue)
-        let cardSet2 = SKLabelNode(text: CardSets.bikes.rawValue)
+        //CardSetButtons 
+        let cardSetNamesArray = FileUtils.filesWithExtension()
+        let multi  = (1-0.2)/CGFloat(cardSetNamesArray.count)
         
-        cardSet1.fontSize = 30
-        cardSet2.fontSize = 30
+        var cardSetButtonArray = [GroupActionNode]()
+        for index in 0..<cardSetNamesArray.count {
+            let green = UIColor(red: 0.01, green: 0.8-(CGFloat(index) * multi) + 0.2, blue: 0.05, alpha: 1.0)
+            let button = GroupActionNode(color: green, size: CGSize(width: 105, height: 50))
+            button.position = CGPoint(x: -110 + index%3 * 110, y: -60 - Int(index/3) * 55)
+            
+            let cardLabel = SKLabelNode(text: "\(cardSetNamesArray[index].dropLast(5))")
+            cardLabel.verticalAlignmentMode = .center
+            cardLabel.fontName = Font.buttonFont
+            button.addChild(cardLabel)
+            
+            cardSetButtonArray.append(button)
+            buttonArray.append(button)
+            
+            button.action = {
+                self.settings.cardSetName = "\(cardSetNamesArray[index].dropLast(5))"
+                self.didSelectCardSet = true
+                self.showStartButton()
+            }
+        }
         
-        cardSet1.fontName = Font.buttonFont
-        cardSet2.fontName = Font.buttonFont
-        
-        cardSet1.verticalAlignmentMode = .center
-        cardSet2.verticalAlignmentMode = .center
-        
-        buttonArray[6].addChild(cardSet1)
-        buttonArray[7].addChild(cardSet2)
+        buttonPlus = ActionNode(color: UIColor(red: 0.01, green: 0.8-(CGFloat(cardSetButtonArray.count) * multi) + 0.2, blue: 0.05, alpha: 1.0), size: CGSize(width: 105, height: 50))
+        buttonPlus.position = CGPoint(x: -110 + (cardSetButtonArray.count)%3 * 110, y: -60 - Int((cardSetButtonArray.count)/3) * 55)
+        let cardLabel = SKLabelNode(text: "+")
+        cardLabel.verticalAlignmentMode = .center
+        cardLabel.fontName = Font.buttonFont
+        buttonPlus.addChild(cardLabel)
+    
         
         //Add Buttons
+        self.addChild(buttonPlus)
         self.addChild(roundsLabel)
         self.addChild(difficultyLabel)
         self.addChild(cardSetLabel)
@@ -150,7 +162,7 @@ class GameSettingsScene: SKScene {
         
         buttonArray[0].setUpGroup([buttonArray[0], buttonArray[1], buttonArray[2]])
         buttonArray[3].setUpGroup([buttonArray[3], buttonArray[4],buttonArray[5]])
-        buttonArray[6].setUpGroup([buttonArray[6], buttonArray[7]])
+        buttonArray[6].setUpGroup(cardSetButtonArray)
         
         buttonArray[0].action = {
             self.settings.maxRounds = 10
@@ -183,15 +195,15 @@ class GameSettingsScene: SKScene {
             self.didSelectDifficulty = true
             self.showStartButton()
         }
-        buttonArray[6].action = {
-            self.settings.cardSetName = CardSets.tuning.rawValue
-            self.didSelectCardSet = true
-            self.showStartButton()
-        }
-        buttonArray[7].action = {
-            self.settings.cardSetName = CardSets.bikes.rawValue
-            self.didSelectCardSet = true
-            self.showStartButton()
+        buttonPlus.action = {
+            if let scene = SKScene(fileNamed: "StoreScene") as? StoreScene {
+                // Set the scale mode to scale to fit the window
+                scene.scaleMode = .aspectFill
+                let transition = SKTransition.push(with: .left, duration: 0.5)
+                scene.origin = "GameSettingScene"
+                // Present the scene
+                view.presentScene(scene, transition: transition)
+            }
         }
         
         for index in 0..<buttonArray.count {

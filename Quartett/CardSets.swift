@@ -12,8 +12,8 @@ enum CardSets: String {
     case tuning = "tuning"
     case bikes = "bikes"
     
-    static func decode(resource name: CardSets) -> CardSet? {
-        if let path = Bundle.main.path(forResource: name.rawValue, ofType: "json") {
+    static func decode(resource name: String) -> CardSet? {
+        if let path = Bundle.main.path(forResource: name, ofType: "json") {
             let jsonData = try? Data(contentsOf: URL(fileURLWithPath: path), options: .alwaysMapped)
             let decoder = JSONDecoder()
             var cardSet: CardSet?
