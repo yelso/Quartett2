@@ -11,13 +11,14 @@ import Foundation
 struct Deck: Codable {
     var id: Int?
     var name: String?
+    var image: String?
 }
 
 struct Card2: Codable {
     var id: Int?
-    //var deck: Int?
+    var deck: Int?
     var name: String?
-    //var order: Int?
+    var order: Int?
     var attributes: [Attribut]?
     var image: String?
     

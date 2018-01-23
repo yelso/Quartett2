@@ -9,6 +9,6 @@
 import Foundation
 
 struct Description: Codable {
-    
-    private let test: String?
+        
+    init() {}
 }
