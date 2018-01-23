@@ -18,7 +18,6 @@ class StoreScene: SKScene, DownloadDelegate {
     //var images = [Int: [Image]]()
     var downloads = [CardDownload]()
     
-    
     override func didMove(to view: SKView) {
         let backButton = ActionNode(texture: SKTexture(imageNamed: "backButtonOrange"))
         backButton.position = CGPoint(x: self.size.width/2 * 0.65 * -1, y: self.size.height/2 * 0.85 * -1)
