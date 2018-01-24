@@ -12,4 +12,9 @@ struct Value: Codable {
     
     let value: String
     let propertyId: String
+    
+    init (value: String, propertyId: String) {
+        self.value = value
+        self.propertyId = propertyId
+    }
 }

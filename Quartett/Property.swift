@@ -13,7 +13,7 @@ struct Property : Codable {
     let text: String?
     let compare: String?
     let id: String?
-    var unit: String
+    var unit: String?
     private let precision: String?
     
     init(withText text: String, compare: String, id: String, unit: String, precision: String) {
@@ -25,10 +25,11 @@ struct Property : Codable {
     }
     
     func getStylizedUnit() -> String {
-        if unit.starts(with: "1") {
-            return "\(self.unit.dropFirst())"
+        guard unit != nil else { return ""}
+        if (unit!.starts(with: "1")) {
+            return "\(self.unit!.dropFirst())"
         } else {
-            return " \(unit)"
+            return " \(unit!)"
         }
     }
 }

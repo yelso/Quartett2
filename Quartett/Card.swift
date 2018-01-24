@@ -12,8 +12,8 @@ struct Card: Codable {
     
     let images : [Image]
     let values : [Value]
-    let id : String
-    let name : String
+    let id: String
+    let name: String
     private let description: Description?
     
     init(withId id: String, name: String, description: Description?, values: [Value], images: [Image]) {

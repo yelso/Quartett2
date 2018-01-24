@@ -11,26 +11,51 @@ import SpriteKit
 
 class CardSetOverviewScene: SKScene {
    
-    var cardSetButton1: ActionNode!
-    var cardSetButton2: ActionNode!
+    var buttonPlus: ActionNode!
     var backButton: ActionNode!
+    
+    var buttonArrary = [GroupActionNode]()
     
     override func didMove(to view: SKView) {
         
-        cardSetButton1 = ActionNode(color: Color.green1, size: CGSize(width: 100, height: 50))
-        cardSetButton2 = ActionNode(color: Color.green2, size: CGSize(width: 100, height: 50))
+        let cardSetNamesArray = FileUtils.getFilesWith(suffix: ".json")
+        for cr in cardSetNamesArray {
+            print(cr)
+        }
+        let multi  = (0.65-0.2)/CGFloat(cardSetNamesArray.count)
+        for index in 0..<cardSetNamesArray.count {
+            let green = UIColor(red: 0.01, green: 0.65-(CGFloat(index) * multi) + 0.2, blue: 0.05, alpha: 1.0)
+            let button = GroupActionNode(color: green, size: CGSize(width: 158, height: 50))
+            button.position = CGPoint(x: -84 + index%2 * 163, y: 220 - Int(index/2) * 55)
+       
+            let cardLabel = SKLabelNode(text: "\(cardSetNamesArray[index].dropLast(5))")
+            cardLabel.verticalAlignmentMode = .center
+            cardLabel.fontName = Font.buttonFont
+            button.addChild(cardLabel)
+            
+            buttonArrary.append(button)
+            self.addChild(button)
+            
+            button.action = {
+                if let scene = SKScene(fileNamed: "CardSetOverviewDetailScene") as? CardSetOverviewDetailScene {
+                    // Set the scale mode to scale to fit the window
+                    scene.cardSet = FileUtils.loadCardSet(named: "\(cardSetNamesArray[index].dropLast(5))")
+                    scene.scaleMode = .aspectFill
+                    let transition = SKTransition.push(with: .left, duration: 0.5)
+                    // Present the scene
+                    view.presentScene(scene, transition: transition)
+                }
+            }
+        }
         
-        cardSetButton1.position = CGPoint(x: -110, y: 220)
-        cardSetButton2.position = CGPoint(x: 0, y: 220)
+        buttonPlus = ActionNode(color: UIColor(red: 0.01, green: 0.65-(CGFloat(buttonArrary.count) * multi) + 0.2, blue: 0.05, alpha: 1.0), size: CGSize(width: 158, height: 50))
+        buttonPlus.position = CGPoint(x: -84 + (buttonArrary.count)%2 * 163, y: 220 - Int((buttonArrary.count)/2) * 55)
+        let cardLabel = SKLabelNode(text: "+")
+        cardLabel.verticalAlignmentMode = .center
+        cardLabel.fontName = Font.buttonFont
+        buttonPlus.addChild(cardLabel)
         
-        let cardLabel1 = SKLabelNode(text: CardSets.tuning.rawValue)
-        let cardLabel2 = SKLabelNode(text: CardSets.bikes.rawValue)
-        cardLabel1.verticalAlignmentMode = .center
-        cardLabel2.verticalAlignmentMode = .center
-        cardLabel1.fontName = Font.buttonFont
-        cardLabel2.fontName = Font.buttonFont
-        cardSetButton1.addChild(cardLabel1)
-        cardSetButton2.addChild(cardLabel2)
+        self.addChild(buttonPlus)
         
         let cardSetLabel = SKLabelNode(text: "Kartenset")
         cardSetLabel.position = CGPoint(x: -160, y: 260)
@@ -42,32 +67,21 @@ class CardSetOverviewScene: SKScene {
         backButton.position = CGPoint(x: self.size.width/2 * 0.65 * -1, y: self.size.height/2 * 0.85 * -1)        
         backButton.action = {
             if let scene = SKScene(fileNamed: "MainMenuScene") as? MainMenuScene {
+                scene.scaleMode = .aspectFill
                 let transition = SKTransition.push(with: .right, duration: 0.5)
                 view.presentScene(scene, transition: transition)
             }
         }
         
         self.addChild(backButton)
-        self.addChild(cardSetButton1)
-        self.addChild(cardSetButton2)
         self.addChild(cardSetLabel)
- 
-        cardSetButton1.action = {
-            if let scene = SKScene(fileNamed: "CardSetOverviewDetailScene") as? CardSetOverviewDetailScene {
+        
+        buttonPlus.action = {
+            if let scene = SKScene(fileNamed: "StoreScene") as? StoreScene {
                 // Set the scale mode to scale to fit the window
-                scene.cardSet = CardSets.decode(resource: CardSets.tuning)
                 scene.scaleMode = .aspectFill
                 let transition = SKTransition.push(with: .left, duration: 0.5)
-                // Present the scene
-                view.presentScene(scene, transition: transition)
-            }
-        }
-        cardSetButton2.action = {
-            if let scene = SKScene(fileNamed: "CardSetOverviewDetailScene") as? CardSetOverviewDetailScene {
-                // Set the scale mode to scale to fit the window
-                scene.cardSet = CardSets.decode(resource: CardSets.bikes)
-                scene.scaleMode = .aspectFill
-                let transition = SKTransition.push(with: .left, duration: 0.5)
+                scene.origin = "CardSetOverviewScene"
                 // Present the scene
                 view.presentScene(scene, transition: transition)
             }
