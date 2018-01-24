@@ -27,7 +27,7 @@ class CardSetOverviewDetailScene: SKScene {
         let nextCardButton = ActionNode(texture: SKTexture(imageNamed: "nextButtonOrange"))
         let prevCardButton = ActionNode(texture: SKTexture(imageNamed: "backButtonOrange"))
         let closeButton = ActionNode(texture: SKTexture(imageNamed: "closeButton"))
-        posLabel.text = "\(index+1)/\(cardSet!.cards.count)"
+        posLabel.text = "\(index+1)/\(cardSet!.cards!.count)"
         
         nextCardButton.position = CGPoint(x: 100, y: cardDetailNodeCenter!.size.height/2 * -1 - 15)
         prevCardButton.position = CGPoint(x: -100, y: cardDetailNodeCenter!.size.height/2 * -1 - 15)
@@ -41,20 +41,20 @@ class CardSetOverviewDetailScene: SKScene {
         
         nextCardButton.action = {
             self.index += 1
-            if self.index > self.cardSet!.cards.count-1 {
+            if self.index > self.cardSet!.cards!.count-1 {
                 self.index = 0
             }
-            self.posLabel.text = "\(self.index+1)/\(self.cardSet!.cards.count)"
-            self.cardDetailNodeCenter!.update(self.cardSet!, self.cardSet!.cards[self.index])
+            self.posLabel.text = "\(self.index+1)/\(self.cardSet!.cards!.count)"
+            self.cardDetailNodeCenter!.update(self.cardSet!, self.cardSet!.cards![self.index])
         }
         
         prevCardButton.action = {
             self.index -= 1
             if self.index < 0 {
-                self.index = self.cardSet!.cards.count-1
+                self.index = self.cardSet!.cards!.count-1
             }
-            self.posLabel.text = "\(self.index+1)/\(self.cardSet!.cards.count)"
-            self.cardDetailNodeCenter!.update(self.cardSet!, self.cardSet!.cards[self.index])
+            self.posLabel.text = "\(self.index+1)/\(self.cardSet!.cards!.count)"
+            self.cardDetailNodeCenter!.update(self.cardSet!, self.cardSet!.cards![self.index])
             
         }
         

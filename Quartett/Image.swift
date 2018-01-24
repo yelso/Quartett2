@@ -10,6 +10,11 @@ import Foundation
 
 struct Image : Codable {
     
-    let id: String
-    let filename: String
+    var id: String
+    var filename: String
+    
+    init(id: String, filename: String) {
+        self.id = id
+        self.filename = filename
+    }
 }

@@ -10,12 +10,13 @@ import Foundation
 import SpriteKit
 import UIKit
 
-class CardCompareNode: SKSpriteNode {
+class CardCompareNode: ActionNode {
     var delegate: CardDelegate?
     
     var cell: SKSpriteNode!
     var blackCell: SKSpriteNode!
     private var nextRoundButton: ActionNode!
+//    var nextRoundDisplayTouch: ActionNode!
     var img1: SKSpriteNode?
     var img2: SKSpriteNode?
     var titleLabel: SKLabelNode?
@@ -25,13 +26,15 @@ class CardCompareNode: SKSpriteNode {
    
     // nil, Color.background, self.size, game!
     init(texture: SKTexture?, color: UIColor, size: CGSize, game: Game) {
-        super.init(texture: texture, color: color, size: size)
+        super.init(texture: texture, color: color, size: size) 
         img1 = SKSpriteNode(texture: SKTexture(imageNamed: "tuning8"))
         img2 = SKSpriteNode(texture: SKTexture(imageNamed: "tuning7"))
         img1!.position = CGPoint(x: -86, y: 200)
         img2!.position = CGPoint(x: 86, y: -200)
         img1!.size = CGSize(width: 572, height: 370)
         img2!.size = CGSize(width: 572, height: 370)
+        
+        self.customAnimationEnabled = true
         
         self.addChild(img2!)
         self.addChild(img1!)
@@ -40,7 +43,7 @@ class CardCompareNode: SKSpriteNode {
         nextRoundButton.position = CGPoint(x: self.size.width/2 * 0.65, y: self.size.height/2 * 0.85 * -1)
         nextRoundButton.zPosition = 6
         nextRoundButton.setScale(0.01)
-        nextRoundButton.isHidden = false
+        nextRoundButton.isHidden = true
         nextRoundButton.action = {
             for timer in self.timers {
                 timer.invalidate()
@@ -58,8 +61,16 @@ class CardCompareNode: SKSpriteNode {
                     self.delegate?.didCloseCardCompareNode()
                     }]))
             })
-            
-            
+        }
+        self.action = {
+            let changeScreenAction = SKAction.moveTo(y: -1000, duration: 0.6)
+            self.nextRoundButton.run(self.hideNextRoundButton())
+            Timer.scheduledTimer(withTimeInterval: 0.4, repeats: false, block: { (_) in
+                self.run(SKAction.sequence([changeScreenAction, SKAction.run {
+                    self.delegate?.didCloseCardCompareNode()
+                    }]))
+            })
+        
         }
         
         cell = setUpCell(withImageNamed: "cell1", color: UIColor.black, blendFactor: 0, position: CGPoint(x:0, y: 0), anchorPoint: CGPoint(x: 0.5, y: 0.5))
@@ -77,6 +88,14 @@ class CardCompareNode: SKSpriteNode {
         
         self.addChild(cell)
         self.addChild(nextRoundButton)
+    }
+    override func removeAllActions() {
+        for timer in self.timers {
+            timer.invalidate()
+        }
+        for label in self.labels {
+            label.removeAllActions()
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -128,8 +147,8 @@ class CardCompareNode: SKSpriteNode {
     func updateDetail(withResult result: Result, pCard: Card, aiCard: Card, game: Game, selectedIndex: Int) {
         resetActions()
         titleLabel?.text = pCard.name + " " + aiCard.name
-        img1?.texture = SKTexture(imageNamed: game.getCSPCardImageNameWithoudSuffix(atIndex: 0))
-        img2?.texture = SKTexture(imageNamed: game.getCSAICardImageNameWithoudSuffix(atIndex: 0))
+        img1?.texture = SKTexture(image: FileUtils.loadImage(setName: game.cardSet!.name.lowercased(), cardId: game.getCurPCard().id, name: game.getCSPCardImageNameWithoudSuffix(atIndex: 0)))
+        img2?.texture = SKTexture(image: FileUtils.loadImage(setName: game.cardSet!.name.lowercased(), cardId: game.getCurAICard().id, name: game.getCSPCardImageNameWithoudSuffix(atIndex: 0)))
         
         labels[1].text = getPropertyValueAndUnit(forIndex: selectedIndex, game, isAi: false)
         labels[2].text = getPropertyValueAndUnit(forIndex: selectedIndex, game, isAi: true)
@@ -185,12 +204,17 @@ class CardCompareNode: SKSpriteNode {
         let scaleDownAction = SKAction.scale(to: 0.8, duration: 0.15)
         self.nextRoundButton.isHidden = false
         nextRoundButton.run(SKAction.sequence([scaleUpAction, scaleDownAction, scaleNormalAction, SKAction.run({self.nextRoundButton.isUserInteractionEnabled = true})]))
+        
+        self.isUserInteractionEnabled = true
     }
     
     func hideNextRoundButton() -> SKAction {
         let scaleUpAction = SKAction.scale(to: 1.3, duration: 0.2)
         let scaleDownAction = SKAction.scale(to: 0.01, duration: 0.15)
-        return SKAction.sequence([SKAction.run({self.nextRoundButton.isUserInteractionEnabled = false}), scaleUpAction,  scaleDownAction, SKAction.run({self.nextRoundButton.isHidden = true})])
+        
+        self.isUserInteractionEnabled = false
+        self.removeAllActions()
+        return SKAction.sequence([SKAction.run({self.nextRoundButton.isUserInteractionEnabled = false}), scaleUpAction, scaleDownAction, SKAction.run({self.nextRoundButton.isHidden = true})])
     }
     
     func setUpCell(withImageNamed image: String, color: UIColor, blendFactor: CGFloat, position: CGPoint, anchorPoint: CGPoint) -> SKSpriteNode {
