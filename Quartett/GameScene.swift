@@ -59,12 +59,12 @@ class GameScene: SKScene, CardDelegate {
         turnLabel!.fontSize = 16
         turnLabel!.position = CGPoint(x: 0, y: cardNode!.size.height/2 + 25)
         
-        self.addChild(selectButton)
-        self.addChild(closeButton)
         self.addChild(cardCompareNode!)
         self.addChild(cardNode!)
         self.addChild(pointsNode!)
         self.addChild(turnLabel!)
+        self.addChild(selectButton)
+        self.addChild(closeButton)
     }
 
     func didSelectProperty(atIndex index: Int) {

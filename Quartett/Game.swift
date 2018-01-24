@@ -27,7 +27,8 @@ class Game {
     }
     
     func loadCards() {
-        guard let cardSet = CardSets.decode(resource: settings!.cardSetName) else {
+        print("LOADING: " + settings!.cardSetName)
+        guard let cardSet = FileUtils.loadCardSet(named: settings!.cardSetName) else {
             print ("ERROR LOADING CARDSET \(settings!.cardSetName)")
             return
         }
@@ -139,9 +140,9 @@ class Game {
     }
     
     // return CardSet + Player Card Image name without suffix at index
-    func getCSPCardImageNameWithoudSuffix(atIndex index: Int) -> String {
+   func getCSPCardImageNameWithoudSuffix(atIndex index: Int) -> String {
         return cardSet!.name.lowercased() + player.currentCard!.getImageNameWithoutSuffix(atIndex: index)
-    }
+    } 
     
     func getCSAICardImageNameWithoudSuffix(atIndex index: Int) -> String {
         return cardSet!.name.lowercased() + ai.currentCard!.getImageNameWithoutSuffix(atIndex: index)

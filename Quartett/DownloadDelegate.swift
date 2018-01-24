@@ -12,4 +12,5 @@ protocol DownloadDelegate {
     func didStartdownload(deckId: Int)
     func didFinishDownload(deckId: Int)
     func didCancelDownload(deckId: Int)
+    func updateProgess(deckId: Int, progress: Float)
 }

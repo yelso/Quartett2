@@ -36,7 +36,7 @@ class CardNode: SKSpriteNode {
     func update(_ game: Game) {
         let newCard = game.getCurPCard()
         titleLabel?.text = newCard.name
-        img?.texture = SKTexture(imageNamed: game.getCSPCardImageNameWithoudSuffix(atIndex: 0))
+        img?.texture = SKTexture(image: FileUtils.loadImage(setName: game.cardSet!.name.lowercased(), cardId: game.getCurPCard().id, name: game.getCSPCardImageNameWithoudSuffix(atIndex: 0)))
         var propertyNameAndValue = (name: "NAME", value: "VALUE")
         for index in 0..<amount {
             propertyNameAndValue = getPropertyNameAndValue(forIndex: index, game)
@@ -64,7 +64,7 @@ class CardNode: SKSpriteNode {
         label.fontName = Font.cardTitle
         titleLabel = label
         
-        img = SKSpriteNode(texture: SKTexture(imageNamed: game.getCSPCardImageNameWithoudSuffix(atIndex: 0)))
+        img = SKSpriteNode(texture: SKTexture(image: FileUtils.loadImage(setName: game.cardSet!.name.lowercased(), cardId: game.getCurPCard().id, name: game.getCSPCardImageNameWithoudSuffix(atIndex: 0))))
         img!.scale(to: CGSize(width: 300, height: 195))
         img!.position = CGPoint(x: 0, y: height/2 - 139.5) // 195/2 +40 (cell height) + 2 spacer
         

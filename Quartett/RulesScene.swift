@@ -39,6 +39,7 @@ class RulesScene: SKScene {
         
         backButton.action = {
             if let scene = SKScene(fileNamed: "MainMenuScene") as? MainMenuScene {
+                scene.scaleMode = .aspectFill
                 let transition = SKTransition.push(with: .right, duration: 0.5)
                 view.presentScene(scene, transition: transition)
             }

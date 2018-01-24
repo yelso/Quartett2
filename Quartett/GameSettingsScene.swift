@@ -117,14 +117,14 @@ class GameSettingsScene: SKScene {
         buttonArray[5].addChild(difficulttyH)
         
         //CardSetButtons 
-        let cardSetNamesArray = FileUtils.filesWithExtension()
-        let multi  = (1-0.2)/CGFloat(cardSetNamesArray.count)
+        let cardSetNamesArray = FileUtils.getFilesWith(suffix: ".json")
+        let multi  = (0.65-0.2)/CGFloat(cardSetNamesArray.count)
         
         var cardSetButtonArray = [GroupActionNode]()
         for index in 0..<cardSetNamesArray.count {
-            let green = UIColor(red: 0.01, green: 0.8-(CGFloat(index) * multi) + 0.2, blue: 0.05, alpha: 1.0)
-            let button = GroupActionNode(color: green, size: CGSize(width: 105, height: 50))
-            button.position = CGPoint(x: -110 + index%3 * 110, y: -60 - Int(index/3) * 55)
+            let green = UIColor(red: 0.01, green: 0.65-(CGFloat(index) * multi) + 0.2, blue: 0.05, alpha: 1.0)
+            let button = GroupActionNode(color: green, size: CGSize(width: 158 /*105*/, height: 50))
+            button.position = CGPoint(x: -84 /*-110*/ + index%2 * 163 /*110*/, y: -60 - Int(index/2) * 55)
             
             let cardLabel = SKLabelNode(text: "\(cardSetNamesArray[index].dropLast(5))")
             cardLabel.verticalAlignmentMode = .center
@@ -141,8 +141,8 @@ class GameSettingsScene: SKScene {
             }
         }
         
-        buttonPlus = ActionNode(color: UIColor(red: 0.01, green: 0.8-(CGFloat(cardSetButtonArray.count) * multi) + 0.2, blue: 0.05, alpha: 1.0), size: CGSize(width: 105, height: 50))
-        buttonPlus.position = CGPoint(x: -110 + (cardSetButtonArray.count)%3 * 110, y: -60 - Int((cardSetButtonArray.count)/3) * 55)
+        buttonPlus = ActionNode(color: UIColor(red: 0.01, green: 0.65-(CGFloat(cardSetButtonArray.count) * multi) + 0.2, blue: 0.05, alpha: 1.0), size: CGSize(width: 158 /*105*/, height: 50))
+        buttonPlus.position = CGPoint(x: -84  /*-110*/ + (cardSetButtonArray.count)%2 * 163 /*110*/, y: -60 - Int((cardSetButtonArray.count)/2) * 55)
         let cardLabel = SKLabelNode(text: "+")
         cardLabel.verticalAlignmentMode = .center
         cardLabel.fontName = Font.buttonFont
@@ -200,7 +200,7 @@ class GameSettingsScene: SKScene {
                 // Set the scale mode to scale to fit the window
                 scene.scaleMode = .aspectFill
                 let transition = SKTransition.push(with: .left, duration: 0.5)
-                scene.origin = "GameSettingScene"
+                scene.origin = "GameSettingsScene"
                 // Present the scene
                 view.presentScene(scene, transition: transition)
             }
