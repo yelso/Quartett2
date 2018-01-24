@@ -21,11 +21,6 @@ class GameScene: SKScene, CardDelegate {
     var turnLabel: SKLabelNode?
     
     override func didMove(to view: SKView) {
-        cardCompareNode = CardCompareNode(texture: nil, color: Color.background, size: self.size, game: game!)
-        cardCompareNode?.delegate = self
-        self.addChild(cardCompareNode!)
-        cardCompareNode!.zPosition = 5
-        cardCompareNode!.position = CGPoint(x: 0, y: 1000)
         selectButton = ActionNode(texture: SKTexture(imageNamed: "nextButtonOrange"))
         selectButton.position = CGPoint(x: self.size.width/2 * 0.65, y: self.size.height/2 * 0.85 * -1)
         selectButton.zPosition = 1
@@ -38,20 +33,6 @@ class GameScene: SKScene, CardDelegate {
 
             })
         }
-        cardNode = CardNode(game: game!, color: .clear, size: self.size, position: CGPoint(x: 0, y: 20))
-        cardNode?.delegate = self
-        pointsNode = GamePointsNode(color: Color.cardMain, size: CGSize(width: self.size.width, height: 40), position: CGPoint(x: 0, y: self.size.height/2 * -1 + 45), game: game!)
-        turnLabel = SKLabelNode(text: "Du bist am Zug")
-        turnLabel!.verticalAlignmentMode = .bottom
-        turnLabel?.horizontalAlignmentMode = .center
-        turnLabel!.fontName = Font.buttonFont
-        turnLabel!.fontSize = 16
-        turnLabel!.position = CGPoint(x: 0, y: cardNode!.size.height/2 + 25)
-        
-        self.addChild(selectButton)
-        self.addChild(cardNode!)
-        self.addChild(pointsNode!)
-        self.addChild(turnLabel!)
         let closeButton = ActionNode(texture: SKTexture(imageNamed: "closeButton"))
         closeButton.position = CGPoint(x: self.size.width/2 * -0.65, y: self.size.height/2 * 0.85 * -1)
         closeButton.action = {
@@ -63,6 +44,26 @@ class GameScene: SKScene, CardDelegate {
                 view.presentScene(scene, transition: transition)
             }
         }
+        
+        cardCompareNode = CardCompareNode(texture: nil, color: Color.background, size: self.size, game: game!)
+        cardCompareNode!.delegate = self
+        cardCompareNode!.zPosition = 5
+        cardCompareNode!.position = CGPoint(x: 0, y: -1000)
+        cardNode = CardNode(game: game!, color: .clear, size: self.size, position: CGPoint(x: 0, y: 20))
+        cardNode?.delegate = self
+        pointsNode = GamePointsNode(color: Color.cardMain, size: CGSize(width: self.size.width, height: 40), position: CGPoint(x: 0, y: self.size.height/2 * -1 + 45), game: game!)
+        turnLabel = SKLabelNode(text: "Du bist am Zug")
+        turnLabel!.verticalAlignmentMode = .bottom
+        turnLabel?.horizontalAlignmentMode = .center
+        turnLabel!.fontName = Font.buttonFont
+        turnLabel!.fontSize = 16
+        turnLabel!.position = CGPoint(x: 0, y: cardNode!.size.height/2 + 25)
+        
+        self.addChild(cardCompareNode!)
+        self.addChild(cardNode!)
+        self.addChild(pointsNode!)
+        self.addChild(turnLabel!)
+        self.addChild(selectButton)
         self.addChild(closeButton)
     }
 

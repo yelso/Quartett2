@@ -27,13 +27,14 @@ class Game {
     }
     
     func loadCards() {
-        guard let cardSet = CardSets.decode(resource: (CardSets(rawValue: settings!.cardSetName))!) else {
+        print("LOADING: " + settings!.cardSetName)
+        guard let cardSet = FileUtils.loadCardSet(named: settings!.cardSetName) else {
             print ("ERROR LOADING CARDSET \(settings!.cardSetName)")
             return
         }
         self.cardSet = cardSet
         
-        let cards = GKRandomSource.sharedRandom().arrayByShufflingObjects(in: cardSet.cards) as! [Card]
+        let cards = GKRandomSource.sharedRandom().arrayByShufflingObjects(in: cardSet.cards!) as! [Card]
         for index in 0..<cards.count {
             if (index+1)%2 == 0 {
                 player.cards.append(cards[index] )
@@ -41,7 +42,7 @@ class Game {
                 ai.cards.append(cards[index] )
             }
         }
-        selectNextCard()
+        let _ = selectNextCard()
     }
     //DRAW???
     func selectNextCard() -> Bool {
@@ -139,9 +140,9 @@ class Game {
     }
     
     // return CardSet + Player Card Image name without suffix at index
-    func getCSPCardImageNameWithoudSuffix(atIndex index: Int) -> String {
+   func getCSPCardImageNameWithoudSuffix(atIndex index: Int) -> String {
         return cardSet!.name.lowercased() + player.currentCard!.getImageNameWithoutSuffix(atIndex: index)
-    }
+    } 
     
     func getCSAICardImageNameWithoudSuffix(atIndex index: Int) -> String {
         return cardSet!.name.lowercased() + ai.currentCard!.getImageNameWithoutSuffix(atIndex: index)
