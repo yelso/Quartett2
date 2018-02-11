@@ -9,8 +9,8 @@
 import Foundation
 
 protocol DownloadDelegate {
-    func didStartdownload(deckId: Int)
+    func didStartDownload(deckId: Int)
     func didFinishDownload(deckId: Int)
     func didCancelDownload(deckId: Int)
-    func updateProgess(deckId: Int, progress: Float)
+    func updateDownloadProgess(deckId: Int, progress: Float)
 }

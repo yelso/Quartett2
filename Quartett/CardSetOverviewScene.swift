@@ -22,9 +22,9 @@ class CardSetOverviewScene: SKScene {
         for cr in cardSetNamesArray {
             print(cr)
         }
-        let multi  = (0.65-0.2)/CGFloat(cardSetNamesArray.count)
+        let multi  = (0.6-0.2)/CGFloat(cardSetNamesArray.count)
         for index in 0..<cardSetNamesArray.count {
-            let green = UIColor(red: 0.01, green: 0.65-(CGFloat(index) * multi) + 0.2, blue: 0.05, alpha: 1.0)
+            let green = UIColor(red: 0.01, green: 0.6-(CGFloat(index) * multi) + 0.2, blue: 0.05, alpha: 1.0)
             let button = GroupActionNode(color: green, size: CGSize(width: 158, height: 50))
             button.position = CGPoint(x: -84 + index%2 * 163, y: 220 - Int(index/2) * 55)
        
@@ -48,7 +48,7 @@ class CardSetOverviewScene: SKScene {
             }
         }
         
-        buttonPlus = ActionNode(color: UIColor(red: 0.01, green: 0.65-(CGFloat(buttonArrary.count) * multi) + 0.2, blue: 0.05, alpha: 1.0), size: CGSize(width: 158, height: 50))
+        buttonPlus = ActionNode(color: UIColor(red: 0.01, green: 0.6-(CGFloat(buttonArrary.count) * multi) + 0.2, blue: 0.05, alpha: 1.0), size: CGSize(width: 158, height: 50))
         buttonPlus.position = CGPoint(x: -84 + (buttonArrary.count)%2 * 163, y: 220 - Int((buttonArrary.count)/2) * 55)
         let cardLabel = SKLabelNode(text: "+")
         cardLabel.verticalAlignmentMode = .center

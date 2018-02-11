@@ -30,7 +30,7 @@ class GamePointsNode: SKSpriteNode {
        //self.addChild(background)
         //self.addChild(titleBar)
         
-        let background = SKSpriteNode(texture: SKTexture(imageNamed: "pointsBackground"))
+        let background = ActionNode(texture: SKTexture(imageNamed: "pointsBackground"))
         //background.anchorPoint = CGPoint(x: 0.5, y: 0.0)
         
         points = SKLabelNode(text: "\(game.player.cards.count) - \(game.drawPile.count) - \(game.ai.cards.count)")

@@ -11,6 +11,8 @@ import SpriteKit
 
 class ActionNode: SKSpriteNode {
     
+    var scale: CGFloat = 0.95
+
     
     init(texture: SKTexture?) {
         super.init(texture: texture, color: UIColor.clear, size: (texture?.size())!)
@@ -42,6 +44,7 @@ class ActionNode: SKSpriteNode {
     var onTouchEndInside: () -> Void = {  }
     var onReset: () -> Void = { }
     
+    var customFeedbackEnabled = false
     var customAnimationEnabled = false
     var isHighlightButton = false
     var isHighlighted = false
@@ -85,6 +88,15 @@ class ActionNode: SKSpriteNode {
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if isTapped && containsTouches(touches: touches) {
+            if !customFeedbackEnabled {
+                if isHighlightButton {
+                    if !isHighlighted {
+                        HapticFeedback.defaultFeedback()
+                    }
+                } else {
+                    HapticFeedback.lightFeedback()
+                }
+            }
             isHighlighted = true
             isTapped = false
             action()
@@ -117,7 +129,7 @@ class ActionNode: SKSpriteNode {
     }
     
     func defaultOnTouchAnimation() -> SKAction {
-        let scaleAction = SKAction.scale(to: 0.97, duration: 0.15)
+        let scaleAction = SKAction.scale(to: scale, duration: 0.15)
         let colorBlendAction = SKAction.colorize(withColorBlendFactor: 0.5, duration: 0.15)
         return SKAction.group([scaleAction, colorBlendAction])
     }
@@ -130,5 +142,15 @@ class ActionNode: SKSpriteNode {
     
     func handleReset() {
         onReset()
+    }
+    
+    func disable() {
+        self.isUserInteractionEnabled = false
+        self.alpha = 0.5
+    }
+    
+    func enable() {
+        self.isUserInteractionEnabled = true
+        self.alpha = 1.0
     }
 }

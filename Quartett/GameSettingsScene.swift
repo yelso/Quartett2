@@ -19,8 +19,16 @@ class GameSettingsScene: SKScene {
     var didSelectRounds = false
     var didSelectDifficulty = false
     var didSelectCardSet = false
+    var mainNode: SKSpriteNode!
     
     override func didMove(to view: SKView) {
+        mainNode = SKSpriteNode(color: .clear, size: self.size)
+        /*if UIScreen.main.bounds.height == 812 { // iPhone X
+            mainNode.setScale(375/414)
+        } */
+        
+        
+        
         settings.difficulty = 1
         settings.cardSetName = "tuning"
         settings.maxRounds = 10
@@ -122,9 +130,9 @@ class GameSettingsScene: SKScene {
         
         var cardSetButtonArray = [GroupActionNode]()
         for index in 0..<cardSetNamesArray.count {
-            let green = UIColor(red: 0.01, green: 0.65-(CGFloat(index) * multi) + 0.2, blue: 0.05, alpha: 1.0)
-            let button = GroupActionNode(color: green, size: CGSize(width: 158 /*105*/, height: 50))
-            button.position = CGPoint(x: -84 /*-110*/ + index%2 * 163 /*110*/, y: -60 - Int(index/2) * 55)
+            let green = UIColor(red: 0.01, green: 0.6-(CGFloat(index) * multi) + 0.2, blue: 0.05, alpha: 1.0)
+            let button = GroupActionNode(color: green, size: CGSize(width: 158, height: 50))
+            button.position = CGPoint(x: -84 + index%2 * 163, y: -60 - Int(index/2) * 55)
             
             let cardLabel = SKLabelNode(text: "\(cardSetNamesArray[index].dropLast(5))")
             cardLabel.verticalAlignmentMode = .center
@@ -141,8 +149,8 @@ class GameSettingsScene: SKScene {
             }
         }
         
-        buttonPlus = ActionNode(color: UIColor(red: 0.01, green: 0.65-(CGFloat(cardSetButtonArray.count) * multi) + 0.2, blue: 0.05, alpha: 1.0), size: CGSize(width: 158 /*105*/, height: 50))
-        buttonPlus.position = CGPoint(x: -84  /*-110*/ + (cardSetButtonArray.count)%2 * 163 /*110*/, y: -60 - Int((cardSetButtonArray.count)/2) * 55)
+        buttonPlus = ActionNode(color: UIColor(red: 0.01, green: 0.6-(CGFloat(cardSetButtonArray.count) * multi) + 0.2, blue: 0.05, alpha: 1.0), size: CGSize(width: 158, height: 50))
+        buttonPlus.position = CGPoint(x: -84 + (cardSetButtonArray.count)%2 * 163, y: -60 - Int((cardSetButtonArray.count)/2) * 55)
         let cardLabel = SKLabelNode(text: "+")
         cardLabel.verticalAlignmentMode = .center
         cardLabel.fontName = Font.buttonFont
@@ -150,7 +158,7 @@ class GameSettingsScene: SKScene {
     
         
         //Add Buttons
-        self.addChild(buttonPlus)
+       /* self.addChild(buttonPlus)
         self.addChild(roundsLabel)
         self.addChild(difficultyLabel)
         self.addChild(cardSetLabel)
@@ -159,6 +167,18 @@ class GameSettingsScene: SKScene {
         for node in buttonArray {
             self.addChild(node)
         }
+        */
+        mainNode.addChild(buttonPlus)
+        mainNode.addChild(roundsLabel)
+        mainNode.addChild(difficultyLabel)
+        mainNode.addChild(cardSetLabel)
+        mainNode.addChild(startGameButton)
+        mainNode.addChild(backButton)
+        for node in buttonArray {
+            mainNode.addChild(node)
+        }
+        self.addChild(mainNode)
+        
         
         buttonArray[0].setUpGroup([buttonArray[0], buttonArray[1], buttonArray[2]])
         buttonArray[3].setUpGroup([buttonArray[3], buttonArray[4],buttonArray[5]])
@@ -226,6 +246,7 @@ class GameSettingsScene: SKScene {
                 for member in self.buttonArray[index].group {
                     member.colorBlendFactor = 0
                     member.color = UIColor.gray
+                    member.isHighlighted = false
                 }
             }
         }
@@ -234,7 +255,12 @@ class GameSettingsScene: SKScene {
             if let scene = SKScene(fileNamed: "GameScene") as? GameScene {
                 // Set the scale mode to scale to fit the window
                 scene.game = Game(withSettings: self.settings)
+                 if UIScreen.main.bounds.height != 812 {
+                
                 scene.scaleMode = .aspectFill
+                 } else {
+                    scene.scaleMode = .aspectFill
+                }
                 let transition = SKTransition.push(with: .left, duration: 0.5)
                 // Present the scene
                 view.presentScene(scene, transition: transition)
@@ -260,5 +286,4 @@ class GameSettingsScene: SKScene {
             startGameButton.run(SKAction.sequence([scaleUpAction, scaleDownAction, scaleNormalAction, SKAction.run({self.startGameButton.isUserInteractionEnabled = true})]))
         }
     }
-    
 }

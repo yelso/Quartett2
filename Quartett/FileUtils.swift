@@ -90,6 +90,7 @@ class FileUtils {
             } catch {
                 
             }
+            print(name)
             return UIImage(named: name)!
         }
     }

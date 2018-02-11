@@ -9,10 +9,6 @@
 import Foundation
 import UIKit
 
-struct Images {
-    static let pointsBackground = ""
-}
-
 struct Color {
     
     static let cardMain = UIColor(red:1.00, green:0.93, blue:0.62, alpha:1.0)
@@ -31,10 +27,10 @@ struct Color {
     
     //UIColor(red:0.01, green:0.01, blue:0.09, alpha:1.0)//UIColor(red:0.07, green:0.07, blue:0.12, alpha:1.0) //UIColor(red:0.13, green:0.13, blue:0.20, alpha:1.0)//UIColor.white//UIColor(red:0.88, green:0.95, blue:0.97, alpha:1.0)
     
-    static let midnightOrange = UIColor(red:1.00, green:0.18, blue:0.00, alpha:1.0)
-    static let darkOrange = UIColor(red:1.00, green:0.31, blue:0.00, alpha:1.0)
-    static let softOrange = UIColor(red:1.00, green:0.44, blue:0.00, alpha:1.0)
-    static let lightOrange = UIColor(red:1.00, green:0.64, blue:0.00, alpha:1.0)
+    static let midnightOrange = UIColor(red:1.00, green:0.2, blue:0.00, alpha:1.0)
+    static let darkOrange = UIColor(red:1.00, green:0.33, blue:0.00, alpha:1.0)
+    static let softOrange = UIColor(red:1.00, green:0.46, blue:0.00, alpha:1.0)
+    static let lightOrange = UIColor(red:1.00, green:0.59, blue:0.00, alpha:1.0)
     
     static let green1 = UIColor(red:0.01, green:0.84, blue:0.05, alpha:1.0)
     static let green2 = UIColor(red:0.01, green:0.54, blue:0.05, alpha:1.0)
@@ -59,6 +55,12 @@ struct Scale {
             return 0.8
         }
     }
+    
+    static let viewScaleX = UIScreen.main.bounds.width/414
+    static let viewScaleY = UIScreen.main.bounds.height/736
+    
+    static let sceneScaleX = UIScreen.main.bounds.height == 812 ? viewScaleX : 1
+    static let sceneScaleY = UIScreen.main.bounds.height == 812 ? viewScaleY : 1
 }
 
 struct Font {
@@ -67,4 +69,8 @@ struct Font {
     static let buttonFont = "Helvetica Neue Thin"
     static let solutionText = "Georgia"
     static let solutionText2 = "Helvetica Neue Light Italic"
+}
+
+enum Values: Int {
+    case CREATE_CARD_MIN_CARD_AMOUNT = 10
 }

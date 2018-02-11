@@ -148,7 +148,7 @@ class CardCompareNode: ActionNode {
         resetActions()
         titleLabel?.text = pCard.name + " " + aiCard.name
         img1?.texture = SKTexture(image: FileUtils.loadImage(setName: game.cardSet!.name.lowercased(), cardId: game.getCurPCard().id, name: game.getCSPCardImageNameWithoudSuffix(atIndex: 0)))
-        img2?.texture = SKTexture(image: FileUtils.loadImage(setName: game.cardSet!.name.lowercased(), cardId: game.getCurAICard().id, name: game.getCSPCardImageNameWithoudSuffix(atIndex: 0)))
+        img2?.texture = SKTexture(image: FileUtils.loadImage(setName: game.cardSet!.name.lowercased(), cardId: game.getCurAICard().id, name: game.getCSAICardImageNameWithoudSuffix(atIndex: 0)))
         
         labels[1].text = getPropertyValueAndUnit(forIndex: selectedIndex, game, isAi: false)
         labels[2].text = getPropertyValueAndUnit(forIndex: selectedIndex, game, isAi: true)

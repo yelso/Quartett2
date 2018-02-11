@@ -9,10 +9,19 @@
 import Foundation
 
 class HTTPRequestService {
-    static func setUpRequestFor(url: String) -> URLRequest? {
+    static func setUpGETRequestFor(url: String) -> URLRequest? {
         guard let url = URL(string: url) else { return nil}
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
+        request.setValue("Basic c3R1ZGVudDphZm1iYQ==", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        return request
+    }
+    
+    static func setUpPOSTRequestFor(url: String) -> URLRequest? {
+        guard let url = URL(string: url) else { return nil }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
         request.setValue("Basic c3R1ZGVudDphZm1iYQ==", forHTTPHeaderField: "Authorization")
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         return request
@@ -31,14 +40,14 @@ class DownloadUtil {
     var progress = 0 {
         didSet {
             guard oldValue < progress else { return }
-            delegate?.updateProgess(deckId: deck.id!, progress: Float(progress)/Float(count))
+            delegate?.updateDownloadProgess(deckId: deck.id!, progress: Float(progress)/Float(count))
         }
     }
     
     init(delegate: DownloadDelegate, deck: Deck) {
         self.deck = deck
         self.delegate = delegate
-        let request = HTTPRequestService.setUpRequestFor(url: "http://quartett.af-mba.dbis.info/decks/\(deck.id!)/cards/")
+        let request = HTTPRequestService.setUpGETRequestFor(url: "http://quartett.af-mba.dbis.info/decks/\(deck.id!)/cards/")
         group.enter()
         URLSession.shared.dataTask(with: request!) { data, response, error in
             if error != nil {
@@ -64,7 +73,7 @@ class DownloadUtil {
     }
     
     func loadCard(for deck: Deck, id: Int, index: Int, count: Int) {
-        let request = HTTPRequestService.setUpRequestFor(url: "http://quartett.af-mba.dbis.info/decks/\(deck.id!)/cards/\(id)/")
+        let request = HTTPRequestService.setUpGETRequestFor(url: "http://quartett.af-mba.dbis.info/decks/\(deck.id!)/cards/\(id)/")
         group.enter()
         URLSession.shared.dataTask(with: request!) { data, response, error in
             if error != nil {
@@ -86,7 +95,7 @@ class DownloadUtil {
     }
     
     func loadAttributesFor(card: Card2) {
-        let request = HTTPRequestService.setUpRequestFor(url: "http://quartett.af-mba.dbis.info/decks/\(deck.id!)/cards/\(card.id!)/attributes/")
+        let request = HTTPRequestService.setUpGETRequestFor(url: "http://quartett.af-mba.dbis.info/decks/\(deck.id!)/cards/\(card.id!)/attributes/")
         group.enter()
         URLSession.shared.dataTask(with: request!) { data, response, error in
             if error != nil {
@@ -105,7 +114,7 @@ class DownloadUtil {
     }
     
     func loadImagesFor(card: Card2) {
-        let request = HTTPRequestService.setUpRequestFor(url: "http://quartett.af-mba.dbis.info/decks/\(deck.id!)/cards/\(card.id!)/images/")
+        let request = HTTPRequestService.setUpGETRequestFor(url: "http://quartett.af-mba.dbis.info/decks/\(deck.id!)/cards/\(card.id!)/images/")
         group.enter()
         URLSession.shared.dataTask(with: request!) { data, response, error in
             if error != nil {
@@ -127,7 +136,7 @@ class DownloadUtil {
     }
     
     func loadImage(_ img: Image2, _ card: Card2, _ index: Int) {
-        let request = HTTPRequestService.setUpRequestFor(url: img.image!)
+        let request = HTTPRequestService.setUpGETRequestFor(url: img.image!)
         group.enter()
         URLSession.shared.dataTask(with: request!) { data, response, error in
             if error != nil {

@@ -119,6 +119,7 @@ class CardNode: SKSpriteNode {
                 for member in propertyNode.group {
                     member.colorBlendFactor = 0
                     member.color = UIColor.black
+                    member.isHighlighted = false
                 }
             }
         }
@@ -138,12 +139,14 @@ class CardNode: SKSpriteNode {
         let nameLabel = SKLabelNode(text: propertyNameAndValue.name)
         nameLabel.position = CGPoint(x: (cell.size.width/2) * 0.95 * -1 , y: 0)
         nameLabel.horizontalAlignmentMode = .left
+        nameLabel.verticalAlignmentMode = .center
         nameLabel.fontColor = Color.cardText
         nameLabel.fontName = Font.cardText
         nameLabel.fontSize = 15
         let valueLabel = SKLabelNode(text: propertyNameAndValue.value)
         valueLabel.position = CGPoint(x: (cell.size.width/2) * 0.95, y: 0)
         valueLabel.horizontalAlignmentMode = .right
+        valueLabel.verticalAlignmentMode = .center
         valueLabel.fontColor = Color.cardText
         valueLabel.fontName = Font.cardText
         valueLabel.fontSize = 15

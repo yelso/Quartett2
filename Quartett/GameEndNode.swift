@@ -44,7 +44,6 @@ class GameEndNode: SKSpriteNode {
             }
         }
         self.zPosition = 40
-//        let changeScreenAction = SKAction.moveTo(y: -1000, duration: 0.6)
         self.position = CGPoint(x: 0, y: 0)
         
         
@@ -52,7 +51,6 @@ class GameEndNode: SKSpriteNode {
         toSettingsButton.position = CGPoint(x: self.size.width/2 * 0.65, y: self.size.height/2 * 0.85 * -1)
         toSettingsButton.zPosition = 7
         toSettingsButton.setScale(1)
-        //toMainMenuButton.isHidden = false
         
         toSettingsButton.action =  {
             if let scene = SKScene(fileNamed: "GameSettingsScene") {
@@ -73,9 +71,6 @@ class GameEndNode: SKSpriteNode {
         toMainMenuButton.isHidden = false
         
         toMainMenuButton.action = {
-            print("onAction!!!hgghghgh")
-            
-            
             if let scene = SKScene(fileNamed: "MainMenuScene") {
                 // Set the scale mode to scale to fit the window
                 scene.scaleMode = .aspectFill
@@ -85,24 +80,21 @@ class GameEndNode: SKSpriteNode {
                     parent.view?.presentScene(scene, transition: transition)
                 }
             }
-           // self.run(SKAction.sequence([changeScreenAction, SKAction.run {
-                
-             //..   }]))
         }
         cell = setUpCell(withImageNamed: "cell1", color: UIColor.black, blendFactor: 0, position: CGPoint(x:0, y: 0), anchorPoint: CGPoint(x: 0, y: 0))
         
         resultLabel = SKLabelNode(text: "ERGEBNIS")
         resultLabel?.fontName = Font.solutionText
-        resultLabel?.fontSize = 60
+        resultLabel?.fontSize = 50
         resultLabel?.zPosition = 7
         resultLabel?.position = CGPoint(x: 0, y: 250)
         
         emojiLabel = SKLabelNode(text: "EMOJI")
-        emojiLabel?.fontSize = 90
+        emojiLabel?.fontSize = 85
         emojiLabel?.zPosition = 7
         emojiLabel?.position = CGPoint(x: 0, y: 135)
         
-        statisticLabels.append(SKLabelNode(text: " Deine Punkte: "))
+        statisticLabels.append(SKLabelNode(text: "Deine Punkte: "))
         statisticLabels.append(SKLabelNode(text: "Gegner Punkte: "))
         statisticLabels.append(SKLabelNode(text: "Anzahl Runden: "))
         
@@ -111,14 +103,14 @@ class GameEndNode: SKSpriteNode {
         statisticValueLabels.append(SKLabelNode(text: "\(game.rounds.curRound + 1)"))
         
         for index in 0...2 {
-            statisticLabels[index].fontSize = 40
+            statisticLabels[index].fontSize = 30
             statisticLabels[index].fontName = Font.buttonFont
-            statisticLabels[index].position = CGPoint(x: -190, y: index * -60)
+            statisticLabels[index].position = CGPoint(x: self.size.width/2 * 0.78 * -1, y: CGFloat(index) * -60)
             statisticLabels[index].horizontalAlignmentMode = .left
             statisticLabels[index].zPosition = 7
-            statisticValueLabels[index].fontSize = 55
+            statisticValueLabels[index].fontSize = 45
             statisticValueLabels[index].fontName = Font.solutionText
-            statisticValueLabels[index].position = CGPoint(x: 160, y: index * -60)
+            statisticValueLabels[index].position = CGPoint(x: self.size.width/2 * 0.76, y: CGFloat(index) * -60)
             statisticValueLabels[index].horizontalAlignmentMode = .right
             statisticValueLabels[index].zPosition = 7
         }
@@ -132,7 +124,7 @@ class GameEndNode: SKSpriteNode {
         } else if(game.gameResult! == .draw) {
             self.resultLabel?.text = "UNENTSCHIEDEN"
             self.emojiLabel?.text = "😐"
-            self.resultLabel?.fontSize = (self.resultLabel?.fontSize)! - 8
+            self.resultLabel?.fontSize = (self.resultLabel?.fontSize)! - 14
         }
         
         let img = SKSpriteNode(texture: SKTexture(imageNamed: "iconQuartett"))

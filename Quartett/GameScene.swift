@@ -19,6 +19,7 @@ class GameScene: SKScene, CardDelegate {
     var cardCompareNode: CardCompareNode?
     var gameEndNode: GameEndNode?
     var turnLabel: SKLabelNode?
+    var roundLabel: SKLabelNode?
     
     override func didMove(to view: SKView) {
         selectButton = ActionNode(texture: SKTexture(imageNamed: "nextButtonOrange"))
@@ -50,19 +51,27 @@ class GameScene: SKScene, CardDelegate {
         cardCompareNode!.zPosition = 5
         cardCompareNode!.position = CGPoint(x: 0, y: -1000)
         cardNode = CardNode(game: game!, color: .clear, size: self.size, position: CGPoint(x: 0, y: 20))
-        cardNode?.delegate = self
+        cardNode!.delegate = self
         pointsNode = GamePointsNode(color: Color.cardMain, size: CGSize(width: self.size.width, height: 40), position: CGPoint(x: 0, y: self.size.height/2 * -1 + 45), game: game!)
         turnLabel = SKLabelNode(text: "Du bist am Zug")
         turnLabel!.verticalAlignmentMode = .bottom
-        turnLabel?.horizontalAlignmentMode = .center
+        turnLabel!.horizontalAlignmentMode = .center
         turnLabel!.fontName = Font.buttonFont
         turnLabel!.fontSize = 16
         turnLabel!.position = CGPoint(x: 0, y: cardNode!.size.height/2 + 25)
+        
+        roundLabel = SKLabelNode(text: getRoundText())
+        roundLabel!.verticalAlignmentMode = .bottom
+        roundLabel!.horizontalAlignmentMode = .right
+        roundLabel!.fontName = Font.buttonFont
+        roundLabel!.fontSize = 16
+        roundLabel!.position = CGPoint(x: cardNode!.size.width/2 * 0.7, y: cardNode!.size.height/2 + 25)
         
         self.addChild(cardCompareNode!)
         self.addChild(cardNode!)
         self.addChild(pointsNode!)
         self.addChild(turnLabel!)
+        self.addChild(roundLabel!)
         self.addChild(selectButton)
         self.addChild(closeButton)
     }
@@ -75,6 +84,7 @@ class GameScene: SKScene, CardDelegate {
     func didCloseCardCompareNode() {
         startNextRound()
         if game!.isRunning {
+            roundLabel!.text = getRoundText()
             if game!.isPlayersTurn {
                 turnLabel?.text = "Du bist am Zug"
                 cardNode?.setInteractionEnabledTo(true)
@@ -92,6 +102,16 @@ class GameScene: SKScene, CardDelegate {
                 })
             }
         }
+    }
+    
+    func getRoundText() -> String {
+        var text = "\(game!.rounds.curRound+1)/"
+        if game!.settings!.maxRounds == -1 {
+            text += "∞"
+        } else {
+            text += "\(game!.settings!.maxRounds)"
+        }
+        return text
     }
     
     func showSelectButton() {
