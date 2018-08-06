@@ -46,7 +46,7 @@ class CreateCardNode: SKSpriteNode, UIPickerViewDelegate, UIPickerViewDataSource
         self.delegate = delegate
         if UIScreen.main.bounds.height != 812 { // all but iPhone X
             //scale = 1.05
-            scaleFactor = 0.055
+            //scaleFactor = 0.055
             //self.setScale(scale)
         }
         cardNode = SKSpriteNode(color: .clear, size: size)
@@ -168,7 +168,9 @@ class CreateCardNode: SKSpriteNode, UIPickerViewDelegate, UIPickerViewDataSource
             } else {
                 alertController.textFields?[0].text = ""
             }
-            self.view?.window?.rootViewController?.present(alertController, animated: true, completion: nil)
+            DispatchQueue.main.async {
+                self.view?.window?.rootViewController?.present(alertController, animated: true, completion: nil)
+            }
         }
         
         let deleteCardNode = ActionNode(color: .clear, size: CGSize(width: 35, height: 35))
@@ -245,7 +247,7 @@ class CreateCardNode: SKSpriteNode, UIPickerViewDelegate, UIPickerViewDataSource
             
             let comparisonNode = SKLabelNode(text: "^")
             comparisonNode.position = CGPoint(x: cell.size.width * 0.45, y: -1)
-            //comparisonNode.zRotation = CGFloat(Double.pi/2.0 * -1.0)
+            comparisonNode.zRotation = .pi
             comparisonNode.verticalAlignmentMode = .center
             comparisonNode.horizontalAlignmentMode = .center
             comparisonNode.fontName = Font.cardTitle
@@ -262,11 +264,13 @@ class CreateCardNode: SKSpriteNode, UIPickerViewDelegate, UIPickerViewDataSource
             let alertController = createAlert(for: cell)
             
             cell.action = {
-                self.view?.window?.rootViewController?.present(alertController, animated: true, completion: nil)
-                if !self.cards.isEmpty && self.cards.keys.contains(self.curIndex) && !self.cards[self.curIndex]!.values.isEmpty && self.cards[self.curIndex]!.values.keys.contains(index-1) {
-                    alertController.textFields?[1].text = self.findValueFor(index: index-1)
-                } else {
-                    alertController.textFields?[1].text = ""
+                DispatchQueue.main.async {
+                    self.view?.window?.rootViewController?.present(alertController, animated: true, completion: nil)
+                    if !self.cards.isEmpty && self.cards.keys.contains(self.curIndex) && !self.cards[self.curIndex]!.values.isEmpty && self.cards[self.curIndex]!.values.keys.contains(index-1) {
+                        alertController.textFields?[1].text = self.findValueFor(index: index-1)
+                    } else {
+                        alertController.textFields?[1].text = ""
+                    }
                 }
             }
             
@@ -311,7 +315,7 @@ class CreateCardNode: SKSpriteNode, UIPickerViewDelegate, UIPickerViewDataSource
             
             let comparisonNode = SKLabelNode(text: "^")
             comparisonNode.position = CGPoint(x: cell.size.width * 0.45, y: -1)
-            //comparisonNode.zRotation = CGFloat(Double.pi/2.0 * -1.0)
+            comparisonNode.zRotation = .pi
             comparisonNode.verticalAlignmentMode = .center
             comparisonNode.horizontalAlignmentMode = .center
             comparisonNode.fontName = Font.cardTitle
@@ -329,11 +333,13 @@ class CreateCardNode: SKSpriteNode, UIPickerViewDelegate, UIPickerViewDataSource
             let alertController = createAlert(for: cell)
         
             cell.action = {
-                self.view?.window?.rootViewController?.present(alertController, animated: true, completion: nil)
-                if !self.cards.isEmpty && self.cards.keys.contains(self.curIndex) && !self.cards[self.curIndex]!.values.isEmpty &&  self.cards[self.curIndex]!.values.keys.contains(self.amount-1) {
-                    alertController.textFields?[1].text = self.findValueFor(index: self.amount-1)
-                } else {
-                    alertController.textFields?[1].text = ""
+                DispatchQueue.main.async {
+                    self.view?.window?.rootViewController?.present(alertController, animated: true, completion: nil)
+                    if !self.cards.isEmpty && self.cards.keys.contains(self.curIndex) && !self.cards[self.curIndex]!.values.isEmpty &&  self.cards[self.curIndex]!.values.keys.contains(self.amount-1) {
+                        alertController.textFields?[1].text = self.findValueFor(index: self.amount-1)
+                    } else {
+                        alertController.textFields?[1].text = ""
+                    }
                 }
             }
             
@@ -468,15 +474,11 @@ class CreateCardNode: SKSpriteNode, UIPickerViewDelegate, UIPickerViewDataSource
                 }
             }
             cards = newCards
-            if curIndex == index {
-                if cards.keys.contains(curIndex+1) {
-                    curIndex += 1
-                } else {
-                    curIndex -= 1
-                }
-                updateCard()
-                updateIndexLabel()
+            if (curIndex-1) >= 0 {
+                curIndex -= 1
             }
+            updateCard()
+            updateIndexLabel()
         } else {
             HapticFeedback.error()
             cardNode.shake()
@@ -521,7 +523,6 @@ class CreateCardNode: SKSpriteNode, UIPickerViewDelegate, UIPickerViewDataSource
                 self.attributesAndUnits[self.cells.index(of: cell)!] = ((alertController.textFields?[0].text)!, (alertController.textFields?[2].text)!, pickerFrame.selectedRow(inComponent: 0) == 0 ? "lower_wins" : "higher_wins")
                 alertController.textFields?[1].text = "" // COMPARISON
             }
-            print(" row: \(pickerFrame.selectedRow(inComponent: 0))")
         }
         alertController.addAction(confirmAction)
         alertController.addAction(cancelAction)
@@ -548,7 +549,7 @@ class CreateCardNode: SKSpriteNode, UIPickerViewDelegate, UIPickerViewDataSource
         var list = [Int: ActionNode]()
         if !attributesAndUnits.isEmpty {
             for index in 0..<cells.count {
-                if !attributesAndUnits.keys.contains(index) {
+                if !attributesAndUnits.keys.contains(index) || attributesAndUnits[index]!.name == "Attribut" || attributesAndUnits[index]!.unit == "Einheit" {
                     list[index] = cells[index]
                 }
             }
@@ -580,7 +581,7 @@ class CreateCardNode: SKSpriteNode, UIPickerViewDelegate, UIPickerViewDataSource
         var list = [Int : ActionNode]()
         if !cards.isEmpty && cards.keys.contains(index) && !cards[index]!.values.isEmpty {
             for index2 in 0..<cells.count {
-                if !cards[index]!.values.keys.contains(index2) {
+                if !cards[index]!.values.keys.contains(index2) || cards[index]!.values[index2] == "Wert" {
                     list[index2] = cells[index2]
                 }
             }
@@ -625,6 +626,7 @@ class CreateCardNode: SKSpriteNode, UIPickerViewDelegate, UIPickerViewDataSource
             list[val.key] = val.value
         }
         if shake && list.count > 0 {
+            HapticFeedback.error()
             shakeDict(from: -2, list)
         }
         return list

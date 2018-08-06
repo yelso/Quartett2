@@ -20,7 +20,7 @@ class UploadUtil {
     var progress: Float = 0 {
         didSet {
             guard oldValue < progress else { return }
-            delegate?.updateUploadProgess(deckId: deck.id!, progress: Float(progress)/Float(count))
+            delegate?.updateUploadProgress(deckId: deck.id!, progress: Float(progress)/Float(count))
         }
     }
     
@@ -37,7 +37,7 @@ class UploadUtil {
             request?.httpBody = data
             print(String(data: data, encoding: .utf8))
         } catch {
-            self.delegate?.didCancelUpload(deckId: deck.id!, "Beim generieren des Kartensets ist ein Fehler aufgetreten.")
+            self.delegate?.didCancelUpload(deckId: deck.id!, "Beim Generieren des Kartensets ist ein Fehler aufgetreten.")
             print(error)
         }
         
@@ -85,7 +85,7 @@ class UploadUtil {
             request?.httpBody = data
             print(String(data: data, encoding: .utf8))
         } catch {
-            delegate?.didCancelUpload(deckId: deck.id!, "Beim generieren des Kartensets ist ein Fehler aufgetreten.")
+            delegate?.didCancelUpload(deckId: deck.id!, "Beim Generieren des Kartensets ist ein Fehler aufgetreten.")
             print(error)
         }
         
@@ -121,7 +121,7 @@ class UploadUtil {
             let data = try JSONEncoder().encode(card)
             request?.httpBody = data
         } catch {
-            delegate?.didCancelUpload(deckId: deck.id!, "Beim generieren des Kartensets ist ein Fehler aufgetreten.")
+            delegate?.didCancelUpload(deckId: deck.id!, "Beim Generieren des Kartensets ist ein Fehler aufgetreten.")
             print(error)
         }
         
@@ -156,7 +156,7 @@ class UploadUtil {
             let data = try JSONEncoder().encode(cardAttribute)
             request?.httpBody = data
         } catch {
-            delegate?.didCancelUpload(deckId: deck.id!, "Beim generieren des Kartensets ist ein Fehler aufgetreten.")
+            delegate?.didCancelUpload(deckId: deck.id!, "Beim Generieren des Kartensets ist ein Fehler aufgetreten.")
             print(error)
         }
         
@@ -193,7 +193,7 @@ class UploadUtil {
             let data = try JSONEncoder().encode(images)
             request?.httpBody = data
         } catch {
-            delegate?.didCancelUpload(deckId: deck.id!, "Beim generieren des Kartensets ist ein Fehler aufgetreten.")
+            delegate?.didCancelUpload(deckId: deck.id!, "Beim Generieren des Kartensets ist ein Fehler aufgetreten.")
             print(error)
         }
         

@@ -12,5 +12,5 @@ protocol UploadDelegate {
     func didStartUpload(deckId: Int)
     func didFinishUpload(deckId: Int)
     func didCancelUpload(deckId: Int, _ error: String?)
-    func updateUploadProgess(deckId: Int, progress: Float)
+    func updateUploadProgress(deckId: Int, progress: Float)
 }

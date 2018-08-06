@@ -40,18 +40,21 @@ class DownloadUtil {
     var progress = 0 {
         didSet {
             guard oldValue < progress else { return }
-            delegate?.updateDownloadProgess(deckId: deck.id!, progress: Float(progress)/Float(count))
+            delegate?.updateDownloadProgress(deckId: deck.id!, progress: Float(progress)/Float(count))
         }
     }
     
     init(delegate: DownloadDelegate, deck: Deck) {
         self.deck = deck
         self.delegate = delegate
+        self.delegate?.didStartDownload(deckId: deck.id!, name: deck.name!)
         let request = HTTPRequestService.setUpGETRequestFor(url: "http://quartett.af-mba.dbis.info/decks/\(deck.id!)/cards/")
         group.enter()
         URLSession.shared.dataTask(with: request!) { data, response, error in
             if error != nil {
+                self.delegate?.didCancelDownload(deckId: deck.id!, name: deck.name!, error?.localizedDescription)
                 print(error!.localizedDescription)
+                return
             }
             guard let data = data else { return }
             do {
@@ -66,7 +69,7 @@ class DownloadUtil {
                     self.save(deck)
                 })
             } catch let jsonError {
-                self.delegate?.didCancelDownload(deckId: deck.id!)
+                self.delegate?.didCancelDownload(deckId: deck.id!, name: deck.name!, "Die Struktur des Kartensets stimmt nicht mit der der App überein.")
                 print(jsonError)
             }
         }.resume()
@@ -77,7 +80,9 @@ class DownloadUtil {
         group.enter()
         URLSession.shared.dataTask(with: request!) { data, response, error in
             if error != nil {
+                self.delegate?.didCancelDownload(deckId: deck.id!, name: deck.name!, error?.localizedDescription)
                 print(error!.localizedDescription)
+                return
             }
             guard let data = data else { return }
             do {
@@ -88,7 +93,7 @@ class DownloadUtil {
                 self.progress += 1
                 self.group.leave()
             } catch let jsonError {
-                self.delegate?.didCancelDownload(deckId: self.deck.id!)
+                self.delegate?.didCancelDownload(deckId: deck.id!, name: deck.name!, "Die Struktur des Kartensets stimmt nicht mit der der App überein.")
                 print(jsonError)
             }
             }.resume()
@@ -99,7 +104,9 @@ class DownloadUtil {
         group.enter()
         URLSession.shared.dataTask(with: request!) { data, response, error in
             if error != nil {
+                self.delegate?.didCancelDownload(deckId: self.deck.id!, name: self.deck.name!, error?.localizedDescription)
                 print(error!.localizedDescription)
+                return
             }
             guard let data = data else { return }
             do {
@@ -107,7 +114,7 @@ class DownloadUtil {
                 self.progress += 1
                 self.group.leave()
             } catch let jsonError {
-                self.delegate?.didCancelDownload(deckId: self.deck.id!)
+                self.delegate?.didCancelDownload(deckId: self.deck.id!, name: self.deck.name!, "Die Struktur des Kartensets stimmt nicht mit der der App überein.")
                 print(jsonError)
             }
             }.resume()
@@ -118,7 +125,9 @@ class DownloadUtil {
         group.enter()
         URLSession.shared.dataTask(with: request!) { data, response, error in
             if error != nil {
+                self.delegate?.didCancelDownload(deckId: self.deck.id!, name: self.deck.name!, error?.localizedDescription)
                 print(error!.localizedDescription)
+                return
             }
             guard let data = data else { return }
             do {
@@ -129,7 +138,7 @@ class DownloadUtil {
                 self.progress += 1
                 self.group.leave()
             } catch let jsonError {
-                self.delegate?.didCancelDownload(deckId: self.deck.id!)
+                self.delegate?.didCancelDownload(deckId: self.deck.id!, name: self.deck.name!, "Die Struktur des Kartensets stimmt nicht mit der der App überein.")
                 print(jsonError)
             }
         }.resume()
@@ -140,7 +149,9 @@ class DownloadUtil {
         group.enter()
         URLSession.shared.dataTask(with: request!) { data, response, error in
             if error != nil {
+                self.delegate?.didCancelDownload(deckId: self.deck.id!, name: self.deck.name!, error?.localizedDescription)
                 print(error!.localizedDescription)
+                return
             }
             guard let data = data else { return }
             FileUtils.saveImage(data, name: "\(self.deck.name!.lowercased())_card\(card.id!)_0")
@@ -180,14 +191,13 @@ class DownloadUtil {
     }
     
     func save(_ deck: Deck) {
-        
         let cardSet = createCardSet(with: deck)
         
         if FileUtils.save(cardSet, as: cardSet.name.lowercased() + ".json") {
             progress += 1
-            delegate?.didFinishDownload(deckId: deck.id!)
+            delegate?.didFinishDownload(deckId: deck.id!, name: deck.name!)
         } else {
-            delegate?.didCancelDownload(deckId: deck.id!)
+            self.delegate?.didCancelDownload(deckId: deck.id!, name: deck.name!, "Beim Speichern des Kartensets ist ein Fehler aufgetreten.")
         }
     }
 }

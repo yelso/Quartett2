@@ -15,7 +15,6 @@ class CreateCardSetScene: SKScene, CreateCardDelegate, UIImagePickerControllerDe
     
     let imagePickerController = UIImagePickerController()
     var cardNode: CreateCardNode!
-    var origin = "MainMenuScene"
     var loadingAlert: UIAlertController?
     var errorAlert: UIAlertController?
     var progressAlert: UIAlertController?
@@ -30,14 +29,13 @@ class CreateCardSetScene: SKScene, CreateCardDelegate, UIImagePickerControllerDe
     }
     
     func didStartUpload(deckId: Int) {
-        print("started")
         DispatchQueue.main.async {
             self.loadingAlert?.dismiss(animated: true, completion: {
                 self.loadingAlert = nil
                 if self.progressAlert == nil {
-                    self.progressAlert = UIAlertController(title: "Hochladen..", message: "\n\n", preferredStyle: .alert)
+                    self.progressAlert = UIAlertController(title: "Hochladen..", message: "Bitte schließe die App während dieser Aktion nicht.\n\n\n", preferredStyle: .alert)
                     
-                    self.progressView = UIProgressView(frame: CGRect(x: 15, y: 60, width: 240, height: 5))
+                    self.progressView = UIProgressView(frame: CGRect(x: 15, y: 100, width: 240, height: 5))
                     
                     self.progressAlert?.view.addSubview(self.progressView!)
                     self.view?.window?.rootViewController?.present(self.progressAlert!, animated: true, completion: nil)
@@ -47,13 +45,19 @@ class CreateCardSetScene: SKScene, CreateCardDelegate, UIImagePickerControllerDe
     }
     
     func didFinishUpload(deckId: Int) {
-        print("finished")
         DispatchQueue.main.async {
             self.progressAlert?.dismiss(animated: true, completion: {
                 self.progressAlert = nil
                 self.progressView = nil
                 let finishAlert = UIAlertController(title: "Abgeschlossen", message: "Dein Kartenset wurde erfolgreich hochgeladen.", preferredStyle: .alert)
-                let dismissAction = UIAlertAction(title: "OK", style: .cancel)
+                let dismissAction = UIAlertAction(title: "OK", style: .cancel, handler: { (_) in
+                    if let scene = SKScene(fileNamed: "StoreScene") as? StoreScene {
+                        //nameTextField.removeFromSuperview()
+                        scene.scaleMode = .aspectFill
+                        let transition = SKTransition.push(with: .right, duration: 0.5)
+                        self.view?.presentScene(scene, transition: transition)
+                    }
+                })
                 finishAlert.addAction(dismissAction)
                 self.view?.window?.rootViewController?.present(finishAlert, animated: true, completion: nil)
              })
@@ -61,7 +65,6 @@ class CreateCardSetScene: SKScene, CreateCardDelegate, UIImagePickerControllerDe
     }
     
     func didCancelUpload(deckId: Int, _ error: String?) {
-        print("canceled")
         DispatchQueue.main.async {
             if self.loadingAlert != nil {
                 self.loadingAlert?.dismiss(animated: true, completion: {
@@ -89,7 +92,7 @@ class CreateCardSetScene: SKScene, CreateCardDelegate, UIImagePickerControllerDe
         }
     }
     
-    func updateUploadProgess(deckId: Int, progress: Float) {
+    func updateUploadProgress(deckId: Int, progress: Float) {
         DispatchQueue.main.async {
             self.progressView?.progress = progress
         }

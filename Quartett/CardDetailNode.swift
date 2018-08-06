@@ -17,7 +17,7 @@ class CardDetailNode: SKSpriteNode {
     var propertyValues = [SKLabelNode]()
     var height: CGFloat = 0
     var amount = 0
-    var scaleFactor: CGFloat = 0.03
+    var scaleFactor: CGFloat = 0.055
     var scale: CGFloat = 1.0
     
     init(color: UIColor, size: CGSize, cardSet: CardSet, position: CGPoint) {
@@ -25,9 +25,9 @@ class CardDetailNode: SKSpriteNode {
         self.position = position
         setUpChildren(for: cardSet)
         if UIScreen.main.bounds.height != 812 { // all but iPhone X
-            scale = 1.05
-            scaleFactor = 0.05
-            self.setScale(scale)
+            //scale = 1.05
+            //scaleFactor = 0.05
+            //self.setScale(scale)
         }
     }
     

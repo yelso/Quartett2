@@ -42,6 +42,19 @@ class FileUtils {
         return false
     }
     
+    static func delete(named name: String) -> Bool{
+        let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent(name, isDirectory: false)
+        do {
+            if FileManager.default.fileExists(atPath: url.path) {
+                try FileManager.default.removeItem(at: url)
+            }
+        } catch {
+            // todo
+            return false
+        }
+        return true
+    }
+    
     static func saveImage(_ data: Data, name: String) {
         do {
             let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!

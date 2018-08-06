@@ -16,7 +16,7 @@ class RulesScene: SKScene {
     var ruleLabel: SKLabelNode!
     
     override func didMove(to view: SKView) {
-        textField = SKLabelNode(text: "Es werden Attribute verglichen,\ndas stärkere Attribut gewinnt. \nEs wird gegen den PC gespielt. \nDabei ist immer nur die obere Karte sichtbar. \nDer Gewinner dieser Runde,\nbeginnt die nächste Runde.\nBei Gleichstand landen die Karten \nauf dem Stichhaufen (XX-SH-XX). \nGewonnen hat, wer alle Karten \noder nach Ablauf der Rundenzahl\ndie meisten Karten besitzt.")
+        textField = SKLabelNode(text: "Es werden Attribute verglichen,\nwobei das stärkere Attribut gewinnt. \nEs wird gegen den PC gespielt. \nEs ist immer nur die obere Karte sichtbar. \nDer Gewinner einer Runde,\nbeginnt die nächste Runde.\nBei Gleichstand landen die Karten \nauf dem Stichhaufen (XX-SH-XX). \nGewonnen hat, wer alle Karten \noder nach Ablauf der Rundenzahl\ndie meisten Karten besitzt.")
         textField.fontSize = 17
         textField.numberOfLines = 0
         textField.lineBreakMode = .byCharWrapping

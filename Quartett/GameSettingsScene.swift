@@ -20,14 +20,13 @@ class GameSettingsScene: SKScene {
     var didSelectDifficulty = false
     var didSelectCardSet = false
     var mainNode: SKSpriteNode!
+    static var selected = [-1, -1, -1]
     
     override func didMove(to view: SKView) {
         mainNode = SKSpriteNode(color: .clear, size: self.size)
         /*if UIScreen.main.bounds.height == 812 { // iPhone X
             mainNode.setScale(375/414)
         } */
-        
-        
         
         settings.difficulty = 1
         settings.cardSetName = "tuning"
@@ -143,6 +142,7 @@ class GameSettingsScene: SKScene {
             buttonArray.append(button)
             
             button.action = {
+                GameSettingsScene.selected[2] = 6 + index
                 self.settings.cardSetName = "\(cardSetNamesArray[index].dropLast(5))"
                 self.didSelectCardSet = true
                 self.showStartButton()
@@ -156,18 +156,6 @@ class GameSettingsScene: SKScene {
         cardLabel.fontName = Font.buttonFont
         buttonPlus.addChild(cardLabel)
     
-        
-        //Add Buttons
-       /* self.addChild(buttonPlus)
-        self.addChild(roundsLabel)
-        self.addChild(difficultyLabel)
-        self.addChild(cardSetLabel)
-        self.addChild(startGameButton)
-        self.addChild(backButton)
-        for node in buttonArray {
-            self.addChild(node)
-        }
-        */
         mainNode.addChild(buttonPlus)
         mainNode.addChild(roundsLabel)
         mainNode.addChild(difficultyLabel)
@@ -185,32 +173,38 @@ class GameSettingsScene: SKScene {
         buttonArray[6].setUpGroup(cardSetButtonArray)
         
         buttonArray[0].action = {
+            GameSettingsScene.selected[0] = 0
             self.settings.maxRounds = 10
             self.didSelectRounds = true
             self.showStartButton()
         }
         buttonArray[1].action = {
+            GameSettingsScene.selected[0] = 1
             self.settings.maxRounds = 20
             self.didSelectRounds = true
             self.showStartButton()
         }
         buttonArray[2].action = {
+            GameSettingsScene.selected[0] = 2
             self.settings.maxRounds = -1
             self.didSelectRounds = true
             self.showStartButton()
         }
         
         buttonArray[3].action = {
+            GameSettingsScene.selected[1] = 3
             self.settings.difficulty = 0
             self.didSelectDifficulty = true
             self.showStartButton()
         }
         buttonArray[4].action = {
+            GameSettingsScene.selected[1] = 4
             self.settings.difficulty = 1
             self.didSelectDifficulty = true
             self.showStartButton()
         }
         buttonArray[5].action = {
+            GameSettingsScene.selected[1] = 5
             self.settings.difficulty = 2
             self.didSelectDifficulty = true
             self.showStartButton()
@@ -220,7 +214,7 @@ class GameSettingsScene: SKScene {
                 // Set the scale mode to scale to fit the window
                 scene.scaleMode = .aspectFill
                 let transition = SKTransition.push(with: .left, duration: 0.5)
-                scene.origin = "GameSettingsScene"
+                StoreScene.origin = "GameSettingsScene"
                 // Present the scene
                 view.presentScene(scene, transition: transition)
             }
@@ -254,13 +248,11 @@ class GameSettingsScene: SKScene {
         startGameButton.action = {
             if let scene = SKScene(fileNamed: "GameScene") as? GameScene {
                 // Set the scale mode to scale to fit the window
-                scene.game = Game(withSettings: self.settings)
-                 if UIScreen.main.bounds.height != 812 {
-                
-                scene.scaleMode = .aspectFill
-                 } else {
-                    scene.scaleMode = .aspectFill
+                for index in 0..<3 {
+                    GameSettingsScene.selected[index] = -1
                 }
+                scene.game = Game(withSettings: self.settings)
+                scene.scaleMode = .aspectFill
                 let transition = SKTransition.push(with: .left, duration: 0.5)
                 // Present the scene
                 view.presentScene(scene, transition: transition)
@@ -268,9 +260,20 @@ class GameSettingsScene: SKScene {
         }
         backButton.action = {
             if let scene = SKScene(fileNamed: "MainMenuScene") as? MainMenuScene {
+                for index in 0..<3 {
+                    GameSettingsScene.selected[index] = -1
+                }
                 scene.scaleMode = .aspectFill
                 let transition = SKTransition.push(with: .right, duration: 0.5)
                 view.presentScene(scene, transition: transition)
+            }
+        }
+        
+        for index in 0..<3 {
+            if GameSettingsScene.selected[index] != -1 {
+                buttonArray[GameSettingsScene.selected[index]].onTouchEndInsideGroup()
+                buttonArray[GameSettingsScene.selected[index]].onTouchEndInside()
+                buttonArray[GameSettingsScene.selected[index]].action()
             }
         }
     }
